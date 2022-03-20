@@ -1,23 +1,35 @@
-# 專案名稱
+# BIT YO
+
+## 項目簡介
+
+補上介紹文字 ...
 
 https://github.com/PatrickAlphaC/nft-mix
 
-分工：
-  PM：？
-  Whitepaper：？
-  Tokenomic：？
-  Smart Contract
-    - Staking：？
-    - Token：？
-    - DAO：？
-    - NFT：？
-    - ？
-  Front-End：？
-  Discord：？
-  Art：Vincent
 
-分支：以 {name} 為分支名稱
+### 團隊介紹：
 
+PM｜Leader：Vincent  
+Whitepaper builder：Afra、Ben  
+Tokenomic builder：Ben、Afra  
+Solidty Developer：  
+- 投資型保單  
+    NFT 合約：Ben  
+    DeFi 合約：charles、Ben  
+- 成長型保單  
+    NFT 合約：Afra  
+    DeFi 合約：charles、Raymond
+- 機動組  
+    臨時增加的合約：Tim
+
+Art/UI/UX Designer：Vincent  
+Front-End Developer：Vincent、Raymond
+
+### Github
+
+分支：以 dev/{name} 為分支名稱
+
+{Git 連結}
 
 ## 專案介紹（有截圖最好）
 
