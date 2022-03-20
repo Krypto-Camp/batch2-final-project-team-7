@@ -49,7 +49,8 @@ packages/hardhat/example.env
 > 檔名更改成 .env，根據所需的 Network 加入環境變數。以 rinkeby 為例：
   
 1. Infura 節點的 Key "RINKEBY_INFURA_KEY" 
-   Metamask 點擊右上角頭像 -> 設定 -> 網路 -> 取得該網路的 Infura Key - https://rinkeby.infura.io/v3/{Your Key}
+   - Metamask 點擊右上角頭像 -> 設定 -> 網路 -> 取得該網路的 Infura Key - https://rinkeby.infura.io/v3/{Your Key}
+   - 或是任何一個節點，別的錢包的節點，都行。（已測試過）
 
 2. 私鑰 "RINKEBY_DEPLOYER_PRIV_KEY" 取得方式：
    Metamask 點擊右上角三個點 -> 帳戶 -> 輸出私鑰
@@ -78,7 +79,9 @@ module.exports = {
   networks: {
     // 省略 ...
     rinkeby: {
+      // 任何一個節點都行
       url: `https://rinkeby.infura.io/v3/${process.env.RINKEBY_INFURA_KEY}`, 
+      // 自己想連結的錢包私鑰
       accounts: [`${process.env.RINKEBY_DEPLOYER_PRIV_KEY}`],
     },
     // 省略 ...
@@ -107,3 +110,20 @@ HH114: Incompatible fee price parameters
 可以至 Etherscan 查詢
 
 ![](./deployed.png)
+
+
+3. 開啟前端 React-App
+
+### 連結到正確的鏈
+
+前往該頁面的 .jsx，根據你想要連結的鏈更改 initialNetwork 設定：
+
+這裡以 App.jsx 為例，路徑為 packages/react-app/src/App.jsx
+
+```javascript
+/// 📡 What chain are your contracts deployed to?
+const initialNetwork = NETWORKS.rinkeby; // <------- select your target frontend network (localhost, rinkeby, xdai, mainnet)
+```
+
+
+
