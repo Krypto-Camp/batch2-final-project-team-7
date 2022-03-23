@@ -2,28 +2,26 @@
 
 ## 項目簡介
 
-補上介紹文字 ...
-
-https://github.com/PatrickAlphaC/nft-mix
-
+補上介紹文字
 
 ### 團隊介紹：
 
-PM｜Leader：Vincent  
-Whitepaper builder：Afra、Ben  
-Tokenomic builder：Ben、Afra  
-Solidty Developer：  
-- 投資型保單  
-    NFT 合約：Ben  
-    DeFi 合約：charles、Ben  
-- 成長型保單  
-    NFT 合約：Afra  
-    DeFi 合約：charles、Raymond
-- 機動組  
-    臨時增加的合約：Tim
-
-Art/UI/UX Designer：Vincent  
-Front-End Developer：Vincent、Raymond
+|---|---|---|
+|---|---|---|
+| **PM** | | Vincent |
+| **Whitepaper builder** | | Afra、Ben |
+| **Tokenomic builder** | | Ben、Afra |
+| **Solidty Developer** | |  
+| 1. 投資型保單  |
+| | NFT 合約 | Ben |
+| | DeFi 合約 | Charles、Ben |
+| 2. 成長型保單  |
+| | NFT 合約 | Afra  |
+| | DeFi 合約 | Charles、Raymond |
+| 3. 機動組  | | Tim |
+| **UI/UX Designer** | | Vincent   |
+| **Front-End Developer** | | Vincent、Raymond |
+||||
 
 ### Github
 
@@ -31,7 +29,19 @@ Front-End Developer：Vincent、Raymond
 
 {Git 連結}
 
+### 專案進度
+
+- 2022.03.19（日）
+  1. 決定專案架構與執行方向
+  2. 完成分工事項
+
+- Coming Soon...
+
 ## 專案介紹（有截圖最好）
+
+專案討論文件：https://hackmd.io/U55LIUW9Ru-2z_i3lusNAw
+
+Whitepaper 初版：https://hackmd.io/AGBslDlUTQCAp9-QwiSjDQ
 
 ...
 
@@ -58,3 +68,5 @@ Front-End Developer：Vincent、Raymond
 ## 開源授權（Optional）
 
 ...
+
+
