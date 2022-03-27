@@ -12,6 +12,9 @@ import Wallet from "./Wallet";
   Displays an Address, Balance, and Wallet as one Account component,
   also allows users to log in to existing accounts and log out
 
+  顯示錢包地址、餘額、以及操作模組
+  也允許 User 連結錢包與登出錢包
+
   ~ How can I use? ~
 
   <Account
@@ -32,7 +35,11 @@ import Wallet from "./Wallet";
 
   - Provide address={address} and get balance corresponding to the given address
   - Provide localProvider={localProvider} to access balance on local network
+    接受來自本地鏈的餘額
+
   - Provide userProvider={userProvider} to display a wallet
+    顯示錢包
+
   - Provide mainnetProvider={mainnetProvider} and your address will be replaced by ENS name
               (ex. "0xa870" => "user.eth")
   - Provide price={price} of ether and get your balance converted to dollars
@@ -57,7 +64,8 @@ export default function Account({
   isContract,
 }) {
   const { currentTheme } = useThemeSwitcher();
-
+  
+  // connect 按鈕，透過 web3Modal 連結錢包
   const modalButtons = [];
   if (web3Modal) {
     if (web3Modal.cachedProvider) {
@@ -87,14 +95,22 @@ export default function Account({
       );
     }
   }
+
+  // 錢包資訊：address、net、balance
   const display = minimized ? (
     ""
   ) : (
     <span>
       {web3Modal && web3Modal.cachedProvider ? (
+      // 當 Connect 的是合約地址
         <>
+          {/* 帳戶地址 */}
           {address && <Address address={address} ensProvider={mainnetProvider} blockExplorer={blockExplorer} />}
+
+          {/* 錢包價值 */}
           <Balance address={address} provider={localProvider} price={price} />
+          
+          {/* 錢包操作：入金、出金等 */}
           <Wallet
             address={address}
             provider={localProvider}
@@ -107,6 +123,7 @@ export default function Account({
       ) : useBurner ? (
         ""
       ) : isContract ? (
+      // 當 Connect 的是合約地址
         <>
           {address && <Address address={address} ensProvider={mainnetProvider} blockExplorer={blockExplorer} />}
           <Balance address={address} provider={localProvider} price={price} />
@@ -115,9 +132,15 @@ export default function Account({
         ""
       )}
       {useBurner && web3Modal && !web3Modal.cachedProvider ? (
+      // 當 Connect 的是合約地址
         <>
+          {/* 帳戶地址 */}
           <Address address={address} ensProvider={mainnetProvider} blockExplorer={blockExplorer} />
+
+          {/* 錢包價值 */}
           <Balance address={address} provider={localProvider} price={price} />
+          
+          {/* 錢包操作：入金、出金等 */}
           <Wallet
             address={address}
             provider={localProvider}

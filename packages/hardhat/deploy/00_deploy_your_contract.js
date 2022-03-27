@@ -27,6 +27,17 @@ module.exports = async ({ getNamedAccounts, deployments, getChainId }) => {
 
   // Getting a previously deployed contract
   const YourContract = await ethers.getContract("YourContract", deployer);
+
+  // await deploy("multiSignWallet", {
+  //   // Learn more about args here: https://www.npmjs.com/package/hardhat-deploy#deploymentsdeploy
+  //   from: deployer,
+  //   args: [[ "0xCd4418310b85773c65f14a80FD892328D3A43AA5", "0x8712e2652f7Fa99911bA3f440ce381498270Cc48" ]],
+  //   log: true,
+  //   waitConfirmations: 5,
+  // });
+
+  // const multiSignWallet = await ethers.getContract("multiSignWallet", deployer);
+
   /*  await YourContract.setPurpose("Hello");
   
     To take ownership of yourContract using the ownable library uncomment next line and add the 

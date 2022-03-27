@@ -3,7 +3,7 @@ import WalletConnectProvider from "@walletconnect/web3-provider";
 import Authereum from "authereum";
 import Fortmatic from "fortmatic";
 import WalletLink from "walletlink";
-import Web3Modal from "web3modal";
+import Web3Modal from "web3modal"; // 連結所有錢包的解決方案
 import { ALCHEMY_KEY, INFURA_ID } from "../constants";
 
 // Coinbase walletLink init

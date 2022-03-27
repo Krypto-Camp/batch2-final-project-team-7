@@ -47,6 +47,13 @@ Whitepaper 初版：https://hackmd.io/AGBslDlUTQCAp9-QwiSjDQ
 
 ## 安裝前準備
 
+```
+// 先安裝
+npm i bootstrap
+// 在頁面的 jsx 檔中引入 css
+import 'bootstrap/dist/css/bootstrap.min.css';
+```
+
 ...
 
 ## 安裝步驟

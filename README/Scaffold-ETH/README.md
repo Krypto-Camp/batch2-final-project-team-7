@@ -112,7 +112,7 @@ HH114: Incompatible fee price parameters
 ![](./deployed.png)
 
 
-3. 開啟前端 React-App
+## 開啟前端 React-App
 
 ### 連結到正確的鏈
 
@@ -123,6 +123,25 @@ HH114: Incompatible fee price parameters
 ```javascript
 /// 📡 What chain are your contracts deployed to?
 const initialNetwork = NETWORKS.rinkeby; // <------- select your target frontend network (localhost, rinkeby, xdai, mainnet)
+```
+
+### sample.env 更名為 .env
+- 設定 React APP 運作的網路節點。開發過程可先略過這個，待前端需上測試或正式站時，再行設定。
+- 若 App.jsx 未找到這個檔案，會自動連結 initialNetwork
+```
+REACT_APP_PROVIDER={節點網址}
+```
+
+---
+
+## 開發細節
+
+packages/react-app/
+```
+public/ // react dom 模板，包含 <meta>、#root 等等
+src/components/ // 所有模組
+src/views/ // 各分頁
+src/App.jsx // 基本介面
 ```
 
 
