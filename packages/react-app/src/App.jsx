@@ -31,13 +31,19 @@ import {
 } from "./components";
 import { NETWORKS, ALCHEMY_KEY } from "./constants"; // 常數們
 import externalContracts from "./contracts/external_contracts";
+import { 
+  Home, 
+  ExampleUI, 
+  Hints, 
+  Subgraph, 
+  Bi 
+} from "./views"; // 頁面須先至進入點 index.js 引入。引入後可直接作為標籤使用，例如：<ExampleUI ... >
 /* end */
 
 /* contracts 相關 - start */
 import deployedContracts from "./contracts/hardhat_contracts.json";
 // web3modal 是一個能夠連結所有錢包（ETH 節點）的解決方案｜https://www.npmjs.com/package/web3modal
 import { Transactor, Web3ModalSetup } from "./helpers"; 
-import { Home, ExampleUI, Hints, Subgraph } from "./views";
 import { useStaticJsonRPC } from "./hooks";
 /* end */
 
@@ -328,7 +334,37 @@ function App(props) {
   return (
     <div className="App">
       {/* ✏️ Edit the header and change the title to your project name */}
-      <Header />
+      <Header>
+        {/* 👨‍💼 Your account is in the top right with a wallet at connect options */}
+          <div className="d-flex align-items-center">
+            {USE_NETWORK_SELECTOR && (
+              <div style={{ marginRight: 20 }}>
+                <NetworkSwitch
+                  networkOptions={networkOptions}
+                  selectedNetwork={selectedNetwork}
+                  setSelectedNetwork={setSelectedNetwork}
+                />
+              </div>
+            )}
+            <Account
+              className="h6"
+              useBurner={USE_BURNER_WALLET}
+              address={address}
+              localProvider={localProvider}
+              userSigner={userSigner}
+              mainnetProvider={mainnetProvider}
+              price={price}
+              web3Modal={web3Modal}
+              loadWeb3Modal={loadWeb3Modal}
+              logoutOfWeb3Modal={logoutOfWeb3Modal}
+              blockExplorer={blockExplorer}
+            />
+            {yourLocalBalance.lte(ethers.BigNumber.from("0")) && (
+              <FaucetHint localProvider={localProvider} targetNetwork={targetNetwork} address={address} />
+            )}
+          </div>
+      </Header>
+
       <NetworkDisplay
         NETWORKCHECK={NETWORKCHECK}
         localChainId={localChainId}
@@ -337,26 +373,44 @@ function App(props) {
         logoutOfWeb3Modal={logoutOfWeb3Modal}
         USE_NETWORK_SELECTOR={USE_NETWORK_SELECTOR}
       />
-      <Menu style={{ textAlign: "center", marginTop: 40 }} selectedKeys={[location.pathname]} mode="horizontal">
-        <Menu.Item key="/">
-          <Link to="/">App Home</Link>
-        </Menu.Item>
-        <Menu.Item key="/debug">
-          <Link to="/debug">Debug Contracts</Link>
-        </Menu.Item>
-        <Menu.Item key="/hints">
-          <Link to="/hints">Hints</Link>
-        </Menu.Item>
-        <Menu.Item key="/exampleui">
-          <Link to="/exampleui">ExampleUI</Link>
-        </Menu.Item>
-        <Menu.Item key="/mainnetdai">
-          <Link to="/mainnetdai">Mainnet DAI</Link>
-        </Menu.Item>
-        <Menu.Item key="/subgraph">
-          <Link to="/subgraph">Subgraph</Link>
-        </Menu.Item>
-      </Menu>
+
+              
+      <nav className="">
+        <div className="container-md">
+          <Menu className="bg-transparent" selectedKeys={[location.pathname]} mode="horizontal">
+            {/* 連結至 <Router path="/???"> */}
+            <Menu.Item className="ms-0 me-1 px-3 bg-white rounded-top" key="/bi">
+              <Link 
+                className="text-black fs-6 fw-bold"
+                selectable={false}
+                to="/bi">bi</Link>
+            </Menu.Item>
+            <Menu.Item className="ms-1 me-0 px-3 bg-white rounded-top" key="/">
+              <Link 
+                className="text-black fs-6 fw-bold"
+                selectable={true}
+                to="/">App Home</Link>
+            </Menu.Item>
+            {
+            /* <Menu.Item key="/debug">
+              <Link to="/debug">Debug Contracts</Link>
+            </Menu.Item>
+            <Menu.Item key="/hints">
+              <Link to="/hints">Hints</Link>
+            </Menu.Item>
+            <Menu.Item key="/exampleui">
+              <Link to="/exampleui">ExampleUI</Link>
+            </Menu.Item>
+            <Menu.Item key="/mainnetdai">
+              <Link to="/mainnetdai">Mainnet DAI</Link>
+            </Menu.Item>
+            <Menu.Item key="/subgraph">
+              <Link to="/subgraph">Subgraph</Link>
+            </Menu.Item> */}
+          </Menu>
+        </div>
+      </nav>
+
 
       <Switch>
         <Route exact path="/">
@@ -413,7 +467,6 @@ function App(props) {
             contractConfig={contractConfig}
             chainId={1}
           />
-          
             <Contract
               name="UNI"
               customContract={mainnetContracts && mainnetContracts.contracts && mainnetContracts.contracts.UNI}
@@ -422,7 +475,6 @@ function App(props) {
               address={address}
               blockExplorer="https://etherscan.io/"
             />
-           
         </Route>
         <Route path="/subgraph">
           <Subgraph
@@ -432,39 +484,25 @@ function App(props) {
             mainnetProvider={mainnetProvider}
           />
         </Route>
+        <Route path="/bi">
+          <Bi
+            address={address}
+            userSigner={userSigner}
+            mainnetProvider={mainnetProvider}
+            localProvider={localProvider}
+            yourLocalBalance={yourLocalBalance}
+            price={price}
+            tx={tx}
+            writeContracts={writeContracts}
+            readContracts={readContracts}
+            purpose={purpose}
+          />
+        </Route>
       </Switch>
 
       <ThemeSwitch />
 
-      {/* 👨‍💼 Your account is in the top right with a wallet at connect options */}
-      <div style={{ position: "fixed", textAlign: "right", right: 0, top: 0, padding: 10 }}>
-        <div style={{ display: "flex", flex: 1, alignItems: "center" }}>
-          {USE_NETWORK_SELECTOR && (
-            <div style={{ marginRight: 20 }}>
-              <NetworkSwitch
-                networkOptions={networkOptions}
-                selectedNetwork={selectedNetwork}
-                setSelectedNetwork={setSelectedNetwork}
-              />
-            </div>
-          )}
-          <Account
-            useBurner={USE_BURNER_WALLET}
-            address={address}
-            localProvider={localProvider}
-            userSigner={userSigner}
-            mainnetProvider={mainnetProvider}
-            price={price}
-            web3Modal={web3Modal}
-            loadWeb3Modal={loadWeb3Modal}
-            logoutOfWeb3Modal={logoutOfWeb3Modal}
-            blockExplorer={blockExplorer}
-          />
-        </div>
-        {yourLocalBalance.lte(ethers.BigNumber.from("0")) && (
-          <FaucetHint localProvider={localProvider} targetNetwork={targetNetwork} address={address} />
-        )}
-      </div>
+     
 
       {/* 🗺 Extra UI like gas price, eth price, faucet, and support: */}
       <div style={{ position: "fixed", textAlign: "left", left: 0, bottom: 20, padding: 10 }}>
