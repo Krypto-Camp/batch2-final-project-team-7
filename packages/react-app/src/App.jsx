@@ -16,7 +16,13 @@ import { useExchangeEthPrice } from "eth-hooks/dapps/dex";
 
 /* React 相關 - start */
 import React, { useCallback, useEffect, useState } from "react";
-import { Link, Route, Switch, useLocation } from "react-router-dom";
+
+// API｜https://v5.reactrouter.com/web/example/url-params
+import { 
+  Link, NavLink, 
+  Route, Switch, 
+  useLocation, useParams, useRouteMatch 
+} from "react-router-dom";
 import {
   Account,
   Contract,
@@ -31,13 +37,14 @@ import {
   AccountDashboard,
   BityoHeader,
   BityoFooter,
-  ProductList
+  CoonectButton
 } from "./components";
 
 import { NETWORKS, ALCHEMY_KEY } from "./constants"; // 常數們
 import externalContracts from "./contracts/external_contracts";
 import { 
-  Home, Bi 
+  // Home, Bi,
+  Homepage, Market, Assets
 } from "./views"; // 頁面須先至進入點 index.js 引入。引入後可直接作為標籤使用，例如：<ExampleUI ... >
 /* end */
 
@@ -74,6 +81,8 @@ const providers = [
   `https://eth-mainnet.alchemyapi.io/v2/${ALCHEMY_KEY}`,
   "https://rpc.scaffoldeth.io:48544",
 ];
+
+
 
 function App(props) {
   
@@ -297,35 +306,48 @@ function App(props) {
 
 
 
-
+  // 取得頁面 ID
+  // let { id } = useParams();
+  // let { path, url } = useRouteMatch();
 
   return (
-    <div className="App">
+    <div className="App min-vh-100 d-flex flex-column justify-content-between">
       {/* ✏️ Edit the header and change the title to your project name */}
       <BityoHeader>
         <nav className="navigation">
           <div className="d-flex align-items-center justify-content-center">
-            {/* <Link 
-              className="navigation-button px-2 body_18 text-black fw-700"
-              selectable={false}
-              to="/bi">bi</Link> */}
-            <Link 
-              className="navigation-button px-4 body_18 text-black fw-700 font-Rubik"
+            {/* Route｜https://v5.reactrouter.com/web/api/Route */}
+            <NavLink 
+              className={"navigation-button"}
               selectable={true}
-              to="/">Home</Link>
-            <Link 
-              className="navigation-button px-4 body_18 text-black fw-700 font-Rubik"
+              activeClassName="is-active"
+              to="Homepage">
+                <div className="button-link px-4">
+                  <span className="button-text body_18 text-black fw-700 font-Rubik">Homepage</span>
+                </div>
+            </NavLink>
+            <NavLink 
+              className={"navigation-button"}
+              selectable={true} 
+              activeClassName="is-active"
+              to="Market">
+                <div className="button-link px-4">
+                  <span className="button-text body_18 text-black fw-700 font-Rubik">Market</span>
+                </div>
+            </NavLink>
+            <NavLink 
+              className={"navigation-button"}
               selectable={true}
-              to="/">Assets</Link>
-            <Link 
-              className="navigation-button px-4 body_18 text-black fw-700 font-Rubik"
-              selectable={true}
-              to="/">Market</Link>
+              activeClassName="is-active"
+              to="Assets">
+                <div className="button-link px-4">
+                  <span className="button-text body_18 text-black fw-700 font-Rubik">Assets</span>
+                </div>
+            </NavLink>
           </div>
         </nav>
         <div>
-          {/* className="body_18 text-black fw-700 font-Rubik" */}
-          <AccountDashboard
+          <CoonectButton
             // useBurner={USE_BURNER_WALLET}
             // address={address}
             // localProvider={localProvider}
@@ -371,37 +393,51 @@ function App(props) {
           </div>
       </Header> */}
 
-      <NetworkDisplay
+      {/* <NetworkDisplay
         NETWORKCHECK={NETWORKCHECK}
         localChainId={localChainId}
         selectedChainId={selectedChainId}
         targetNetwork={targetNetwork}
         logoutOfWeb3Modal={logoutOfWeb3Modal}
         USE_NETWORK_SELECTOR={USE_NETWORK_SELECTOR}
-      />
-              
+      /> */}
       
+      <main className="d-flex flex-column flex-fill" >
+        <Switch>
+          <Route path="/Homepage">
+            <Homepage
+            
+            ></Homepage>
+          </Route>
+          <Route path="/Market">
+            <Market
+            
+            ></Market>
+          </Route>
+          <Route path="/Assets">
+            <Assets
+            
+            ></Assets>
+          </Route>
 
-      <Switch>
-        <Route exact path="/">
-          {/* pass in any web3 props to this Home component. For example, yourLocalBalance */}
-          {/* <Home yourLocalBalance={yourLocalBalance} readContracts={readContracts} /> */}
-        </Route>
-        <Route path="/bi">
-          <Bi
-            address={address}
-            userSigner={userSigner}
-            mainnetProvider={mainnetProvider}
-            localProvider={localProvider}
-            yourLocalBalance={yourLocalBalance}
-            price={price}
-            tx={tx}
-            writeContracts={writeContracts}
-            readContracts={readContracts}
-            purpose={purpose}
-          />
-        </Route>
-      </Switch>
+          {/* <Route path="/bi">
+            <Bi
+              address={address}
+              userSigner={userSigner}
+              mainnetProvider={mainnetProvider}
+              localProvider={localProvider}
+              yourLocalBalance={yourLocalBalance}
+              price={price}
+              tx={tx}
+              writeContracts={writeContracts}
+              readContracts={readContracts}
+              purpose={purpose}
+            />
+          </Route> */}
+        </Switch>
+      </main>
+
+      <BityoFooter/>
 
     </div>
   );
