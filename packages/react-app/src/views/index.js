@@ -5,6 +5,6 @@ export { default as Home } from "./Home";
 // export { default as Subgraph } from "./Subgraph";
 
 export { default as Bi } from "./Bi";
-export { default as Homepage } from "./pagesContainer/Homepage";
-export { default as Market } from "./pagesContainer/Market";
-export { default as Assets } from "./pagesContainer/Assets";
+export { default as Homepage } from "./pagesContainers/Homepage";
+export { default as Market } from "./pagesContainers/Market";
+export { default as Assets } from "./pagesContainers/Assets";
