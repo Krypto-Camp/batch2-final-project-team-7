@@ -5,13 +5,16 @@ import React from "react";
 export default function Market(props) {
   return (
     <section className="section d-flex flex-column flex-fill">
-      <div className="container-md px-4 pt-4 d-flex flex-column flex-fill">
+      <div className="container-lg px-4 d-flex flex-column flex-fill">
         <div className="contnet d-flex flex-column align-items-stretch justify-content-between">
 
           {/* AccountDashboard */}
 
           <div className="productList px-4 py-4 d-flex flex-column flex-fill">
-            <h3 className="mb-4 title_24 text-center text-paper fw-700 font-Rubik">MARKETPLACE｜產品市集</h3>
+            <div className="content-title d-flex flex-column flex-lg-row align-items-center align-items-lg-baseline justify-content-lg-center">
+              <h3 className="mb-4 mx-2 catch_42 text-center text-paper fw-700 font-Rubik">MARKETPLACE</h3>
+              <p className="mx-2 body_18 text-center text-paper fw-700 font-Rubik">產品市集</p>
+            </div>
             <div className="flex-fill row productList-body">
               
               {/* Cards */}

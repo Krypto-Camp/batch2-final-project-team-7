@@ -12,13 +12,17 @@ background: linear-gradient(140deg, rgba(245, 124, 56, 1) 0%, rgba(212, 255, 89,
 .font-Rubik{
   font-family: 'Rubik', 'Noto Sans TC', sans-serif;
 }
+.container, .container-lg{ padding: 100px 0; }
+.container:first-child, .container-md:first-child{ padding-top: 0px; }
 .section>*:last-child{ padding-bottom: 100px !important; }
 .contnet{ position: relative; z-index: 3; }
+.content-title .body_18{ position: relative; top: -0.125em;}
 .fw-900{ font-weight: 900; }
 .fw-700{ font-weight: 700; }
 .fw-500{ font-weight: 500; }
 .fw-300{ font-weight: 300; }
 .catch_84{ font-size: 84px; line-height: 84px; }
+.catch_42{ font-size: 42px; line-height: 60px; }
 .catch_34{ font-size: 34px; line-height: 34px; }
 .title_24{ font-size: 24px; line-height: 36px; }
 .body_18{ font-size: 18px; line-height: 30px; }
@@ -60,7 +64,7 @@ width: 100%; height: 2px; display: block; background: black; opacity: 0;
   box-shadow: 0 0 15px rgba(0,0,0, 0.3);
 }
 
-.visual{ min-width: 1440px !important; }
+.visual{ min-width: 1920px !important; }
 .visual-main{ z-index: 2; }
 .visual::after{
   content: ""; position: absolute;

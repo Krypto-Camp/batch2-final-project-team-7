@@ -16,11 +16,12 @@ import { useExchangeEthPrice } from "eth-hooks/dapps/dex";
 
 /* React 相關 - start */
 import React, { useCallback, useEffect, useState } from "react";
+// FontAwesome｜https://fontawesome.com/docs/web/use-with/react/
 
-// API｜https://v5.reactrouter.com/web/example/url-params
+// React Router Dom API｜https://v5.reactrouter.com/web/example/url-params
 import { 
   Link, NavLink, 
-  Route, Switch, 
+  Redirect, Route, Switch, 
   useLocation, useParams, useRouteMatch 
 } from "react-router-dom";
 import {
@@ -39,6 +40,7 @@ import {
   BityoFooter,
   CoonectButton
 } from "./components";
+
 
 import { NETWORKS, ALCHEMY_KEY } from "./constants"; // 常數們
 import externalContracts from "./contracts/external_contracts";
@@ -317,18 +319,17 @@ function App(props) {
         <nav className="navigation">
           <div className="d-flex align-items-center justify-content-center">
             {/* Route｜https://v5.reactrouter.com/web/api/Route */}
+            {/* selectable={true} */}
             <NavLink 
               className={"navigation-button"}
-              selectable={true}
               activeClassName="is-active"
-              to="Homepage">
+              to="/index">
                 <div className="button-link px-4">
-                  <span className="button-text body_18 text-black fw-700 font-Rubik">Homepage</span>
+                  <span className="button-text body_18 text-black fw-700 font-Rubik">Home</span>
                 </div>
             </NavLink>
             <NavLink 
               className={"navigation-button"}
-              selectable={true} 
               activeClassName="is-active"
               to="Market">
                 <div className="button-link px-4">
@@ -337,7 +338,6 @@ function App(props) {
             </NavLink>
             <NavLink 
               className={"navigation-button"}
-              selectable={true}
               activeClassName="is-active"
               to="Assets">
                 <div className="button-link px-4">
@@ -404,7 +404,7 @@ function App(props) {
       
       <main className="d-flex flex-column flex-fill" >
         <Switch>
-          <Route path="/Homepage">
+          <Route path="/index">
             <Homepage
             
             ></Homepage>
@@ -419,7 +419,7 @@ function App(props) {
             
             ></Assets>
           </Route>
-
+          <Redirect from="/" to="/index" />
           {/* <Route path="/bi">
             <Bi
               address={address}
