@@ -7,8 +7,8 @@ export default function Header(props) {
   return (
     <header className="">
       <div className="container-md py-4 py-2 d-flex align-items-center justify-content-between">
-        <a href="./" rel="noopener noreferrer">
-          <h1 className="h1 text-black fw-bold">Bit<span className="hanamin">Yo</span></h1>
+        <a href="./" rel="noopener noreferrer">        
+          <h1 className="catch_34 text-black fw-bold">Bit<span className="">Yo</span></h1>
         </a>
         <div>
           {props.children}

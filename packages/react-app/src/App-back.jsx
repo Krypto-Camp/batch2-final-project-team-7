@@ -1,5 +1,5 @@
 import { Button, Col, Menu, Row } from "antd";
-// import "antd/dist/antd.css";
+import "antd/dist/antd.css";
 
 /* Ethereum Hooks｜取得主網上的資訊 - start */
 // 也因此 console.log 才會一直跳東西出來
@@ -28,16 +28,15 @@ import {
   NetworkDisplay,
   FaucetHint,
   NetworkSwitch,
-  AccountDashboard,
-  BityoHeader,
-  BityoFooter,
-  ProductList
 } from "./components";
-
 import { NETWORKS, ALCHEMY_KEY } from "./constants"; // 常數們
 import externalContracts from "./contracts/external_contracts";
 import { 
-  Home, Bi 
+  Home, 
+  ExampleUI, 
+  Hints, 
+  Subgraph, 
+  Bi 
 } from "./views"; // 頁面須先至進入點 index.js 引入。引入後可直接作為標籤使用，例如：<ExampleUI ... >
 /* end */
 
@@ -55,10 +54,29 @@ import "./App.css";
 
 const { ethers } = require("ethers");
 /*
-  以 hook useExternalContractLoader() 載入外部合約
+    Welcome to 🏗 scaffold-eth !
+
+    Code:
+    https://github.com/scaffold-eth/scaffold-eth
+
+    Support:
+    https://t.me/joinchat/KByvmRe5wkR-8F_zz6AjpA
+    or DM @austingriffith on twitter or telegram
+
+    You should get your own Alchemy.com & Infura.io ID and put it in `constants.js`
+    (this is your connection to the main Ethereum network for ENS etc.)
+
+
+    🌏 EXTERNAL CONTRACTS:
+    You can also bring in contract artifacts in `constants.js`
+    (and then use the `useExternalContractLoader()` hook!)
+    
+    以 hook useExternalContractLoader() 載入外部合約
+
 */
 
-const initialNetwork = NETWORKS.localhost;
+/// 📡 What chain are your contracts deployed to?
+const initialNetwork = NETWORKS.localhost; // <------- select your target frontend network (localhost, rinkeby, xdai, mainnet)
 
 // 😬 Sorry for all the console logging
 const DEBUG = true;
@@ -81,6 +99,9 @@ function App(props) {
 
 
 
+  // specify all the chains your app is available on. Eg: ['localhost', 'mainnet', ...otherNetworks ]
+  // reference './constants.js' for other networks
+  
   // 會影響到 USE_NETWORK_SELECTOR = true 時，<Accounct> 出現的下拉選單
   const networkOptions = [initialNetwork.name, "mainnet", "rinkeby"];
 
@@ -223,6 +244,10 @@ function App(props) {
   // eth-hooks 追蹤 local 端的合約的狀態變數，此處追脧 YourContract.sol 的 purpose
   const purpose = useContractReader(readContracts, "YourContract", "purpose");
 
+  /*
+  const addressFromENS = useResolveName(mainnetProvider, "austingriffith.eth");
+  console.log("🏷 Resolved austingriffith.eth as:",addressFromENS)
+  */
 
 
 
@@ -254,9 +279,16 @@ function App(props) {
       console.log("🔐 writeContracts", writeContracts);
     }
   }, [
-    mainnetProvider, address, selectedChainId,
-    yourLocalBalance, yourMainnetBalance, readContracts,
-    writeContracts, mainnetContracts, localChainId, myMainnetDAIBalance,
+    mainnetProvider,
+    address,
+    selectedChainId,
+    yourLocalBalance,
+    yourMainnetBalance,
+    readContracts,
+    writeContracts,
+    mainnetContracts,
+    localChainId,
+    myMainnetDAIBalance,
   ]);
 
 
@@ -302,46 +334,8 @@ function App(props) {
   return (
     <div className="App">
       {/* ✏️ Edit the header and change the title to your project name */}
-      <BityoHeader>
-        <nav className="navigation">
-          <div className="d-flex align-items-center justify-content-center">
-            {/* <Link 
-              className="navigation-button px-2 body_18 text-black fw-700"
-              selectable={false}
-              to="/bi">bi</Link> */}
-            <Link 
-              className="navigation-button px-4 body_18 text-black fw-700 font-Rubik"
-              selectable={true}
-              to="/">Home</Link>
-            <Link 
-              className="navigation-button px-4 body_18 text-black fw-700 font-Rubik"
-              selectable={true}
-              to="/">Assets</Link>
-            <Link 
-              className="navigation-button px-4 body_18 text-black fw-700 font-Rubik"
-              selectable={true}
-              to="/">Market</Link>
-          </div>
-        </nav>
-        <div>
-          {/* className="body_18 text-black fw-700 font-Rubik" */}
-          <AccountDashboard
-            // useBurner={USE_BURNER_WALLET}
-            // address={address}
-            // localProvider={localProvider}
-            // userSigner={userSigner}
-            // mainnetProvider={mainnetProvider}
-            // price={price}
-            web3Modal={web3Modal}
-            loadWeb3Modal={loadWeb3Modal}
-            logoutOfWeb3Modal={logoutOfWeb3Modal}
-            // blockExplorer={blockExplorer}
-          />
-        </div>
-      </BityoHeader>
-
-      {/* 👨‍💼 Your account is in the top right with a wallet at connect options */}
-      {/* <Header>
+      <Header>
+        {/* 👨‍💼 Your account is in the top right with a wallet at connect options */}
           <div className="d-flex align-items-center">
             {USE_NETWORK_SELECTOR && (
               <div style={{ marginRight: 20 }}>
@@ -369,7 +363,7 @@ function App(props) {
               <FaucetHint localProvider={localProvider} targetNetwork={targetNetwork} address={address} />
             )}
           </div>
-      </Header> */}
+      </Header>
 
       <NetworkDisplay
         NETWORKCHECK={NETWORKCHECK}
@@ -379,13 +373,108 @@ function App(props) {
         logoutOfWeb3Modal={logoutOfWeb3Modal}
         USE_NETWORK_SELECTOR={USE_NETWORK_SELECTOR}
       />
-              
-      
+
+      <nav className="">
+        <div className="container-md">
+          <Menu className="bg-transparent" selectedKeys={[location.pathname]} mode="horizontal">
+            {/* 連結至 <Router path="/???"> */}
+            <Menu.Item className="ms-0 me-1 px-3 bg-white rounded-top" key="/bi">
+              <Link 
+                className="text-black fs-6 fw-bold"
+                selectable={false}
+                to="/bi">bi</Link>
+            </Menu.Item>
+            <Menu.Item className="ms-1 me-0 px-3 bg-white rounded-top" key="/">
+              <Link 
+                className="text-black fs-6 fw-bold"
+                selectable={true}
+                to="/">App Home</Link>
+            </Menu.Item>
+            {
+            /* <Menu.Item key="/debug">
+              <Link to="/debug">Debug Contracts</Link>
+            </Menu.Item>
+            <Menu.Item key="/hints">
+              <Link to="/hints">Hints</Link>
+            </Menu.Item>
+            <Menu.Item key="/exampleui">
+              <Link to="/exampleui">ExampleUI</Link>
+            </Menu.Item>
+            <Menu.Item key="/mainnetdai">
+              <Link to="/mainnetdai">Mainnet DAI</Link>
+            </Menu.Item>
+            <Menu.Item key="/subgraph">
+              <Link to="/subgraph">Subgraph</Link>
+            </Menu.Item> */}
+          </Menu>
+        </div>
+      </nav>
 
       <Switch>
         <Route exact path="/">
           {/* pass in any web3 props to this Home component. For example, yourLocalBalance */}
-          {/* <Home yourLocalBalance={yourLocalBalance} readContracts={readContracts} /> */}
+          <Home yourLocalBalance={yourLocalBalance} readContracts={readContracts} />
+        </Route>
+        <Route exact path="/debug">
+          <Contract
+            name="YourContract"
+            price={price}
+            signer={userSigner}
+            provider={localProvider}
+            address={address}
+            blockExplorer={blockExplorer}
+            contractConfig={contractConfig}
+          />
+        </Route>
+        <Route path="/hints">
+          <Hints
+            address={address}
+            yourLocalBalance={yourLocalBalance}
+            mainnetProvider={mainnetProvider}
+            price={price}
+          />
+        </Route>
+        <Route path="/exampleui">
+          <ExampleUI
+            address={address}
+            userSigner={userSigner}
+            mainnetProvider={mainnetProvider}
+            localProvider={localProvider}
+            yourLocalBalance={yourLocalBalance}
+            price={price}
+            tx={tx}
+            writeContracts={writeContracts}
+            readContracts={readContracts}
+            purpose={purpose}
+          />
+        </Route>
+        <Route path="/mainnetdai">
+          <Contract
+            name="DAI"
+            customContract={mainnetContracts && mainnetContracts.contracts && mainnetContracts.contracts.DAI}
+            signer={userSigner}
+            provider={mainnetProvider}
+            address={address}
+            blockExplorer="https://etherscan.io/"
+            contractConfig={contractConfig}
+            chainId={1}
+          />
+            <Contract
+              name="UNI"
+              customContract={mainnetContracts && mainnetContracts.contracts && mainnetContracts.contracts.UNI}
+              signer={userSigner}
+              provider={mainnetProvider}
+              address={address}
+              blockExplorer="https://etherscan.io/"
+            />
+        </Route>
+        <Route path="/subgraph">
+          <Subgraph
+            subgraphUri={props.subgraphUri}
+            tx={tx}
+            writeContracts={writeContracts}
+            mainnetProvider={mainnetProvider}
+          />
         </Route>
         <Route path="/bi">
           <Bi
@@ -403,6 +492,49 @@ function App(props) {
         </Route>
       </Switch>
 
+      <ThemeSwitch />
+
+     
+
+      {/* 🗺 Extra UI like gas price, eth price, faucet, and support: */}
+      <div style={{ position: "fixed", textAlign: "left", left: 0, bottom: 20, padding: 10 }}>
+        <Row align="middle" gutter={[4, 4]}>
+          <Col span={8}>
+            <Ramp price={price} address={address} networks={NETWORKS} />
+          </Col>
+
+          <Col span={8} style={{ textAlign: "center", opacity: 0.8 }}>
+            <GasGauge gasPrice={gasPrice} />
+          </Col>
+          <Col span={8} style={{ textAlign: "center", opacity: 1 }}>
+            <Button
+              onClick={() => {
+                window.open("https://t.me/joinchat/KByvmRe5wkR-8F_zz6AjpA");
+              }}
+              size="large"
+              shape="round"
+            >
+              <span style={{ marginRight: 8 }} role="img" aria-label="support">
+                💬
+              </span>
+              Support
+            </Button>
+          </Col>
+        </Row>
+
+        <Row align="middle" gutter={[4, 4]}>
+          <Col span={24}>
+            {
+              /*  if the local provider has a signer, let's show the faucet:  */
+              faucetAvailable ? (
+                <Faucet localProvider={localProvider} price={price} ensProvider={mainnetProvider} />
+              ) : (
+                ""
+              )
+            }
+          </Col>
+        </Row>
+      </div>
     </div>
   );
 }
