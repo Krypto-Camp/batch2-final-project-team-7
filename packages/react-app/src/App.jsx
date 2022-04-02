@@ -1,4 +1,4 @@
-import { Button, Col, Menu, Row } from "antd";
+import { Button, Card, Col, Menu, Row } from "antd";
 // import "antd/dist/antd.css";
 
 /* Ethereum Hooks｜取得主網上的資訊 - start */
@@ -38,7 +38,9 @@ import {
   AccountDashboard,
   BityoHeader,
   BityoFooter,
-  CoonectButton
+  CoonectButton,
+  ProductCard,
+  AssetCard,
 } from "./components";
 
 
@@ -407,17 +409,22 @@ function App(props) {
           <Route path="/index">
             <Homepage
             
-            ></Homepage>
+            >
+             
+            </Homepage>
           </Route>
           <Route path="/Market">
             <Market
-            
-            ></Market>
+            >
+              {/* <Card></Card>   */}
+            </Market>
           </Route>
           <Route path="/Assets">
             <Assets
             
-            ></Assets>
+            >
+              
+            </Assets>
           </Route>
           <Redirect from="/" to="/index" />
           {/* <Route path="/bi">

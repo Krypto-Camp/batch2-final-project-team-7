@@ -28,15 +28,19 @@ export default function Homepage(props) {
       <div className="visual position-relative vw-100 start-50 translate-middle-x">
         <img className="w-100" src="./images/visual.jpg" alt="" />
         <div className="visual-main position-absolute start-50 top-50 translate-middle">
-          <h1 className="visual-title catch_84 text-paper fw-700 font-Rubik intro ">
+          <h1 className="visual-title mb-4 catch_84 text-paper fw-700 font-Rubik intro ">
             <span>B</span>
             <span>I</span>
             <span>T</span>
             <span>Y</span>
             <span>O</span>
           </h1>  
-          <p className="visual-text body_18 text-paper fw-900 intro">
-            It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English.
+          <h4 className="visual-subtitle mb-2 title_24 text-paper fw-700 intro">
+            <span className="fw-700">幣佑</span>，庇佑你的財富
+          </h4>
+          <p className="visual-text mb-4 body_18 text-paper fw-400 intro">
+            我們推出多種令人垂涎的智慧資產合約，結合專業操盤。<br />
+            使累積財富的方式不但理性，更多了人情味。
           </p>
         </div>
       </div>
@@ -47,7 +51,18 @@ export default function Homepage(props) {
             <h3 className="my-4 catch_42 text-black text-left fw-700 font-Rubik">ABOUT</h3>
             <p className="mx-2 body_18 text-center text-black fw-700 font-Rubik">關於</p>
           </div>
+          <div className="row">
+            <div className="col">
+              {/* 為何你該使用 BITYO？*/}
+            </div>
+          </div>
+          <div className="row">
+            <div className="col">
+              {/* BITYO 即將幫助作為財富，就像蝙蝠俠的管家阿福 */}
+            </div>
+          </div>
         </div>
+        {/*  */}
         {/* Homepage */}
       </div>
       <div className="container-lg px-4 position-relative">
@@ -58,7 +73,7 @@ export default function Homepage(props) {
             <p className="mx-2 body_18 text-center text-black fw-700 font-Rubik">白皮書</p>
           </div>
         </div>
-        {/* Homepage */}
+        {/* WHITEPAPER */}
       </div>
       <div className="container-lg px-4 position-relative">
         <div className="contnet d-flex flex-column align-items-center justify-content-between">
@@ -67,7 +82,7 @@ export default function Homepage(props) {
             <p className="mx-2 body_18 text-center text-black fw-700 font-Rubik">路線圖</p>
           </div>
         </div>
-        {/* Homepage */}
+        {/* ROADMAP */}
       </div>
       <div className="container-lg px-4">
         <div className="contnet d-flex flex-column align-items-center justify-content-between">
@@ -89,7 +104,7 @@ export default function Homepage(props) {
                     <div className="member-profile mb-3 w-50 border-round-10px overflow-hidden"><img className="w-100" src={member.profile} alt="" /></div>
                     <h5 className="mb-2 title_24 text-black fw-700 font-Rubik">{member.name}</h5>
                     <div className="mb-3 d-flex flex-wrap justify-content-center">{jobs}</div>
-                    <p className="mb-2 text_14 text-black fw-500 font-Rubik">{member.text}</p>
+                    <p className="mb-2 body_18 text-black fw-500 font-Rubik">{member.text}</p>
                   </div>
                 );
               }
