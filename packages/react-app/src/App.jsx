@@ -416,7 +416,58 @@ function App(props) {
           <Route path="/Market">
             <Market
             >
-              {/* <Card></Card>   */}
+              <div className="col-12 col-sm-10 offset-sm-1 col-xl-6 offset-xl-0"><ProductCard
+                productTitle="成長型保險"
+                productProfile="./images/profile-Vincent.png"
+                productDatas={[
+                  {name: 'Locked', value: '3000', unit: 'hours'}, 
+                  {name: 'Reward', value: '30', unit: '%'},
+                  {name: 'Reward', value: '30', unit: '%'},
+                ]}
+                productDescription={`
+                  It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English.<br/><br/>
+                  It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English.
+                `}
+              ></ProductCard></div>
+              <div className="col-12 col-sm-10 offset-sm-1 col-xl-6 offset-xl-0"><ProductCard
+                productTitle="成長型保險"
+                productProfile="./images/profile-Vincent.png"
+                productDatas={[
+                  {name: 'Locked', value: '3000', unit: 'hours'}, 
+                  {name: 'Reward', value: '30', unit: '%'},
+                  {name: 'Reward', value: '30', unit: '%'},
+                ]}
+                productDescription={`
+                  It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English.<br/><br/>
+                  It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English.
+                `}
+              ></ProductCard></div>
+              <div className="col-12 col-sm-10 offset-sm-1 col-xl-6 offset-xl-0"><ProductCard
+                productTitle="成長型保險"
+                productProfile="./images/profile-Vincent.png"
+                productDatas={[
+                  {name: 'Locked', value: '3000', unit: 'hours'}, 
+                  {name: 'Reward', value: '30', unit: '%'},
+                  {name: 'Reward', value: '30', unit: '%'},
+                ]}
+                productDescription={`
+                  It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English.<br/><br/>
+                  It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English.
+                `}
+              ></ProductCard></div>
+              <div className="col-12 col-sm-10 offset-sm-1 col-xl-6 offset-xl-0"><ProductCard
+                productTitle="成長型保險"
+                productProfile="./images/profile-Vincent.png"
+                productDatas={[
+                  {name: 'Locked', value: '3000', unit: 'hours'}, 
+                  {name: 'Reward', value: '30', unit: '%'},
+                  {name: 'Reward', value: '30', unit: '%'},
+                ]}
+                productDescription={`
+                  It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English.<br/><br/>
+                  It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English.
+                `}
+              ></ProductCard></div>
             </Market>
           </Route>
           <Route path="/Assets">

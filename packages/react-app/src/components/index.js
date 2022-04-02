@@ -29,3 +29,5 @@ export { default as BityoHeader } from "./pagesComponents/BityoHeader";
 export { default as BityoFooter } from "./pagesComponents/BityoFooter";
 // export { default as ProductList } from "./pagesComponents/ProductList";
 export { default as CoonectButton } from "./pagesComponents/CoonectButton";
+export { default as ProductCard } from "./pagesComponents/ProductCard";
+export { default as AssetCard } from "./pagesComponents/AssetCard";

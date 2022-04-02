@@ -47,9 +47,9 @@ export default function Homepage(props) {
       <div className="container-lg px-4 position-relative">
         {/* <div className="position-absolute start-50 top-0 translate-middle-x vw-100 h-100 bg-paper"></div> */}
         <div className="contnet d-flex flex-column align-items-start justify-content-between">
-          <div className="content-title d-flex flex-column flex-lg-row align-items-center align-items-lg-baseline">
-            <h3 className="my-4 catch_42 text-black text-left fw-700 font-Rubik">ABOUT</h3>
-            <p className="mx-2 body_18 text-center text-black fw-700 font-Rubik">關於</p>
+          <div className="content-title mb-4 d-flex flex-column flex-lg-row align-items-center align-items-lg-baseline">
+            <h2 className="my-0 catch_42 text-black text-left text-black fw-700 font-Rubik">ABOUT</h2>
+            <p className="mb-0 mx-2 body_18 text-center text-black fw-700 font-Rubik">關於</p>
           </div>
           <div className="row">
             <div className="col">
@@ -68,27 +68,27 @@ export default function Homepage(props) {
       <div className="container-lg px-4 position-relative">
         <div className="position-absolute start-50 top-0 translate-middle-x vw-100 h-100 bg-paper"></div>
         <div className="contnet d-flex flex-column align-items-center justify-content-between">
-          <div className="content-title d-flex flex-column flex-lg-row align-items-center align-items-lg-baseline">
-            <h3 className="my-4 catch_42 text-black text-center fw-700 font-Rubik">WHITEPAPER</h3>
-            <p className="mx-2 body_18 text-center text-black fw-700 font-Rubik">白皮書</p>
+          <div className="content-title mb-4 d-flex flex-column flex-lg-row align-items-center align-items-lg-baseline">
+            <h2 className="my-0 catch_42 text-black text-center text-black fw-700 font-Rubik">WHITEPAPER</h2>
+            <p className="mb-0 mx-2 body_18 text-center text-black fw-700 font-Rubik">白皮書</p>
           </div>
         </div>
         {/* WHITEPAPER */}
       </div>
       <div className="container-lg px-4 position-relative">
         <div className="contnet d-flex flex-column align-items-center justify-content-between">
-          <div className="content-title d-flex flex-column flex-lg-row align-items-center align-items-lg-baseline">
-            <h3 className="my-4 catch_42 text-black text-center fw-700 font-Rubik">ROADMAP</h3>
-            <p className="mx-2 body_18 text-center text-black fw-700 font-Rubik">路線圖</p>
+          <div className="content-title mb-4 d-flex flex-column flex-lg-row align-items-center align-items-lg-baseline">
+            <h2 className="my-0 catch_42 text-black text-center text-black fw-700 font-Rubik">ROADMAP</h2>
+            <p className="mb-0 mx-2 body_18 text-center text-black fw-700 font-Rubik">路線圖</p>
           </div>
         </div>
         {/* ROADMAP */}
       </div>
       <div className="container-lg px-4">
         <div className="contnet d-flex flex-column align-items-center justify-content-between">
-          <div className="content-title d-flex flex-column flex-lg-row align-items-center align-items-lg-baseline">
-            <h3 className="my-4 catch_42 text-center fw-700 font-Rubik">MEMBERS</h3>
-            <p className="mx-2 body_18 text-center text-black fw-700 font-Rubik">團隊成員</p>
+          <div className="content-title mb-4 d-flex flex-column flex-lg-row align-items-center align-items-lg-baseline">
+            <h2 className="my-0 catch_42 text-center text-black fw-700 font-Rubik">MEMBERS</h2>
+            <p className="mb-0 mx-2 body_18 text-center text-black fw-700 font-Rubik">團隊成員</p>
           </div>
           <div className="row w-100 gx-5">
             {(() => {
@@ -97,14 +97,14 @@ export default function Homepage(props) {
                 let member = members[index];
                 let jobs = [];
                 for (let index in member.job) {
-                  jobs.push(<div className=""><span className="mx-1 px-2 py-1 bg-black text_14 text-paper fw-50 font-Rubik border-round-5px">{member.job[index]}</span></div>)
+                  jobs.push(<div className=""><span className="mx-1 px-2 py-1 bg-black text_14 text-paper fw-400 font-Rubik border-round-5px">{member.job[index]}</span></div>)
                 }
                 cards.push(
-                  <div className="col-12 col-sm-6 col-md-4 d-flex flex-column align-items-center py-4">
+                  <div className="col-12 col-sm-6 col-xl-4 d-flex flex-column align-items-center py-4">
                     <div className="member-profile mb-3 w-50 border-round-10px overflow-hidden"><img className="w-100" src={member.profile} alt="" /></div>
                     <h5 className="mb-2 title_24 text-black fw-700 font-Rubik">{member.name}</h5>
                     <div className="mb-3 d-flex flex-wrap justify-content-center">{jobs}</div>
-                    <p className="mb-2 body_18 text-black fw-500 font-Rubik">{member.text}</p>
+                    <p className="mb-2 body_18 text-black fw-400 font-Rubik">{member.text}</p>
                   </div>
                 );
               }
