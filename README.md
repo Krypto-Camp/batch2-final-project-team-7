@@ -47,13 +47,12 @@ Whitepaper 初版：https://hackmd.io/AGBslDlUTQCAp9-QwiSjDQ
 
 ## 安裝前準備
 
+1. 安裝會用到的套件
 ```
 // 先安裝
 npm i bootstrap
-// 在頁面的 jsx 檔中引入 css
-import 'bootstrap/dist/css/bootstrap.min.css';
+npm install wagmi ethers
 ```
-
 ...
 
 ## 安裝步驟

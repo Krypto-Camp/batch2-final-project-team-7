@@ -6,12 +6,12 @@ export default function Market(props) {
   return (
     <section className="section d-flex flex-column flex-fill">
       <div className="container-lg px-4 d-flex flex-column flex-fill">
-        <div className="contnet d-flex flex-column align-items-stretch justify-content-between">
+        <div className="contnet d-flex flex-column flex-fill align-items-stretch justify-content-between">
 
           {/* AccountDashboard */}
 
           <div className="productList px-4 py-4 d-flex flex-column flex-fill">
-            <div className="content-title mb-4 d-flex flex-column flex-lg-row align-items-center align-items-lg-baseline justify-content-lg-center">
+            <div className="content-title mb-2 d-flex flex-column flex-lg-row align-items-center align-items-lg-baseline justify-content-lg-center">
               <h2 className="mb-0 mx-2 catch_42 text-center text-paper fw-700 font-Rubik">MARKETPLACE</h2>
               <p className="mb-0 mx-2 body_18 text-center text-paper fw-700 font-Rubik">產品市集</p>
             </div>
@@ -20,7 +20,6 @@ export default function Market(props) {
               {/* Cards */}
               {props.children}
 
-             
             </div>
           </div>
         </div>
