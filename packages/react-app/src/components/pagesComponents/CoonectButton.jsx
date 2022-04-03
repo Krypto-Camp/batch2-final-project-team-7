@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useThemeSwitcher } from "react-css-theme-switcher";
-import { useAccount, useConnect } from 'wagmi'
+import { useAccount, useConnect, useNetwork } from 'wagmi'
 // import Address from "../Address";
 // import Wallet from "../Wallet";
 
@@ -22,7 +22,9 @@ export default function CoonectButton({
     fetchEns: true,
   });
 
-  console.log(connectData)
+  const [{ data: networkData }, switchNetwork] = useNetwork();
+
+  // console.log(networkData.chain.id != 1);
 
   return (
     <div className="">
