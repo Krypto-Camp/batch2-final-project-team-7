@@ -20,7 +20,8 @@ import "@openzeppelin/contracts/token/ERC721/IERC721.sol";
 contract StakingRewards {
     IERC20 public rewardsToken;
     IERC20 public stakingToken;
-    IERC721 public NFT = IERC721(0xd9145CCE52D386f254917e481eB44e9943F39138);
+    IERC721 public NftToken ;
+    
     // IERC20(0xdAC17F958D2ee523a2206206994597C13D831ec7); // USDT
 
     uint public rewardRate = 100;  
@@ -29,9 +30,10 @@ contract StakingRewards {
 
 
 
-    constructor(address _stakingToken, address _rewardsToken) {
+    constructor(address _stakingToken, address _rewardsToken,address _NftToken) {
         stakingToken = IERC20(_stakingToken);
         rewardsToken = IERC20(_rewardsToken);
+        NftToken = IERC721(_NftToken);
     }
 
     function rewardPerToken() public view returns (uint) {
@@ -62,20 +64,30 @@ contract StakingRewards {
     }
 
     modifier onlyNftOwner(uint NftID) {
-        require ( msg.sender == NFT.ownerOf(NftID) , "not this NFT owner");
+        require ( msg.sender == NftToken.ownerOf(NftID) , "not this NFT owner");
         _;
     }
 
+    // 存款
     function stakeByNft(uint _amount , uint NftID) external onlyNftOwner(NftID) updateRewardByNft(NftID) {
         _totalSupply += _amount;
         _balancesByNFT[NftID] += _amount;
         stakingToken.transferFrom(msg.sender, address(this), _amount);
     }
 
+
+    // 提款
     function withdrawByNft(uint _amount , uint NftID) external onlyNftOwner(NftID) updateRewardByNft(NftID) {
         _totalSupply -= _amount;
         _balancesByNFT[NftID] -= _amount;
         stakingToken.transfer(msg.sender, _amount);
+    }
+
+    // 領獎
+    function getRewardByNft(uint NftID) external onlyNftOwner(NftID) updateRewardByNft(NftID) {
+        uint reward = rewardsByNFT[NftID];
+        rewardsByNFT[NftID] = 0;
+        rewardsToken.transfer(msg.sender, reward);
     }
 
     modifier updateRewardByNft(uint NftID) {
