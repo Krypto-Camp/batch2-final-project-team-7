@@ -1,56 +1,50 @@
-import { Provider, chain, defaultChains } from 'wagmi'
-import { InjectedConnector } from 'wagmi/connectors/injected'
-import { WalletConnectConnector } from 'wagmi/connectors/walletConnect'
-import { WalletLinkConnector } from 'wagmi/connectors/walletLink'
-
+import { 
+  Provider, chain, defaultChains,
+  useConnect, useAccount,
+} from "wagmi";
+import { InjectedConnector } from "wagmi/connectors/injected";
+import { WalletConnectConnector } from "wagmi/connectors/walletConnect";
+import { WalletLinkConnector } from "wagmi/connectors/walletLink";
 
 /* Ethereum Hooks｜取得主網上的資訊 - start */
 // 也因此 console.log 才會一直跳東西出來
-// import {
-//   useBalance,
-//   useContractLoader, // 載入合約
-//   useContractReader, // 閱讀合約
-//   useGasPrice,
-//   useOnBlock,
-//   useUserProviderAndSigner,
-// } from "eth-hooks";
-// import { useExchangeEthPrice } from "eth-hooks/dapps/dex";
+import {
+  useBalance,
+  useContractLoader, // 載入合約
+  useContractReader, // 閱讀合約
+  useGasPrice,
+  useOnBlock,
+  useUserProviderAndSigner,
+} from "eth-hooks";
+import { useExchangeEthPrice } from "eth-hooks/dapps/dex";
 /* end */
 
 /* React 相關 - start */
 import React, { useCallback, useEffect, useState } from "react";
-// FontAwesome｜https://fontawesome.com/docs/web/use-with/react/
-
-// React Router Dom API｜https://v5.reactrouter.com/web/example/url-params
-import { 
-  Link, NavLink, 
-  Redirect, Route, Switch, 
-  useLocation, useParams, useRouteMatch 
-} from "react-router-dom";
+import { Link, NavLink, Redirect, Route, Switch, useLocation } from "react-router-dom";
 import {
-  Account,
-  Contract,
-  Faucet,
-  GasGauge,
-  Header,
-  Ramp,
-  ThemeSwitch,
-  NetworkDisplay,
-  FaucetHint,
-  NetworkSwitch,
-  AccountDashboard,
-  BityoHeader,
-  BityoFooter,
-  CoonectButton,
+  // Account,
+  // Contract,
+  // Faucet,
+  // GasGauge,
+  // Header,
+  // Ramp,
+  // ThemeSwitch,
+  // NetworkDisplay,
+  // FaucetHint,
+  // NetworkSwitch,
   ProductCard,
+  AccountDashboard,
   AssetCard,
+  BityoFooter,
+  BityoHeader,
+  CoonectButton,
 } from "./components";
 
 
-import { NETWORKS, ALCHEMY_KEY } from "./constants"; // 常數們
+import { NETWORKS, ALCHEMY_KEY, INFURA_ID } from "./constants"; // 常數們
 import externalContracts from "./contracts/external_contracts";
 import { 
-  // Home, Bi,
   Homepage, Market, Assets
 } from "./views"; // 頁面須先至進入點 index.js 引入。引入後可直接作為標籤使用，例如：<ExampleUI ... >
 /* end */
@@ -68,35 +62,28 @@ import "./App.css";
 /* end */
 
 const { ethers } = require("ethers");
-/*
-  以 hook useExternalContractLoader() 載入外部合約
-*/
 
-const initialNetwork = NETWORKS.localhost;
+const initialNetwork = NETWORKS.rinkeby;
 
 // 😬 Sorry for all the console logging
-const DEBUG = true;
-const NETWORKCHECK = true;
-const USE_BURNER_WALLET = true; // toggle burner wallet feature｜https://www.xdaichain.com/for-users/wallets/burner-wallet
-const USE_NETWORK_SELECTOR = true; // <Accounct> 介面是否出現 "網路選擇" 下拉選單
+// const DEBUG = true;
+// const NETWORKCHECK = true;
+// const USE_BURNER_WALLET = true; // toggle burner wallet feature｜https://www.xdaichain.com/for-users/wallets/burner-wallet
+// const USE_NETWORK_SELECTOR = true; // <Accounct> 介面是否出現 "網路選擇" 下拉選單
 
-const web3Modal = Web3ModalSetup();
+// const web3Modal = Web3ModalSetup();
 
 // 🛰 providers
-const providers = [
-  "https://eth-mainnet.gateway.pokt.network/v1/lb/611156b4a585a20035148406",
-  `https://eth-mainnet.alchemyapi.io/v2/${ALCHEMY_KEY}`,
-  "https://rpc.scaffoldeth.io:48544",
-];
-
+// const providers = [
+//   "https://eth-mainnet.gateway.pokt.network/v1/lb/611156b4a585a20035148406",
+//   `https://eth-mainnet.alchemyapi.io/v2/${ALCHEMY_KEY}`,
+//   `https://mainnet.infura.io/v3/${INFURA_ID}`,
+//   "https://rpc.scaffoldeth.io:48544",
+// ];
 
 
 function App(props) {
   
-
-
-
-
   // 會影響到 USE_NETWORK_SELECTOR = true 時，<Accounct> 出現的下拉選單
   const networkOptions = [initialNetwork.name, "mainnet", "rinkeby"];
 
@@ -112,32 +99,85 @@ function App(props) {
   // 🔭 目前的鏈的區塊瀏覽器
   const blockExplorer = targetNetwork.blockExplorer;
 
-  // load all your providers
-  // 如果未設定 react-app/.env 的 REACT_APP_PROVIDER，直接使用上方 initialNetwork 的 provider
-  const localProvider = useStaticJsonRPC([
-    process.env.REACT_APP_PROVIDER ? process.env.REACT_APP_PROVIDER : targetNetwork.rpcUrl,
-  ]);
-  // 主網的 provide，後面將以此取得主網合約
-  const mainnetProvider = useStaticJsonRPC(providers);
+  // ████████████████████████████████████████████████████████████████████████████████████
+  
+  // Chains for connectors to support
+  const chains = defaultChains;
+  
+  // 1. 接 Localhost 合約
+  // 2. 接 Rikenby 合約
 
-  if (DEBUG) console.log(`Using ${selectedNetwork} network`);
+  // console.log(targetNetwork);
+  // console.log(chains);
+  
+  // Wagmi + ./constants.ks
+  const connectors = ({ chainId }) => {
+    const rpcUrl = targetNetwork.rpcUrl;
+    return [
+      new InjectedConnector({
+        chains, // rinkeby
+        options: { shimDisconnect: true },
+      }),
+      // new WalletConnectConnector({
+      //   options: {
+      //     INFURA_ID,
+      //     qrcode: true,
+      //   },
+      // }),
+      // new WalletLinkConnector({
+      //   options: {
+      //     appName: 'BITYO',
+      //     jsonRpcUrl: `${rpcUrl}`,
+      //   },
+      // }),
+    ]
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  // ████████████████████████████████████████████████████████████████████████████████████
+
+  // load all your providers\
+  // ＊hooks/useStaticJsonRPC｜以 ethers 連接 provider
+  // 如果未設定 react-app/.env 的 REACT_APP_PROVIDER，使用上方 initialNetwork 的 provider
+  // const localProvider = useStaticJsonRPC([
+  //   process.env.REACT_APP_PROVIDER ? process.env.REACT_APP_PROVIDER : targetNetwork.rpcUrl,
+  // ]);
+  // // 主網的 provider，後面將以此取得主網合約
+  // const mainnetProvider = useStaticJsonRPC(providers);
+
+  // if (DEBUG) console.log(`Using ${selectedNetwork} network`);
 
   // 🛰 providers
-  if (DEBUG) console.log("📡 Connecting to Mainnet Ethereum");
+  // if (DEBUG) console.log("📡 Connecting to Mainnet Ethereum");
 
+  ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-
-
-
-  const logoutOfWeb3Modal = async () => {
-    await web3Modal.clearCachedProvider();
-    if (injectedProvider && injectedProvider.provider && typeof injectedProvider.provider.disconnect == "function") {
-      await injectedProvider.provider.disconnect();
-    }
-    setTimeout(() => {
-      window.location.reload();
-    }, 1);
-  };
 
   /* 💵 This hook will get the price of ETH from 🦄 Uniswap: */
   // const price = useExchangeEthPrice(targetNetwork, mainnetProvider);
@@ -145,9 +185,7 @@ function App(props) {
   /* 🔥 This hook will get the price of Gas from ⛽️ EtherGasStation */
   // const gasPrice = useGasPrice(targetNetwork, "fast");
   
-
-
-  
+  ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   
   // Use your injected provider from 🦊 Metamask or if you don't have it then instantly generate a 🔥 burner wallet.
   // 使用者節點和簽署者
@@ -155,9 +193,7 @@ function App(props) {
   // 取得簽署者
   // const userSigner = userProviderAndSigner.signer;
   
-
-
-
+  ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
   // 每次 Render 後，執行 getAddress()。後面的陣列用以傳入參數給 function
   // useEffect 的用法｜https://zh-hant.reactjs.org/docs/hooks-effect.html
@@ -171,9 +207,7 @@ function App(props) {
   //   getAddress();
   // }, [userSigner]);
 
-
-
-
+  ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
   // You can warn the user if you would like them to be on a specific network
   // 你如果想要 User 用特定的鏈，你可以警告 User
@@ -183,9 +217,7 @@ function App(props) {
 
   // For more hooks, check out 🔗eth-hooks at: https://www.npmjs.com/package/eth-hooks
 
-
-
-
+  ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
   // The transactor wraps transactions and provides notificiations
   // 打包交易時，提供通知
@@ -199,9 +231,7 @@ function App(props) {
   // 在主網的餘額
   // const yourMainnetBalance = useBalance(mainnetProvider, address);
 
-
-
-
+  ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
   // const contractConfig = useContractConfig();
   // const contractConfig = { deployedContracts: deployedContracts || {}, externalContracts: externalContracts || {} };
@@ -219,9 +249,7 @@ function App(props) {
   // 載入 主網 的合約
   // const mainnetContracts = useContractLoader(mainnetProvider, contractConfig);
 
-
-
-
+  ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
   // If you want to call a function on a new block
   // 如果 eth-hooks 偵測到主網的區塊更新了 
@@ -237,19 +265,16 @@ function App(props) {
 
   // keep track of a variable from the contract in the local React state:
   // eth-hooks 追蹤 local 端的合約的狀態變數，此處追脧 YourContract.sol 的 purpose
-  // const purpose = useContractReader(readContracts, "YourContract", "purpose");
+  // // const purpose = useContractReader(readContracts, "YourContract", "purpose");
 
-  // 測試用：取得主網的 BAYC 合約
-  // const myMainnetDA = useContractReader(mainnetContracts, "DAI", "balanceOf", [
-  //   "0x34aA3F359A9D614239015126635CE7732c18fDF3",
-  // ])
+  // // 測試用：取得主網的 BAYC 合約
+  // // const myMainnetDA = useContractReader(mainnetContracts, "DAI", "balanceOf", [
+  // //   "0x34aA3F359A9D614239015126635CE7732c18fDF3",
+  // // ])
   
+  // ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-
-
-  
-
-  // 🧫 DEBUG 👨🏻‍🔬
+  // // 🧫 DEBUG 👨🏻‍🔬
   // useEffect(() => {
   //   if (
   //     DEBUG &&
@@ -275,55 +300,158 @@ function App(props) {
   //     console.log("🔐 writeContracts", writeContracts);
   //   }
   // }, [
-  //   mainnetProvider, address, selectedChainId,
-  //   yourLocalBalance, yourMainnetBalance, readContracts,
-  //   writeContracts, mainnetContracts, localChainId, myMainnetDAIBalance,
+  //   mainnetProvider,
+  //   address,
+  //   selectedChainId,
+  //   yourLocalBalance,
+  //   yourMainnetBalance,
+  //   readContracts,
+  //   writeContracts,
+  //   mainnetContracts,
+  //   localChainId,
+  //   myMainnetDAIBalance,
   // ]);
 
-
-
-
+  ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   
   /* useCallback */
   // 什麼時候該使用 useMemo 跟 useCallback｜https://medium.com/ichef/a3c1cd0eb520
-  // const loadWeb3Modal = useCallback(async () => {
-  //   const provider = await web3Modal.connect();
-  //   setInjectedProvider(new ethers.providers.Web3Provider(provider));
 
-  //   provider.on("chainChanged", chainId => {
-  //     console.log(`chain changed to ${chainId}! updating providers`);
-  //     setInjectedProvider(new ethers.providers.Web3Provider(provider));
-  //   });
-
-  //   provider.on("accountsChanged", () => {
-  //     console.log(`account changed!`);
-  //     setInjectedProvider(new ethers.providers.Web3Provider(provider));
-  //   });
-
-  //   // Subscribe to session disconnection
-  //   provider.on("disconnect", (code, reason) => {
-  //     console.log(code, reason);
-  //     logoutOfWeb3Modal();
-  //   });
-  //   // eslint-disable-next-line
-  // }, [setInjectedProvider]);
-
-  // useEffect(() => {
-  //   if (web3Modal.cachedProvider) {
-  //     loadWeb3Modal();
+  // const logoutOfWeb3Modal = async () => {
+  //   await web3Modal.clearCachedProvider();
+  //   if (injectedProvider && injectedProvider.provider && typeof injectedProvider.provider.disconnect == "function") {
+  //     await injectedProvider.provider.disconnect();
   //   }
-  // }, [loadWeb3Modal]);
+  //   setTimeout(() => {
+  //     window.location.reload();
+  //   }, 1);
+  // };
+
+  // const loadWeb3Modal = useCallback(async () => {
+  //   // 非同步加上 Try Catch 避免 Uncaught (in promise) ...
+  //   try{
+  //     const provider = await web3Modal.connect();
+  //     setInjectedProvider(new ethers.providers.Web3Provider(provider));
+  
+  //     provider.on("chainChanged", chainId => {
+  //       console.log(`chain changed to ${chainId}! updating providers`);
+  //       setInjectedProvider(new ethers.providers.Web3Provider(provider));
+  //     });
+  
+  //     provider.on("accountsChanged", () => {
+  //       console.log(`account changed!`);
+  //       setInjectedProvider(new ethers.providers.Web3Provider(provider));
+  //     });
+  
+  //     // Subscribe to session disconnection
+  //     provider.on("disconnect", (code, reason) => {
+  //       console.log(code, reason);
+  //       logoutOfWeb3Modal();
+  //     })
+  //     return provider;
+  //   } catch (error) {
+      
+  //   } finally{
+
+  //   }
+
+  // }, [setInjectedProvider])
 
   // const faucetAvailable = localProvider && localProvider.connection && targetNetwork.name.indexOf("local") !== -1;
 
 
+  ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-  // 取得頁面 ID
-  // let { id } = useParams();
-  // let { path, url } = useRouteMatch();
+
+  const assetsCards = [
+    {
+      productTitle: 'BITYO 經典成長型保險',
+      productProfile: './images/profile-Vincent.png',
+      contractAddress: '',
+      productDatas: [
+        {name: 'Countdown', value: '3000', unit: 'hours'}, 
+        {name: 'Cost', value: '30', unit: 'ETH'},
+        {name: 'APY', value: '120', unit: '%'},
+      ],
+      productDescription: `
+        It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English.
+
+
+        It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English.
+      `,
+      productTokenUnit: 'ETH',
+    },
+    {
+      productTitle: 'BITYO 經典成長型保險',
+      productProfile: './images/profile-Vincent.png',
+      productDatas: [
+        {name: 'Countdown', value: '3000', unit: 'hours'}, 
+        {name: 'Cost', value: '30', unit: 'ETH'},
+        {name: 'APY', value: '120', unit: '%'},
+      ],
+      productDescription: `
+        It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English.
+
+
+        It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English.
+      `,
+      productTokenUnit: 'ETH',
+    }
+  ];
+  const productCards = [
+    {
+      productTitle: 'BITYO 經典成長型保險',
+      productProfile: './images/profile-Vincent.png',
+      productDatas: [
+        {name: 'Locked', value: '3000', unit: 'hours'}, 
+        {name: 'Reward', value: '30', unit: '%'},
+        {name: 'Reward', value: '30', unit: '%'},
+      ],
+      productDescription: `
+        It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English.
+
+
+        It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English.
+      `,
+      productTokenUnit: 'ETH',
+    },
+    {
+      productTitle: 'BITYO 經典成長型保險',
+      productProfile: './images/profile-Vincent.png',
+      productDatas: [
+        {name: 'Locked', value: '3000', unit: 'hours'}, 
+        {name: 'Reward', value: '30', unit: '%'},
+        {name: 'Reward', value: '30', unit: '%'},
+      ],
+      productDescription: `
+        It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English.
+
+
+        It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English.
+      `,
+      productTokenUnit: 'ETH',
+    },
+    {
+      productTitle: 'BITYO 經典成長型保險',
+      productProfile: './images/profile-Vincent.png',
+      productDatas: [
+        {name: 'Locked', value: '3000', unit: 'hours'}, 
+        {name: 'Reward', value: '30', unit: '%'},
+        {name: 'Reward', value: '30', unit: '%'},
+      ],
+      productDescription: `
+        It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English.
+
+
+        It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English.
+      `,
+      productTokenUnit: 'ETH',
+    },
+  ];
+
 
   return (
-    <Provider>
+    <Provider autoConnect connectors={connectors}>
       <div className="App min-vh-100 d-flex flex-column justify-content-between">
         {/* ✏️ Edit the header and change the title to your project name */}
         <BityoHeader>
@@ -358,61 +486,16 @@ function App(props) {
             </div>
           </nav>
           <div>
-            {/* <CoonectButton
-              // useBurner={USE_BURNER_WALLET}
-              // address={address}
-              // localProvider={localProvider}
-              // userSigner={userSigner}
-              // mainnetProvider={mainnetProvider}
-              // price={price}
-              web3Modal={web3Modal}
-              loadWeb3Modal={loadWeb3Modal}
-              logoutOfWeb3Modal={logoutOfWeb3Modal}
-              // blockExplorer={blockExplorer}
-            /> */}
+            <CoonectButton
+              // web3Modal={web3Modal}
+              // loadWeb3Modal={loadWeb3Modal}
+              // logoutOfWeb3Modal={logoutOfWeb3Modal}
+            />
           </div>
-        </BityoHeader>
+      </BityoHeader>
 
         {/* 👨‍💼 Your account is in the top right with a wallet at connect options */}
-        {/* <Header>
-            <div className="d-flex align-items-center">
-              {USE_NETWORK_SELECTOR && (
-                <div style={{ marginRight: 20 }}>
-                  <NetworkSwitch
-                    networkOptions={networkOptions}
-                    selectedNetwork={selectedNetwork}
-                    setSelectedNetwork={setSelectedNetwork}
-                  />
-                </div>
-              )}
-              <Account
-                className="h6"
-                useBurner={USE_BURNER_WALLET}
-                address={address}
-                localProvider={localProvider}
-                userSigner={userSigner}
-                mainnetProvider={mainnetProvider}
-                price={price}
-                web3Modal={web3Modal}
-                loadWeb3Modal={loadWeb3Modal}
-                logoutOfWeb3Modal={logoutOfWeb3Modal}
-                blockExplorer={blockExplorer}
-              />
-              {yourLocalBalance.lte(ethers.BigNumber.from("0")) && (
-                <FaucetHint localProvider={localProvider} targetNetwork={targetNetwork} address={address} />
-              )}
-            </div>
-        </Header> */}
 
-        {/* <NetworkDisplay
-          NETWORKCHECK={NETWORKCHECK}
-          localChainId={localChainId}
-          selectedChainId={selectedChainId}
-          targetNetwork={targetNetwork}
-          logoutOfWeb3Modal={logoutOfWeb3Modal}
-          USE_NETWORK_SELECTOR={USE_NETWORK_SELECTOR}
-        /> */}
-        
         <main className="d-flex flex-column flex-fill" >
           <Switch>
             <Route path="/index">
@@ -424,103 +507,44 @@ function App(props) {
             </Route>
             <Route path="/Market">
               <Market
+                head={(() => {
+                  return (
+                    <>
+                    <AccountDashboard/>
+                    </>
+                  )
+                })()}
+                body={productCards.map((data, index) => (
+                  <div key={index} className="col-12 col-sm-10 offset-sm-1 col-xl-6 offset-xl-0"><ProductCard                      
+                    productTitle={data.productTitle}
+                    productProfile={data.productProfile}
+                    productDatas={data.productDatas}
+                    productDescription={data.productDescription}
+                    productTokenUnit={data.productTokenUnit}
+                    ></ProductCard></div>
+                ))}
               >
-                <div className="col-12 col-sm-10 offset-sm-1 col-xl-6 offset-xl-0"><ProductCard
-                  key="1"
-                  productTitle="成長型保險"
-                  productProfile="./images/profile-Vincent.png"
-                  productDatas={[
-                    {name: 'Locked', value: '3000', unit: 'hours'}, 
-                    {name: 'Reward', value: '30', unit: '%'},
-                    {name: 'Reward', value: '30', unit: '%'},
-                  ]}
-                  productDescription={`
-                    It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English.<br/><br/>
-                    It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English.
-                  `}
-                  productTokenUnit="ETH"
-                  ></ProductCard></div>
-                <div className="col-12 col-sm-10 offset-sm-1 col-xl-6 offset-xl-0"><ProductCard
-                  key={2}
-                  productTitle="成長型保險"
-                  productProfile="./images/profile-Vincent.png"
-                  productDatas={[
-                    {name: 'Locked', value: '3000', unit: 'hours'}, 
-                    {name: 'Reward', value: '30', unit: '%'},
-                    {name: 'Reward', value: '30', unit: '%'},
-                  ]}
-                  productDescription={`
-                    It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English.<br/><br/>
-                    It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English.
-                  `}
-                  productTokenUnit="ETH"
-                  ></ProductCard></div>
-                <div className="col-12 col-sm-10 offset-sm-1 col-xl-6 offset-xl-0"><ProductCard
-                  key="3"
-                  productTitle="成長型保險"
-                  productProfile="./images/profile-Vincent.png"
-                  productDatas={[
-                    {name: 'Locked', value: '3000', unit: 'hours'}, 
-                    {name: 'Reward', value: '30', unit: '%'},
-                    {name: 'Reward', value: '30', unit: '%'},
-                  ]}
-                  productDescription={`
-                    It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English.<br/><br/>
-                    It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English.
-                  `}
-                  productTokenUnit="ETH"
-                  ></ProductCard></div>
-                <div className="col-12 col-sm-10 offset-sm-1 col-xl-6 offset-xl-0"><ProductCard
-                  key="4"
-                  productTitle="成長型保險"
-                  productProfile="./images/profile-Vincent.png"
-                  productDatas={[
-                    {name: 'Locked', value: '3000', unit: 'hours'}, 
-                    {name: 'Reward', value: '30', unit: '%'},
-                    {name: 'Reward', value: '30', unit: '%'},
-                  ]}
-                  productDescription={`
-                    It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English.<br/><br/>
-                    It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English.
-                  `}
-                  productTokenUnit="ETH"
-                ></ProductCard></div>
               </Market>
             </Route>
             <Route path="/Assets">
               <Assets
-              
+                head={(() => {
+                  return (
+                    <>
+                    <AccountDashboard/>
+                    </>
+                  )
+                })()}
+                body={productCards.map((data, index) => (
+                  <div key={index} className="col-12 col-sm-10 offset-sm-1 col-xl-6 offset-xl-0"><AssetCard                      
+                    productTitle={data.productTitle}
+                    productProfile={data.productProfile}
+                    productDatas={data.productDatas}
+                    productDescription={data.productDescription}
+                    productTokenUnit={data.productTokenUnit}
+                    ></AssetCard></div>
+                ))}
               >
-                <div className="col-12 col-sm-10 offset-sm-1 col-xl-6 offset-xl-0"><AssetCard
-                  key="1"
-                  productTitle="成長型保險"
-                  productProfile="./images/profile-Vincent.png"
-                  productDatas={[
-                    {name: 'Countdown', value: '3000', unit: 'hours'}, 
-                    {name: 'Cost', value: '30', unit: 'ETH'},
-                    {name: 'APY', value: '120', unit: '%'},
-                  ]}
-                  productDescription={`
-                    It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English.<br/><br/>
-                    It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English.
-                  `}
-                  productTokenUnit="ETH"
-                  ></AssetCard></div>
-                  <div className="col-12 col-sm-10 offset-sm-1 col-xl-6 offset-xl-0"><AssetCard
-                  key="1"
-                  productTitle="成長型保險"
-                  productProfile="./images/profile-Vincent.png"
-                  productDatas={[
-                    {name: 'Countdown', value: '3000', unit: 'hours'}, 
-                    {name: 'Cost', value: '30', unit: 'ETH'},
-                    {name: 'APY', value: '120', unit: '%'},
-                  ]}
-                  productDescription={`
-                    It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English.<br/><br/>
-                    It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English.
-                  `}
-                  productTokenUnit="ETH"
-                  ></AssetCard></div>
               </Assets>
             </Route>
             <Redirect from="/" to="/index" />
@@ -542,10 +566,9 @@ function App(props) {
         </main>
 
         <BityoFooter/>
-
-      </div>
+              
+    </div>
     </Provider>
-    
   );
 }
 
