@@ -24,43 +24,17 @@ contract StakingRewards {
     
     // IERC20(0xdAC17F958D2ee523a2206206994597C13D831ec7); // USDT
 
-    uint public rewardRate = 100;  
-    uint public lastUpdateTime;
-    uint public rewardPerTokenStored;
-
-
+    // NFT的ID => 不同項目
+    mapping(uint => uint) public userRewardPerTokenPaidByNFT;
+    mapping(uint => uint) public rewardsByNFT; 
+    mapping(uint => uint) private _balancesByNFT;
+    mapping(uint => uint) private _createTime;
+    mapping(uint => uint) private _lastStakeTime;
 
     constructor(address _stakingToken, address _rewardsToken,address _NftToken) {
         stakingToken = IERC20(_stakingToken);
         rewardsToken = IERC20(_rewardsToken);
         NftToken = IERC721(_NftToken);
-    }
-
-    function rewardPerToken() public view returns (uint) {
-        if (_totalSupply == 0) {
-            return rewardPerTokenStored;
-        }
-        return
-            rewardPerTokenStored +
-            (((block.timestamp - lastUpdateTime) * rewardRate * 1e18) / _totalSupply);
-    }
-
-    function timediff()public view returns(uint) {
-        return block.timestamp - lastUpdateTime;
-    }
-
-    uint256 _totalSupply;
-
-    // NFT的ID
-    mapping(uint => uint) public userRewardPerTokenPaidByNFT;
-    mapping(uint => uint) public rewardsByNFT; 
-    mapping(uint => uint) private _balancesByNFT;
-
-    function earnedByNft(uint NftID) public view returns (uint) {
-        return
-            ((_balancesByNFT[NftID] *
-                (rewardPerToken() - userRewardPerTokenPaidByNFT[NftID])) / 1e18) +
-            rewardsByNFT[NftID];
     }
 
     modifier onlyNftOwner(uint NftID) {
@@ -69,36 +43,49 @@ contract StakingRewards {
     }
 
     // 存款
-    function stakeByNft(uint _amount , uint NftID) external onlyNftOwner(NftID) updateRewardByNft(NftID) {
-        _totalSupply += _amount;
+    function stakeByNft(uint _amount , uint NftID) external onlyNftOwner(NftID) {
         _balancesByNFT[NftID] += _amount;
         stakingToken.transferFrom(msg.sender, address(this), _amount);
+
+        // 第一筆存款時間
+        if ( _createTime[NftID] == 0) {
+            _createTime[NftID] = block.timestamp;
+        }
+
+        _lastStakeTime[NftID] = block.timestamp;
     }
 
+    // 年化:未換算成百分率
+    function interestRatePerYear(uint NftID) public view returns(uint256){
+        uint year = (block.timestamp - _createTime[NftID]) / 60 / 60 / 24 / 365 ; // 理想寫法是先算好(3153600)。
+        return (year + 30) ;  // 基礎利息 30  
+     }
 
-    // 提款
-    function withdrawByNft(uint _amount , uint NftID) external onlyNftOwner(NftID) updateRewardByNft(NftID) {
-        _totalSupply -= _amount;
+    // 實際利息:已經用百分率換算
+    function interset(uint NftID) public view returns(uint256){
+        return  _balancesByNFT[NftID]  * interestRatePerYear(NftID) / 100 - userRewardPerTokenPaidByNFT[NftID]; // per 100%
+    }
+
+    // 提款 冷靜閉鎖期1年
+    function withdrawByNft(uint _amount , uint NftID) external onlyNftOwner(NftID)  {
+
+        require(coolTime(NftID) >= 60*60*24*365);
         _balancesByNFT[NftID] -= _amount;
-        stakingToken.transfer(msg.sender, _amount);
+
+        uint reward = interset(NftID);
+        uint total = reward + _amount ; 
+        stakingToken.transfer(msg.sender, total);
     }
 
-    // 領獎
-    function getRewardByNft(uint NftID) external onlyNftOwner(NftID) updateRewardByNft(NftID) {
-        uint reward = rewardsByNFT[NftID];
-        rewardsByNFT[NftID] = 0;
-        rewardsToken.transfer(msg.sender, reward);
+    // 已經經過多久
+    function coolTime(uint NftID) public view returns(uint256) {
+        return ( block.timestamp - _lastStakeTime[NftID]);
     }
 
-    modifier updateRewardByNft(uint NftID) {
-        rewardPerTokenStored = rewardPerToken();
-        lastUpdateTime = block.timestamp;
-
-        rewardsByNFT[NftID] = earnedByNft(NftID);
-        userRewardPerTokenPaidByNFT[NftID] = rewardPerTokenStored;
-        _;
+    // 資產
+    function cost(uint NftID) public view returns(uint256) {
+        return _balancesByNFT[NftID] +  interset(NftID);
     }
-
 
     // mapping(address => uint) public userRewardPerTokenPaid;
     // mapping(address => uint) public rewards;
