@@ -32,7 +32,8 @@ contract BitYO  is ERC721Enumerable, Ownable {
 
     mapping(uint256 => string) private _tokenURIs;
 
-    constructor(string memory initBaseURI, string memory initNotRevealedUri)
+    // string memory initBaseURI, string memory initNotRevealedUri;
+    constructor()
 
         ERC721("BIO_YO", "BY") 
     {
