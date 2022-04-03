@@ -3,6 +3,8 @@ pragma solidity ^0.8;
 
 import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
+import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
+import "@openzeppelin/contracts/token/ERC721/IERC721.sol";
 
 //  質押代幣領息
 //  1.質押領息,持有NFT需要存款 or 一開始購買NFT就自動存入一筆錢
@@ -18,16 +20,14 @@ import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
 contract StakingRewards {
     IERC20 public rewardsToken;
     IERC20 public stakingToken;
+    IERC721 public NFT = IERC721(0xd9145CCE52D386f254917e481eB44e9943F39138);
+    // IERC20(0xdAC17F958D2ee523a2206206994597C13D831ec7); // USDT
 
     uint public rewardRate = 100;  
     uint public lastUpdateTime;
     uint public rewardPerTokenStored;
 
-    mapping(address => uint) public userRewardPerTokenPaid;
-    mapping(address => uint) public rewards;
 
-    uint private _totalSupply;
-    mapping(address => uint) private _balances;
 
     constructor(address _stakingToken, address _rewardsToken) {
         stakingToken = IERC20(_stakingToken);
@@ -43,42 +43,90 @@ contract StakingRewards {
             (((block.timestamp - lastUpdateTime) * rewardRate * 1e18) / _totalSupply);
     }
 
-    function earned(address account) public view returns (uint) {
-        return
-            ((_balances[account] *
-                (rewardPerToken() - userRewardPerTokenPaid[account])) / 1e18) +
-            rewards[account];
+    function timediff()public view returns(uint) {
+        return block.timestamp - lastUpdateTime;
     }
 
-    modifier updateReward(address account) {
-        rewardPerTokenStored = rewardPerToken();
-        lastUpdateTime = block.timestamp;
+    uint256 _totalSupply;
 
-        rewards[account] = earned(account);
-        userRewardPerTokenPaid[account] = rewardPerTokenStored;
+    // NFT的ID
+    mapping(uint => uint) public userRewardPerTokenPaidByNFT;
+    mapping(uint => uint) public rewardsByNFT; 
+    mapping(uint => uint) private _balancesByNFT;
+
+    function earnedByNft(uint NftID) public view returns (uint) {
+        return
+            ((_balancesByNFT[NftID] *
+                (rewardPerToken() - userRewardPerTokenPaidByNFT[NftID])) / 1e18) +
+            rewardsByNFT[NftID];
+    }
+
+    modifier onlyNftOwner(uint NftID) {
+        require ( msg.sender == NFT.ownerOf(NftID) , "not this NFT owner");
         _;
     }
 
-    function stake(uint _amount) external updateReward(msg.sender) {
-        // 限定每筆需要存多少錢 or 當購買NFT時自動轉入錢
-        // 存到的地址需要改成認NFT
-
+    function stakeByNft(uint _amount , uint NftID) external onlyNftOwner(NftID) updateRewardByNft(NftID) {
         _totalSupply += _amount;
-        _balances[msg.sender] += _amount;
+        _balancesByNFT[NftID] += _amount;
         stakingToken.transferFrom(msg.sender, address(this), _amount);
     }
 
-    function withdraw(uint _amount) external updateReward(msg.sender) {
-        // 提領的地址限定NFT
-
+    function withdrawByNft(uint _amount , uint NftID) external onlyNftOwner(NftID) updateRewardByNft(NftID) {
         _totalSupply -= _amount;
-        _balances[msg.sender] -= _amount;
+        _balancesByNFT[NftID] -= _amount;
         stakingToken.transfer(msg.sender, _amount);
     }
 
-    function getReward() external updateReward(msg.sender) {
-        uint reward = rewards[msg.sender];
-        rewards[msg.sender] = 0;
-        rewardsToken.transfer(msg.sender, reward);
+    modifier updateRewardByNft(uint NftID) {
+        rewardPerTokenStored = rewardPerToken();
+        lastUpdateTime = block.timestamp;
+
+        rewardsByNFT[NftID] = earnedByNft(NftID);
+        userRewardPerTokenPaidByNFT[NftID] = rewardPerTokenStored;
+        _;
     }
+
+
+    // mapping(address => uint) public userRewardPerTokenPaid;
+    // mapping(address => uint) public rewards;
+
+    // uint public _totalSupply;
+    // mapping(address => uint) private _balances;
+
+    //     function earned(address account) public view returns (uint) {
+    //     return
+    //         ((_balances[account] *
+    //             (rewardPerToken() - userRewardPerTokenPaid[account])) / 1e18) +
+    //         rewards[account];
+    // }
+
+    // modifier updateReward(address account) {
+    //     rewardPerTokenStored = rewardPerToken();
+    //     lastUpdateTime = block.timestamp;
+
+    //     rewards[account] = earned(account);
+    //     userRewardPerTokenPaid[account] = rewardPerTokenStored;
+    //     _;
+    // }
+
+    // function stake(uint _amount) external updateReward(msg.sender) {
+    //     _totalSupply += _amount;
+    //     _balances[msg.sender] += _amount;
+    //     stakingToken.transferFrom(msg.sender, address(this), _amount);
+    // }
+
+    // function withdraw(uint _amount) external updateReward(msg.sender) {
+    //     _totalSupply -= _amount;
+    //     _balances[msg.sender] -= _amount;
+    //     stakingToken.transfer(msg.sender, _amount);
+    // }
+
+    // function getReward() external updateReward(msg.sender) {
+    //     uint reward = rewards[msg.sender];
+    //     rewards[msg.sender] = 0;
+    //     rewardsToken.transfer(msg.sender, reward);
+    // }
+
+
 }
