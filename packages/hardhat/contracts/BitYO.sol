@@ -6,18 +6,22 @@ import "@openzeppelin/contracts/token/ERC721/extensions/ERC721Enumerable.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
 import "@openzeppelin/contracts/utils/Strings.sol";
 
+// import "./stakingReward.sol";
 
 //  鑄造價格 0.3 eth
 //  需要設定鑄造合約指向的存款合約(stackContract)
 //  鑄造時，自動向指定合約轉入 0.2 存入合約
 
-contract BitYO  is ERC721Enumerable, Ownable {
+contract BIO_YO  is ERC721Enumerable, Ownable {
     using Strings for uint256;
+
+    // bool public _isSaleActive = true;
+    // bool public _revealed = true;
 
     // Constants
     uint256 public constant MAX_SUPPLY = 50;
     //可以被挖到的NFT總量，總發行量50
-    uint256 public mintPrice = 200000000 ;
+    uint256 public mintPrice = 300000000 gwei;
     //鑄造MINT價格0.3
     uint256 public maxBalance = 1;
     //每隔帳戶可以擁有一顆 每次可以MINT一顆
@@ -32,13 +36,12 @@ contract BitYO  is ERC721Enumerable, Ownable {
 
     mapping(uint256 => string) private _tokenURIs;
 
-    // string memory initBaseURI, string memory initNotRevealedUri;
-    constructor()
+    constructor(string memory initBaseURI, string memory initNotRevealedUri)
 
         ERC721("BIO_YO", "BY") 
     {
-        setBaseURI("https://ibb.co/gDn9x9C");
-        setNotRevealedURI("https://ibb.co/gDn9x9C");
+        setBaseURI(initBaseURI);
+        setNotRevealedURI(initNotRevealedUri);
     }
 
     //鑄造NFT
