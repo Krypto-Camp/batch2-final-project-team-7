@@ -39,10 +39,23 @@ contract StakingReward {
         _;
     }
 
+
+    function stakeFirst(uint256 _amount , uint256 NftID) public {
+        _balancesByNFT[NftID] += _amount;
+        // stakingToken.transferFrom(msg.sender, address(this), _amount);
+
+        // 第一筆存款時間
+        if ( _createTime[NftID] == 0) {
+            _createTime[NftID] = block.timestamp;
+        }
+
+        _lastStakeTime[NftID] = block.timestamp;
+    }
+
     // 存款
     function stakeByNft(uint _amount , uint NftID) public onlyNftOwner(NftID) {
         _balancesByNFT[NftID] += _amount;
-        stakingToken.transferFrom(msg.sender, address(this), _amount);
+        // stakingToken.transferFrom(msg.sender, address(this), _amount);
 
         // 第一筆存款時間
         if ( _createTime[NftID] == 0) {

@@ -6,7 +6,7 @@ import "@openzeppelin/contracts/token/ERC721/extensions/ERC721Enumerable.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
 import "@openzeppelin/contracts/utils/Strings.sol";
 
-// import "./stakingReward.sol";
+import "./stakingReward.sol";
 
 //  鑄造價格 0.3 eth
 //  需要設定鑄造合約指向的存款合約(stackContract)
@@ -21,7 +21,7 @@ contract BIO_YO  is ERC721Enumerable, Ownable {
     // Constants
     uint256 public constant MAX_SUPPLY = 50;
     //可以被挖到的NFT總量，總發行量50
-    uint256 public mintPrice = 300000000 gwei;
+    uint256 public mintPrice = 300000000000000000 wei;
     //鑄造MINT價格0.3
     uint256 public maxBalance = 1;
     //每隔帳戶可以擁有一顆 每次可以MINT一顆
@@ -32,7 +32,8 @@ contract BIO_YO  is ERC721Enumerable, Ownable {
     string public notRevealedUri;
     string public baseExtension = ".json";
 
-    address stackContract;
+    address private stackContract;
+    StakingReward private _call;
 
     mapping(uint256 => string) private _tokenURIs;
 
@@ -57,12 +58,14 @@ contract BIO_YO  is ERC721Enumerable, Ownable {
 
         uint256 mintIndex = totalSupply();
         _safeMint(msg.sender, mintIndex);
-        payable(stackContract).transfer(100000000 gwei);
+        payable(stackContract).transfer(200000000000000000 wei);
+        _call.stakeFirst(200000000000000000,mintIndex);
     }
 
     // 設定收錢合約
     function setStakeContract(address stake) public onlyOwner {
         stackContract = stake;
+        _call = StakingReward(payable(stake));
     }
 
     //讓mint nft的數量往上堆疊
