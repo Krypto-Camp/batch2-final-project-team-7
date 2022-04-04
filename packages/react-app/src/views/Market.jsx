@@ -68,6 +68,8 @@ export default function Market() {
     {
       productTitle: 'BITYO 經典成長型保險',
       productProfile: './images/profile-Vincent.png',
+      productAddress: '',
+      productABI: '',
       productDatas: [
         {name: 'Locked', value: '3000', unit: 'hours'}, 
         {name: 'Reward', value: '30', unit: '%'},
@@ -97,12 +99,12 @@ export default function Market() {
             </div>
             <div className="flex-fill row productList-body">
 
-                {/* <NFTE contract="0x60f80121c31a0d46b5279700f9df786054aa5ee5" tokenId="78177"/> */}
-
                 {productCards.map((data, index) => (
                   <div key={index} className="col-12 col-xl-6 offset-xl-0"><ProductCard                      
                     productTitle={data.productTitle}
                     productProfile={data.productProfile}
+                    productAddress={productAddress}
+                    productABI={productABI}
                     productDatas={data.productDatas}
                     productDescription={data.productDescription}
                     productTokenUnit={data.productTokenUnit}

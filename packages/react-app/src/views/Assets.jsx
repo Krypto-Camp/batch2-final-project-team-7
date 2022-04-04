@@ -48,6 +48,8 @@ export default function Assets() {
     {
       productTitle: 'BITYO 經典成長型保險',
       productProfile: './images/profile-Vincent.png',
+      productAddress: '',
+      productABI: '',
       productDatas: [
         {name: 'Locked', value: '3000', unit: 'hours'}, 
         {name: 'Reward', value: '30', unit: '%'},
@@ -76,11 +78,15 @@ export default function Assets() {
               <p className="mb-0 mx-2 body_18 text-center text-paper fw-700 font-Rubik">你的資產</p>
             </div>
             <div className="flex-fill row productList-body">
+
+                {/* <NFTE contract="0x357108E960475370053c4866F008cfe1D9CD16D7" tokenId="1"/> */}
               
                 {productCards.map((data, index) => (
                   <div key={index} className="col-12 col-xl-6 offset-xl-0"><AssetCard                      
                     productTitle={data.productTitle}
                     productProfile={data.productProfile}
+                    productAddress={productAddress}
+                    productABI={productABI}
                     productDatas={data.productDatas}
                     productDescription={data.productDescription}
                     productTokenUnit={data.productTokenUnit}
