@@ -103,8 +103,8 @@ export default function Market() {
                   <div key={index} className="col-12 col-xl-6 offset-xl-0"><ProductCard                      
                     productTitle={data.productTitle}
                     productProfile={data.productProfile}
-                    productAddress={productAddress}
-                    productABI={productABI}
+                    productAddress={data.productAddress}
+                    productABI={data.productABI}
                     productDatas={data.productDatas}
                     productDescription={data.productDescription}
                     productTokenUnit={data.productTokenUnit}
