@@ -17,26 +17,40 @@ module.exports = async ({ getNamedAccounts, deployments, getChainId }) => {
   const { deployer } = await getNamedAccounts();
   const chainId = await getChainId();
 
-  await deploy("YourContract", {
+  // await deploy("YourContract", {
+  //   // Learn more about args here: https://www.npmjs.com/package/hardhat-deploy#deploymentsdeploy
+  //   from: deployer,
+  //   // args: [ "Hello", ethers.utils.parseEther("1.5") ],
+  //   log: true,
+  //   waitConfirmations: 5,
+  // });
+
+  // // Getting a previously deployed contract
+  // const YourContract = await ethers.getContract("YourContract", deployer);
+
+  await deploy("BitYONFT", {
     // Learn more about args here: https://www.npmjs.com/package/hardhat-deploy#deploymentsdeploy
     from: deployer,
-    // args: [ "Hello", ethers.utils.parseEther("1.5") ],
+    args: [ "1","1" ],
     log: true,
     waitConfirmations: 5,
   });
 
-  // Getting a previously deployed contract
-  const YourContract = await ethers.getContract("YourContract", deployer);
+  const BitYONFT = await ethers.getContract("BitYONFT", deployer);
 
-  await deploy("BitYO", {
-    // Learn more about args here: https://www.npmjs.com/package/hardhat-deploy#deploymentsdeploy
-    from: deployer,
-    // args: [ "Hello", ethers.utils.parseEther("1.5") ],
-    log: true,
-    waitConfirmations: 5,
-  });
+  console.log(BitYONFT.address);
+  // await deploy("BitYOstakingRewards", {
+  //   // Learn more about args here: https://www.npmjs.com/package/hardhat-deploy#deploymentsdeploy
+  //   from: deployer,
+  //   args: [ BitYONFT.address , BitYONFT.address , BitYONFT.address],  // 暫時先這樣
+  //   log: true,
+  //   waitConfirmations: 5,
+  // });
 
-  const BitYO = await ethers.getContract("BitYO", deployer);
+  
+  // const BitYOstakingRewards = await ethers.getContract("BitYOstakingRewards", deployer);
+
+  // await BitYONFT.setStakeContract(BitYOstakingRewards.address);
 
   // await deploy("multiSignWallet", {
   //   // Learn more about args here: https://www.npmjs.com/package/hardhat-deploy#deploymentsdeploy

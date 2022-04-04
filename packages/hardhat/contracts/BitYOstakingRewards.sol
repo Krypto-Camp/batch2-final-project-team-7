@@ -14,7 +14,7 @@ import "@openzeppelin/contracts/token/ERC721/IERC721.sol";
 //  創建時，帶入 constructor(address _stakingToken, address _rewardsToken)  
 //  創建NFT的時候 會自動轉入錢eth
 
-contract StakingReward {
+contract BitYOstakingRewards {
     IERC20 public rewardsToken;
     IERC20 public stakingToken;
     IERC721 public NftToken ;
@@ -28,10 +28,12 @@ contract StakingReward {
     mapping(uint => uint) private _createTime;
     mapping(uint => uint) private _lastStakeTime;
 
+    address private nftaddress;
     constructor(address _stakingToken, address _rewardsToken,address _NftToken) {
         stakingToken = IERC20(_stakingToken);
         rewardsToken = IERC20(_rewardsToken);
         NftToken = IERC721(_NftToken);
+        nftaddress = _NftToken;
     }
 
     modifier onlyNftOwner(uint NftID) {
@@ -39,29 +41,19 @@ contract StakingReward {
         _;
     }
 
-
-    function stakeFirst(uint256 _amount , uint256 NftID) public {
+    // 首次購買NFT時用
+    // 只能被NFT的合約調用
+    function stakeFirst(uint256 _amount , uint256 NftID) external {
+        require( _createTime[NftID] == 0 );
+        require( msg.sender == nftaddress); 
         _balancesByNFT[NftID] += _amount;
-        // stakingToken.transferFrom(msg.sender, address(this), _amount);
-
-        // 第一筆存款時間
-        if ( _createTime[NftID] == 0) {
-            _createTime[NftID] = block.timestamp;
-        }
-
-        _lastStakeTime[NftID] = block.timestamp;
+        _createTime[NftID] = block.timestamp;
+        _lastStakeTime[NftID] = _createTime[NftID];
     }
 
     // 存款
     function stakeByNft(uint _amount , uint NftID) public onlyNftOwner(NftID) {
         _balancesByNFT[NftID] += _amount;
-        // stakingToken.transferFrom(msg.sender, address(this), _amount);
-
-        // 第一筆存款時間
-        if ( _createTime[NftID] == 0) {
-            _createTime[NftID] = block.timestamp;
-        }
-
         _lastStakeTime[NftID] = block.timestamp;
     }
 
