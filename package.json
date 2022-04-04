@@ -73,11 +73,19 @@
   "dependencies": {
     "@nfte/react": "^1.0.4",
     "bootstrap": "^5.1.3",
-    "ethers": "^5.6.2",
     "gh-pages": "^3.2.3",
     "wagmi": "^0.2.24"
   },
   "devDependencies": {
+    "@nomiclabs/hardhat-ethers": "^2.0.5",
+    "@nomiclabs/hardhat-etherscan": "^3.0.3",
+    "@nomiclabs/hardhat-waffle": "^2.0.3",
+    "@openzeppelin/contracts": "^4.5.0",
+    "@supercharge/filesystem": "^2.3.0",
+    "chai": "^4.3.6",
+    "ethereum-waffle": "^3.4.4",
+    "ethers": "^5.6.2",
+    "hardhat": "^2.9.2",
     "husky": "^7.0.2"
   }
 }
