@@ -1,5 +1,13 @@
 import React from "react";
-import { Link, NavLink, Redirect, Route, Switch, useLocation } from "react-router-dom";
+import { 
+  Link,
+  NavLink,
+  Redirect,
+  Route,
+  Switch,
+  useLocation 
+} from "react-router-dom";
+
 import {
   ProductCard,
   AccountDashboard,
@@ -8,6 +16,20 @@ import {
   BityoHeader,
   CoonectButton,
 } from "../components";
+
+import { 
+  Provider, 
+  chain, 
+  defaultChains,
+  useAccount,
+  useConnect,
+  useProvider,
+  useBalance,
+  useNetwork,
+  useContract,
+  useContractRead,
+  useContractWrite,
+} from "wagmi";
 
 import { config } from "../contracts";
 import { NFTE } from '@nfte/react';
