@@ -12,7 +12,6 @@ import {
 
 import { config } from "../contracts";
 
-
 export default function AccountDashboard({
 }) {
 

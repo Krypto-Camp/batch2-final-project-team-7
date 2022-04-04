@@ -9,7 +9,22 @@ import {
   CoonectButton,
 } from "../components";
 
+import { config } from "../contracts";
+import { NFTE } from '@nfte/react';
+
 export default function Market() {
+
+  const [{ data: networkData }, switchNetwork] = useNetwork();
+  const provider = useProvider();
+
+  // const [{ productOnlin  set] = useState([]);
+
+
+  if (networkData && networkData.chain) {
+    console.log(networkData.chain.id, networkData.chain.name.toLocaleLowerCase());
+    console.log(config[networkData.chain.id][networkData.chain.name.toLocaleLowerCase()]);
+
+  }
 
   const productCards = [
     {
@@ -43,7 +58,9 @@ export default function Market() {
               <p className="mb-0 mx-2 body_18 text-center text-paper fw-700 font-Rubik">產品市集</p>
             </div>
             <div className="flex-fill row productList-body">
-              
+
+                {/* <NFTE contract="0x60f80121c31a0d46b5279700f9df786054aa5ee5" tokenId="78177"/> */}
+
                 {productCards.map((data, index) => (
                   <div key={index} className="col-12 col-xl-6 offset-xl-0"><ProductCard                      
                     productTitle={data.productTitle}

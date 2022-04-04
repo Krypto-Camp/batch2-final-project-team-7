@@ -9,7 +9,18 @@ import {
   CoonectButton,
 } from "../components";
 
+import { config } from "../contracts";
+import { NFTE } from '@nfte/react';
+
 export default function Assets() {
+
+  const [{ data: networkData }, switchNetwork] = useNetwork();
+  const provider = useProvider();
+  
+  if (networkData && networkData.chain) {
+    console.log(networkData.chain.id, networkData.chain.name.toLocaleLowerCase());
+    console.log(config[networkData.chain.id][networkData.chain.name.toLocaleLowerCase()]);
+  }
 
   const productCards = [
     {
