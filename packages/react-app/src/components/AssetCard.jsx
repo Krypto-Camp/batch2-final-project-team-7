@@ -4,7 +4,6 @@ import {
   Redirect, Route, Switch, 
   useLocation, useParams, useRouteMatch 
 } from "react-router-dom";
-// displays a page header
 import { 
   useAccount,
   useConnect,
@@ -15,8 +14,6 @@ import {
   useContractRead,
   useContractWrite,
 } from 'wagmi'
-
-import { testToken } from "../contracts";
 
 export default function AssetCard(props) {
   const {productTitle, productProfile, productDatas, productDescription, productTokenUnit} = props;

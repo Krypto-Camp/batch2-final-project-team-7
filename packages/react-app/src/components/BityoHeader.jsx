@@ -1,7 +1,5 @@
 import React from "react";
 
-// displays a page header
-
 export default function BityoHeader(props) {
   return (
     <header className="header">

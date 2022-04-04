@@ -1,7 +1,5 @@
 import React from "react";
 
-// displays a page header
-
 export default function BityoFooter(props) {
   return (
     <footer className="footer position-fixed w-100 bottom-0 start-50 translate-middle-x bg-black">

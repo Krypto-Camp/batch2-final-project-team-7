@@ -6,33 +6,13 @@ import { InjectedConnector } from "wagmi/connectors/injected";
 import { WalletConnectConnector } from "wagmi/connectors/walletConnect";
 import { WalletLinkConnector } from "wagmi/connectors/walletLink";
 
-/* Ethereum Hooks｜取得主網上的資訊 - start */
-// 也因此 console.log 才會一直跳東西出來
-// import {
-//   useBalance,
-//   useContractLoader, // 載入合約
-//   useContractReader, // 閱讀合約
-//   useGasPrice,
-//   useOnBlock,
-//   useUserProviderAndSigner,
-// } from "eth-hooks";
-import { useExchangeEthPrice } from "eth-hooks/dapps/dex";
+// import { useExchangeEthPrice } from "eth-hooks/dapps/dex";
 /* end */
 
 /* React 相關 - start */
 import React, { useCallback, useEffect, useState } from "react";
 import { Link, NavLink, Redirect, Route, Switch, useLocation } from "react-router-dom";
 import {
-  // Account,
-  // Contract,
-  // Faucet,
-  // GasGauge,
-  // Header,
-  // Ramp,
-  // ThemeSwitch,
-  // NetworkDisplay,
-  // FaucetHint,
-  // NetworkSwitch,
   ProductCard,
   AccountDashboard,
   AssetCard,
@@ -41,6 +21,7 @@ import {
   CoonectButton,
 } from "./components";
 
+import 'dotenv';
 
 import { NETWORKS, ALCHEMY_KEY, INFURA_ID } from "./constants"; // 常數們
 import externalContracts from "./contracts/external_contracts";
@@ -51,7 +32,7 @@ import {
 
 /* contracts 相關 - start */
 import deployedContracts from "./contracts/hardhat_contracts.json";
-// web3modal 是一個能夠連結所有錢包（ETH 節點）的解決方案｜https://www.npmjs.com/package/web3modal
+
 import { Transactor, Web3ModalSetup } from "./helpers"; 
 import { useStaticJsonRPC } from "./hooks";
 /* end */
@@ -66,14 +47,10 @@ import "./App.css";
 import { providers } from "ethers";
 
 
-const initialNetwork = NETWORKS.rinkeby;
+const initialNetwork = NETWORKS.localhost;
+// localhost rinkeby
 
-// 😬 Sorry for all the console logging
-// const DEBUG = true;
-// const NETWORKCHECK = true;
-// const USE_BURNER_WALLET = true; // toggle burner wallet feature｜https://www.xdaichain.com/for-users/wallets/burner-wallet
-// const USE_NETWORK_SELECTOR = true; // <Accounct> 介面是否出現 "網路選擇" 下拉選單
-
+// web3modal 是一個能夠連結所有錢包（ETH 節點）的解決方案｜https://www.npmjs.com/package/web3modal
 // const web3Modal = Web3ModalSetup();
 
 // 🛰 providers
@@ -137,15 +114,17 @@ function App(props) {
       // }),
     ]
   }
-  const provider = ({ chainId, connector }) =>
-    chainId == 31337
+
+  const provider = ({ chainId, connector }) => {
+    return targetNetwork.name == 'localhost'
     ? new providers.JsonRpcProvider(
-        connector?.chains.find((x) => x.id == 31337)?.rpcUrls[0]
+        connector?.chains.find((x) => x.id == chainId)?.rpcUrls[0]
       )
     : providers.getDefaultProvider(
       chainId
     );
-
+  }
+    
   // ████████████████████████████████████████████████████████████████████████████████████
 
   ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -333,20 +312,7 @@ function App(props) {
               </Assets>
             </Route>
             <Redirect from="/" to="/index" />
-            {/* <Route path="/bi">
-              <Bi
-                address={address}
-                userSigner={userSigner}
-                mainnetProvider={mainnetProvider}
-                localProvider={localProvider}
-                yourLocalBalance={yourLocalBalance}
-                price={price}
-                tx={tx}
-                writeContracts={writeContracts}
-                readContracts={readContracts}
-                purpose={purpose}
-              />
-            </Route> */}
+            
           </Switch>
         </main>
 

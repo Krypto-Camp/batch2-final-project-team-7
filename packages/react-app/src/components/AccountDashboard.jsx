@@ -8,16 +8,12 @@ import {
   useContract,
   useContractRead,
   useContractWrite,
-} from 'wagmi'
+} from 'wagmi';
 
-import { testToken } from "../contracts";
+import { config } from "../contracts";
 
-// import { useThemeSwitcher } from "react-css-theme-switcher";
-// import Address from "../Address";
-// import Wallet from "../Wallet";
 
 export default function AccountDashboard({
-
 }) {
 
   const [{ data: connectData, error: connectError }, connect] = useConnect();
@@ -29,7 +25,6 @@ export default function AccountDashboard({
 
   const provider = useProvider();
 
-  // 只能取主網
   // https://gateway.ipfs.io/ipns/tokens.uniswap.org
   // https://www.rinkeby.io/#faucet
   const [{ data: balanceData, error: balanceError, loading: balanceLoading }, getBalance] = useBalance({
@@ -38,6 +33,12 @@ export default function AccountDashboard({
     // token: '0x73ccd44c48008a28d6566be7c792002ecd0fd9e6',
     watch: true,
   })
+
+  // console.log(networkData.chain.id, );
+  if (networkData && networkData.chain) {
+    console.log(networkData.chain.id, networkData.chain.name.toLocaleLowerCase());
+    console.log(config[networkData.chain.id][networkData.chain.name.toLocaleLowerCase()]);
+  }
 
   // const testTokenInstance = useContract({
   //   addressOrName: testToken.address,

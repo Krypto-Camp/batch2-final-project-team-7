@@ -1,14 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { useThemeSwitcher } from "react-css-theme-switcher";
 import { useAccount, useConnect, useNetwork } from 'wagmi'
-// import Address from "../Address";
-// import Wallet from "../Wallet";
 
 
 export default function CoonectButton({
-  // web3Modal,
-  // loadWeb3Modal,
-  // logoutOfWeb3Modal,
 }) {
   
   const logos = {
@@ -23,8 +18,6 @@ export default function CoonectButton({
   });
 
   const [{ data: networkData }, switchNetwork] = useNetwork();
-
-  // console.log(networkData.chain.id != 1);
 
   return (
     <div className="">
