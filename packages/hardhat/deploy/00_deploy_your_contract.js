@@ -31,7 +31,7 @@ module.exports = async ({ getNamedAccounts, deployments, getChainId }) => {
   await deploy("BitYONFT", {
     // Learn more about args here: https://www.npmjs.com/package/hardhat-deploy#deploymentsdeploy
     from: deployer,
-    args: [ "1","1" ],
+    args: [ "https://i.imgur.com/pcutwDe.jpg","https://i.imgur.com/pcutwDe.jpg" ],
     log: true,
     waitConfirmations: 5,
   });
@@ -42,12 +42,11 @@ module.exports = async ({ getNamedAccounts, deployments, getChainId }) => {
   await deploy("BitYOToken", {
     // Learn more about args here: https://www.npmjs.com/package/hardhat-deploy#deploymentsdeploy
     from: deployer,
-    args: [ "https://i.imgur.com/pcutwDe.jpg","https://i.imgur.com/pcutwDe.jpg" ],
     log: true,
     waitConfirmations: 5,
   });
 
-  const BitYOToken = await ethers.getContract("BitYONFT", deployer);
+  const BitYOToken = await ethers.getContract("BitYOToken", deployer);
 
   await deploy("BitYOstakingRewards", {
     // Learn more about args here: https://www.npmjs.com/package/hardhat-deploy#deploymentsdeploy

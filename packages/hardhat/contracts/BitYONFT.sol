@@ -12,7 +12,7 @@ import "./BitYOstakingRewards.sol";
 //  需要設定鑄造合約指向的存款合約(stackContract)
 //  鑄造時，自動向指定合約轉入 0.2 存入合約
 
-contract BIO_YO  is ERC721Enumerable, Ownable {
+contract BitYONFT  is ERC721Enumerable, Ownable {
     using Strings for uint256;
 
     // bool public _isSaleActive = true;
