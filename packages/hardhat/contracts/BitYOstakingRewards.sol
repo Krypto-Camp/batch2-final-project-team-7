@@ -52,7 +52,8 @@ contract BitYOstakingRewards {
     }
 
     // 存款
-    function stakeByNft(uint _amount , uint NftID) public onlyNftOwner(NftID) {
+    function stakeByNft(uint _amount , uint NftID) public payable onlyNftOwner(NftID) {
+        require( _amount <= msg.value, "Not enough ether sent" );
         _balancesByNFT[NftID] += _amount;
         _lastStakeTime[NftID] = block.timestamp;
     }
@@ -69,14 +70,15 @@ contract BitYOstakingRewards {
     }
 
     // 提款 冷靜閉鎖期1年
-    function withdrawByNft(uint _amount , uint NftID) external onlyNftOwner(NftID)  {
+    function withdrawByNft(uint NftID , address to) external onlyNftOwner(NftID)  {
 
-        require(coolTime(NftID) >= 60*60*24*365);
-        _balancesByNFT[NftID] -= _amount;
+        // require(coolTime(NftID) >= 60*60*24*365);
 
-        uint reward = interset(NftID);
-        uint total = reward + _amount ; 
-        stakingToken.transfer(msg.sender, total);
+        uint256 intersets = interset(NftID);
+        uint256 total = intersets + _balancesByNFT[NftID];
+        userRewardPerTokenPaidByNFT[NftID] = intersets;
+        _balancesByNFT[NftID] = 0;
+        payable(to).transfer(total);
     }
 
     // 已經經過多久
@@ -94,12 +96,15 @@ contract BitYOstakingRewards {
         return address(this).balance;
     }
 
+    receive() external payable {}
+    fallback() external payable {}
+
+
     // function deposit() public payable{
     // }
-    receive() external payable {}
-
+    
     // Fallback function is called when msg.data is not empty
-    fallback() external payable {}
+    
 
     // mapping(address => uint) public userRewardPerTokenPaid;
     // mapping(address => uint) public rewards;

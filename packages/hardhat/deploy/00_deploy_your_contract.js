@@ -32,26 +32,35 @@ module.exports = async ({ getNamedAccounts, deployments, getChainId }) => {
   await deploy("BitYONFT", {
     // Learn more about args here: https://www.npmjs.com/package/hardhat-deploy#deploymentsdeploy
     from: deployer,
-    args: [ "1","1" ],
+    args: [ "https://i.imgur.com/pcutwDe.jpg","https://i.imgur.com/pcutwDe.jpg" ],
     log: true,
     waitConfirmations: 5,
   });
 
   const BitYONFT = await ethers.getContract("BitYONFT", deployer);
 
-  console.log(BitYONFT.address);
-  // await deploy("BitYOstakingRewards", {
-  //   // Learn more about args here: https://www.npmjs.com/package/hardhat-deploy#deploymentsdeploy
-  //   from: deployer,
-  //   args: [ BitYONFT.address , BitYONFT.address , BitYONFT.address],  // 暫時先這樣
-  //   log: true,
-  //   waitConfirmations: 5,
-  // });
+   
+  await deploy("BitYOToken", {
+    // Learn more about args here: https://www.npmjs.com/package/hardhat-deploy#deploymentsdeploy
+    from: deployer,
+    log: true,
+    waitConfirmations: 5,
+  });
+
+  const BitYOToken = await ethers.getContract("BitYOToken", deployer);
+
+  await deploy("BitYOstakingRewards", {
+    // Learn more about args here: https://www.npmjs.com/package/hardhat-deploy#deploymentsdeploy
+    from: deployer,
+    args: [ BitYOToken.address , BitYOToken.address , BitYONFT.address],  // 暫時先這樣
+    log: true,
+    waitConfirmations: 5,
+  });
 
   
-  // const BitYOstakingRewards = await ethers.getContract("BitYOstakingRewards", deployer);
+  const BitYOstakingRewards = await ethers.getContract("BitYOstakingRewards", deployer);
 
-  // await BitYONFT.setStakeContract(BitYOstakingRewards.address);
+  await BitYONFT.setStakeContract(BitYOstakingRewards.address);
 
   // await deploy("multiSignWallet", {
   //   // Learn more about args here: https://www.npmjs.com/package/hardhat-deploy#deploymentsdeploy
