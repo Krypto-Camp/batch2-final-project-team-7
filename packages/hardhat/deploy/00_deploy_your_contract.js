@@ -28,6 +28,16 @@ module.exports = async ({ getNamedAccounts, deployments, getChainId }) => {
   // Getting a previously deployed contract
   const YourContract = await ethers.getContract("YourContract", deployer);
 
+  await deploy("BitYO", {
+    // Learn more about args here: https://www.npmjs.com/package/hardhat-deploy#deploymentsdeploy
+    from: deployer,
+    // args: [ "Hello", ethers.utils.parseEther("1.5") ],
+    log: true,
+    waitConfirmations: 5,
+  });
+
+  const BitYO = await ethers.getContract("BitYO", deployer);
+
   // await deploy("multiSignWallet", {
   //   // Learn more about args here: https://www.npmjs.com/package/hardhat-deploy#deploymentsdeploy
   //   from: deployer,
