@@ -16,7 +16,7 @@ import {
   useContractWrite,
 } from 'wagmi'
 
-import { testToken } from "../../contracts";
+import { testToken } from "../contracts";
 
 export default function AssetCard(props) {
   const {productTitle, productProfile, productDatas, productDescription, productTokenUnit} = props;

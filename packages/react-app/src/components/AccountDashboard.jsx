@@ -10,7 +10,7 @@ import {
   useContractWrite,
 } from 'wagmi'
 
-import { testToken } from "../../contracts";
+import { testToken } from "../contracts";
 
 // import { useThemeSwitcher } from "react-css-theme-switcher";
 // import Address from "../Address";
