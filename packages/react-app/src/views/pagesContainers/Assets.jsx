@@ -6,9 +6,9 @@ export default function Assets(props) {
   return (
     <section className="section d-flex flex-column flex-fill">
       <div className="container-lg px-4 d-flex flex-column flex-fill">
-        <div className="contnet d-flex flex-column flex-fill align-items-stretch justify-content-between">
+        <div className="contnet d-flex flex-column flex-fillalign-items-stretch justify-content-between">
         
-          {/* AccountDashboard */}
+          {props.head}
 
           <div className="productList px-4 py-4 d-flex flex-column flex-fill">
             <div className="content-title mb-2 d-flex flex-column flex-lg-row align-items-center align-items-lg-baseline justify-content-lg-center">
@@ -17,8 +17,7 @@ export default function Assets(props) {
             </div>
             <div className="flex-fill row productList-body">
               
-              {/* Cards */}
-              {props.children}
+              {props.body}
 
             </div>
           </div>

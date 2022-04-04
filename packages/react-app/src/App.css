@@ -4,6 +4,11 @@ html{ background: rgba(33, 33, 33, 1); }
   text-align: center;
   padding-left: calc(100vw - 100%);
 }
+#root {
+  background: rgb(221,82,82);
+  background: linear-gradient(60deg, rgba(221,82,82,1) 0%, rgba(255,189,13,1) 60%, rgba(100,210,17,1) 100%);
+}
+
 #root::before{
 content: ""; position: fixed; top: 0; left: 0;
 width: 100%; height: 100%; background: rgb(221,82,82);
@@ -13,7 +18,7 @@ background: linear-gradient(140deg, rgba(245, 124, 56, 1) 0%, rgba(212, 255, 89,
   font-family: 'Rubik', 'Noto Sans TC', sans-serif;
 }
 .container, .container-lg{ padding: 100px 0; }
-.container:first-child, .container-md:first-child{ padding-top: 0px; }
+.container:first-child, .container-lg:first-child{ padding-top: 0px; }
 .section>*:last-child{ padding-bottom: 100px !important; }
 .contnet{ position: relative; z-index: 3; }
 .content-title .body_18{ position: relative; top: -0.125em;}
@@ -55,10 +60,22 @@ background: linear-gradient(140deg, rgba(245, 124, 56, 1) 0%, rgba(212, 255, 89,
 .border-round-5px{ border-radius: 5px; }
 
 .button{ cursor: pointer; }
-.button-style-connect .button-link{ background: rgba(245, 124, 56, 1); }
-.button-style-connect:hover .button-link{ box-shadow: 0 0 1em rgba(245, 124, 56, 1); }
-.button-style-logout .button-link{ background: #6D6D6D; }
-.button-style-logout:hover .button-link{ box-shadow: 0 0 1em #6D6D6D; }
+
+.button-style-connect{
+  width: 100%;
+}
+.button-style-connect .button-link{ 
+  /* background: rgba(245, 124, 56, 1);  */
+  background: rgba(33, 33, 33, 1);
+}
+.button-style-connect:hover .button-link{ 
+  box-shadow: 0 0 1em #6D6D6D;
+  /* background: linear-gradient(140deg, rgba(245, 124, 56, 1) 0%, rgba(212, 255, 89, 1)  100%); */
+  /* box-shadow: 0 0 1em rgba(245, 124, 56, 1);  */
+}
+.button-style-disconnect .button-link{ background: #6D6D6D; }
+.button-style-disconnect:hover .button-link{ box-shadow: 0 0 1em #6D6D6D; }
+
 .button-style-primary .button-link{  }
 .button-style-primary:hover .button-link{ box-shadow: 0 0 0 3px rgba(33, 33, 33, 1); }
 .button-style-link .button-text::after{
@@ -71,6 +88,21 @@ background: linear-gradient(140deg, rgba(245, 124, 56, 1) 0%, rgba(212, 255, 89,
 }
 
 /* .button-style-primary .button-text{  } */
+
+.account-profile{
+  border-radius: 50%;
+  background: rgba(33, 33, 33, 1);
+  overflow: hidden;
+}
+.account-profile img{
+  width: 120px;
+  height: 120px;
+  outline: none;
+  display: block;
+}
+
+
+
 
 .productList{ 
   border-radius: 10px 10px 0 0;
