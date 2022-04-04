@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { 
   Link,
   NavLink,
@@ -39,14 +39,30 @@ export default function Market() {
   const [{ data: networkData }, switchNetwork] = useNetwork();
   const provider = useProvider();
 
-  // const [{ productOnlin  set] = useState([]);
+  // const [productsOnline, setProductsOnline] = useState([]);
+
+  // if (networkData && networkData.chain) {
+  //   const contracts = config[networkData.chain.id][networkData.chain.name.toLocaleLowerCase()].contracts;
+  //   const productArray = [];
+  //   for (let productName in contracts) {
+  //     if (productName.match('NFT')) {
+  //       productArray.push({
+  //         address: contracts[productName].address,
+  //         abi: contracts[productName].abi,
+  //       })
+  //     }
+  //   }
+  //   setProductsOnline(productArray);
+  //   // contracts.forEach((contract, index) => {
+  //   //   console.log(contract);
+  //   // })
+  //   // console.log(productsOnline);
+  // }
 
 
-  if (networkData && networkData.chain) {
-    console.log(networkData.chain.id, networkData.chain.name.toLocaleLowerCase());
-    console.log(config[networkData.chain.id][networkData.chain.name.toLocaleLowerCase()]);
-
-  }
+  // if (networkData && networkData.chain && productsOnline == []) {
+  //   console.log(config[networkData.chain.id][networkData.chain.name.toLocaleLowerCase()]);
+  // }
 
   const productCards = [
     {

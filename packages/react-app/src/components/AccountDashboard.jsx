@@ -45,8 +45,8 @@ export default function AccountDashboard({
 
   // console.log(networkData.chain.id, );
   if (networkData && networkData.chain) {
-    console.log(networkData.chain.id, networkData.chain.name.toLocaleLowerCase());
-    console.log(config[networkData.chain.id][networkData.chain.name.toLocaleLowerCase()]);
+    // console.log(networkData.chain.id, networkData.chain.name.toLocaleLowerCase());
+    // console.log(config[networkData.chain.id][networkData.chain.name.toLocaleLowerCase()]);
   }
 
   // const testTokenInstance = useContract({
