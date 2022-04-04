@@ -1,14 +1,41 @@
 import React from "react";
+import { Link, NavLink, Redirect, Route, Switch, useLocation } from "react-router-dom";
+import {
+  ProductCard,
+  AccountDashboard,
+  AssetCard,
+  BityoFooter,
+  BityoHeader,
+  CoonectButton,
+} from "../components";
 
-// displays a page header
+export default function Assets() {
 
-export default function Assets(props) {
+  const productCards = [
+    {
+      productTitle: 'BITYO 經典成長型保險',
+      productProfile: './images/profile-Vincent.png',
+      productDatas: [
+        {name: 'Locked', value: '3000', unit: 'hours'}, 
+        {name: 'Reward', value: '30', unit: '%'},
+        {name: 'Reward', value: '30', unit: '%'},
+      ],
+      productDescription: `
+        It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English.
+
+
+        It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English.
+      `,
+      productTokenUnit: 'ETH',
+    },
+  ];
+
   return (
     <section className="section d-flex flex-column flex-fill">
       <div className="container-lg px-4 d-flex flex-column flex-fill">
         <div className="contnet d-flex flex-column flex-fillalign-items-stretch justify-content-between">
         
-          {props.head}
+          <AccountDashboard/>
 
           <div className="productList px-4 py-4 d-flex flex-column flex-fill">
             <div className="content-title mb-2 d-flex flex-column flex-lg-row align-items-center align-items-lg-baseline justify-content-lg-center">
@@ -17,7 +44,15 @@ export default function Assets(props) {
             </div>
             <div className="flex-fill row productList-body">
               
-              {props.body}
+                {productCards.map((data, index) => (
+                  <div key={index} className="col-12 col-xl-6 offset-xl-0"><AssetCard                      
+                    productTitle={data.productTitle}
+                    productProfile={data.productProfile}
+                    productDatas={data.productDatas}
+                    productDescription={data.productDescription}
+                    productTokenUnit={data.productTokenUnit}
+                    ></AssetCard></div>
+                ))}
 
             </div>
           </div>

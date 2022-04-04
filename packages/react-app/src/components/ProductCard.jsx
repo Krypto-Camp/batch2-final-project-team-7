@@ -23,7 +23,7 @@ export default function ProductCard(props) {
   return (
     <div className="ProductCard product px-2 py-4 py-lg-2">
       <div className="productCard-body row px-2 py-4 border-round-10px overflow-hidden bg-paper">
-        <div className="col-12 col-md-5">
+        <div className="col-12 col-sm-5">
           <div className="product-profile border-round-10px overflow-hidden"><img className="w-100" src={productProfile} alt="" /></div>
           <div className="product-data row py-2">
             {(() => {
@@ -41,7 +41,7 @@ export default function ProductCard(props) {
             })()}
           </div>          
         </div>
-        <div className="product-intro col-12 col-md-7 text-start">
+        <div className="product-intro col-12 col-sm-7 text-start">
           <h5 className="product-title pb-1 mb-2 body_18 text-black fw-700 font-Rubik">{productTitle}</h5>
           <p className="product-text mb-2 text_14 text-black fw-400 font-Rubik">{productDescription}</p>
           <div className="d-flex flex-column align-items-center">

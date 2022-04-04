@@ -22,7 +22,7 @@ export default function AssetCard(props) {
   return (
     <div className="AssetCard product px-2 py-4 py-lg-2">
       <div className="AssetCard-body row px-2 py-4 border-round-10px overflow-hidden bg-paper">
-        <div className="col-12 col-md-5">
+        <div className="col-12 col-sm-5">
           <div className="product-profile border-round-10px overflow-hidden"><img className="w-100" src={productProfile} alt="" /></div>
           <div className="product-data row py-2">
             {(() => {
@@ -40,7 +40,7 @@ export default function AssetCard(props) {
             })()}
           </div>          
         </div>
-        <div className="product-intro col-12 col-md-7 text-start">
+        <div className="product-intro col-12 col-sm-7 text-start">
           <h5 className="product-title pb-1 mb-2 body_18 text-black fw-700 font-Rubik">{productTitle}</h5>
           <p className="product-text mb-2 text_14 text-black fw-400 font-Rubik">{productDescription}</p>
           <div className="d-flex flex-column align-items-center">
@@ -53,7 +53,7 @@ export default function AssetCard(props) {
             </Link>
           </div>
         </div>
-        <div className="product-form col-12 d-flex flex-column flex-sm-row align-items-end">
+        <div className="product-form col-12 d-flex flex-column flex-sm-row align-items-end mb-2">
           <div className="flex-fill d-flex flex-column align-items-start pe-4">
             <span className="product-form-itemName text_14 text-black fw-700">You earned</span>
             <div className="d-flex align-items-baseline w-100">
@@ -65,6 +65,21 @@ export default function AssetCard(props) {
             <div className="button button-style-primary">
               <div className="button-link px-4 py-2 border-round-10px bg-grey overflow-hidden">
                 <span className="button-text body_18 text-paper fw-700 font-Rubik">取回資產</span>
+              </div>  
+            </div>
+          </div>
+        </div>
+        <div className="product-form col-12 d-flex flex-column flex-sm-row align-items-end">
+          <div className="flex-fill d-flex flex-column align-items-start pe-4">
+            <span className="product-form-itemName text_14 text-black fw-700">transfer to</span>
+            <div className="d-flex align-items-baseline w-100">
+              <input className="product-form-itemInput text_14 text-black fw-300 bg-paper w-100" placeholder="0x????" type="text" />
+            </div>
+          </div>
+          <div className="">
+            <div className="button button-style-primary">
+              <div className="button-link px-4 py-2 border-round-10px bg-orange overflow-hidden">
+                <span className="button-text body_18 text-paper fw-700 font-Rubik">一鍵傳送資產</span>
               </div>  
             </div>
           </div>

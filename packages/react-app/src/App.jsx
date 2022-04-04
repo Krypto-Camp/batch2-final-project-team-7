@@ -42,25 +42,13 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import "./App.css";
 /* end */
 
-// const { ethers } = require("ethers");
-
 import { providers } from "ethers";
-
 
 const initialNetwork = NETWORKS.localhost;
 // localhost rinkeby
 
 // web3modal 是一個能夠連結所有錢包（ETH 節點）的解決方案｜https://www.npmjs.com/package/web3modal
 // const web3Modal = Web3ModalSetup();
-
-// 🛰 providers
-// const providers = [
-//   "https://eth-mainnet.gateway.pokt.network/v1/lb/611156b4a585a20035148406",
-//   `https://eth-mainnet.alchemyapi.io/v2/${ALCHEMY_KEY}`,
-//   `https://mainnet.infura.io/v3/${INFURA_ID}`,
-//   "https://rpc.scaffoldeth.io:48544",
-// ];
-
 
 function App(props) {
   
@@ -83,12 +71,6 @@ function App(props) {
   
   // Chains for connectors to support
   const chains = defaultChains;
-  
-  // 1. 接 Localhost 合約
-  // 2. 接 Rikenby 合約
-
-  console.log(targetNetwork);
-  // console.log(chains);
   
   // Wagmi + ./constants.ks
   const connectors = ({ chainId }) => {
@@ -127,101 +109,12 @@ function App(props) {
     
   // ████████████████████████████████████████████████████████████████████████████████████
 
-  ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-  const assetsCards = [
-    {
-      productTitle: 'BITYO 經典成長型保險',
-      productProfile: './images/profile-Vincent.png',
-      contractAddress: '',
-      productDatas: [
-        {name: 'Countdown', value: '3000', unit: 'hours'}, 
-        {name: 'Cost', value: '30', unit: 'ETH'},
-        {name: 'APY', value: '120', unit: '%'},
-      ],
-      productDescription: `
-        It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English.
-
-
-        It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English.
-      `,
-      productTokenUnit: 'ETH',
-    },
-    {
-      productTitle: 'BITYO 經典成長型保險',
-      productProfile: './images/profile-Vincent.png',
-      productDatas: [
-        {name: 'Countdown', value: '3000', unit: 'hours'}, 
-        {name: 'Cost', value: '30', unit: 'ETH'},
-        {name: 'APY', value: '120', unit: '%'},
-      ],
-      productDescription: `
-        It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English.
-
-
-        It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English.
-      `,
-      productTokenUnit: 'ETH',
-    }
-  ];
-  const productCards = [
-    {
-      productTitle: 'BITYO 經典成長型保險',
-      productProfile: './images/profile-Vincent.png',
-      productDatas: [
-        {name: 'Locked', value: '3000', unit: 'hours'}, 
-        {name: 'Reward', value: '30', unit: '%'},
-        {name: 'Reward', value: '30', unit: '%'},
-      ],
-      productDescription: `
-        It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English.
-
-
-        It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English.
-      `,
-      productTokenUnit: 'ETH',
-    },
-    {
-      productTitle: 'BITYO 經典成長型保險',
-      productProfile: './images/profile-Vincent.png',
-      productDatas: [
-        {name: 'Locked', value: '3000', unit: 'hours'}, 
-        {name: 'Reward', value: '30', unit: '%'},
-        {name: 'Reward', value: '30', unit: '%'},
-      ],
-      productDescription: `
-        It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English.
-
-
-        It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English.
-      `,
-      productTokenUnit: 'ETH',
-    },
-    {
-      productTitle: 'BITYO 經典成長型保險',
-      productProfile: './images/profile-Vincent.png',
-      productDatas: [
-        {name: 'Locked', value: '3000', unit: 'hours'}, 
-        {name: 'Reward', value: '30', unit: '%'},
-        {name: 'Reward', value: '30', unit: '%'},
-      ],
-      productDescription: `
-        It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English.
-
-
-        It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English.
-      `,
-      productTokenUnit: 'ETH',
-    },
-  ];
-
   return (
     <Provider autoConnect 
       connectors={connectors}
       provider={provider}
     >
       <div className="App min-vh-100 d-flex flex-column justify-content-between">
-        {/* ✏️ Edit the header and change the title to your project name */}
         <BityoHeader>
           <nav className="navigation">
             <div className="d-flex align-items-center justify-content-center">
@@ -256,63 +149,20 @@ function App(props) {
           <div>
             <CoonectButton/>
           </div>
-      </BityoHeader>
-
-        {/* 👨‍💼 Your account is in the top right with a wallet at connect options */}
+        </BityoHeader>
 
         <main className="d-flex flex-column flex-fill" >
           <Switch>
             <Route path="/index">
-              <Homepage
-              
-              >
-              
-              </Homepage>
+              <Homepage/>
             </Route>
             <Route path="/Market">
-              <Market
-                head={(() => {
-                  return (
-                    <>
-                    <AccountDashboard/>
-                    </>
-                  )
-                })()}
-                body={productCards.map((data, index) => (
-                  <div key={index} className="col-12 col-sm-10 offset-sm-1 col-xl-6 offset-xl-0"><ProductCard                      
-                    productTitle={data.productTitle}
-                    productProfile={data.productProfile}
-                    productDatas={data.productDatas}
-                    productDescription={data.productDescription}
-                    productTokenUnit={data.productTokenUnit}
-                    ></ProductCard></div>
-                ))}
-              >
-              </Market>
+              <Market/>
             </Route>
             <Route path="/Assets">
-              <Assets
-                head={(() => {
-                  return (
-                    <>
-                    <AccountDashboard/>
-                    </>
-                  )
-                })()}
-                body={productCards.map((data, index) => (
-                  <div key={index} className="col-12 col-sm-10 offset-sm-1 col-xl-6 offset-xl-0"><AssetCard                      
-                    productTitle={data.productTitle}
-                    productProfile={data.productProfile}
-                    productDatas={data.productDatas}
-                    productDescription={data.productDescription}
-                    productTokenUnit={data.productTokenUnit}
-                    ></AssetCard></div>
-                ))}
-              >
-              </Assets>
+              <Assets/>
             </Route>
             <Redirect from="/" to="/index" />
-            
           </Switch>
         </main>
 
