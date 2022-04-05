@@ -5,29 +5,29 @@ import React from "react";
 export default function Homepage(props) {
   const members = [
     { name: 'Vincent', profile: './images/profile-Vincent.png', 
-      text: '介紹 Vincent 介紹 Vincent 介紹 Vincent 介紹 Vincent 介紹 Vincent 介紹 Vincent 介紹 Vincent', 
+      text: '前端工程師。去年 10 月加入幣圈，擁有呢喃貓、Demi Human。', 
       job: ['PM', 'UI/UX', 'Front-end']},
     { name: 'Afra', profile: './images/profile-Vincent.png', 
-      text: '介紹 Afra 介紹 Afra 介紹 Afra 介紹 Afra 介紹 Afra 介紹 Afra 介紹 Afra', 
+      text: 'Hi', 
       job: ['Whitepaper', 'Smart Contract']},
     { name: 'Raymond', profile: './images/profile-Vincent.png', 
-      text: '介紹 RRaymondaym 介紹 RRaymondaym 介紹 RRaymondaym 介紹 RRaymondaym 介紹 RRaymondaym 介紹 RRaymondaym 介紹 RRaymondaym', 
+      text: 'Hi', 
       job: ['Front-end', 'Smart Contract']},
-    { name: 'Ben', profile: './images/profile-Vincent.png', 
-      text: '介紹 Ben 介紹 Ben 介紹 Ben 介紹 Ben 介紹 Ben 介紹 Ben 介紹 Ben', 
-      job: ['Tokenomic', 'Smart Contract']},
     { name: 'Tim', profile: './images/profile-Vincent.png', 
-      text: '介紹 Tim 介紹 Tim 介紹 Tim 介紹 Tim 介紹 Tim 介紹 Tim 介紹 Tim', 
+      text: 'Hi', 
       job: ['Smart Contract']},
+    { name: 'Ben', profile: './images/profile-Vincent.png', 
+      text: 'Hi', 
+      job: ['Tokenomic', 'Smart Contract']},
     { name: 'Charles', profile: './images/profile-Vincent.png', 
-      text: '介紹 Charles 介紹 Charles 介紹 Charles 介紹 Charles 介紹 Charles 介紹 Charles 介紹 Charles', 
+      text: 'Hi', 
       job: ['Smart Contract']},
   ];
   return (
     <section className="section overflow-hidden">
-      <div className="visual position-relative vw-100 start-50 translate-middle-x">
-        <img className="w-100" src="./images/visual.jpg" alt="" />
-        <div className="visual-main position-absolute start-50 top-50 translate-middle">
+      <div className="cover visual position-relative vw-100">
+        <img className="position-relative translate-middle-x start-50" width={192} height={128} src="./images/visual-xl.jpg" alt="" />
+        <div className="visual-main position-absolute start-50 translate-middle">
           <h1 className="visual-title mb-4 catch_84 text-paper fw-700 font-Rubik intro ">
             <span>B</span>
             <span>I</span>
@@ -38,27 +38,78 @@ export default function Homepage(props) {
           <h4 className="visual-subtitle mb-2 title_24 text-paper fw-700 intro">
             <span className="fw-700">幣佑</span>，庇佑你的財富
           </h4>
-          <p className="visual-text mb-4 body_18 text-paper fw-400 intro">
-            我們推出多種令人垂涎的智慧資產合約，結合專業操盤。<br />
-            使累積財富的方式不但理性，更多了人情味。
-          </p>
         </div>
       </div>
-      <div className="container-lg px-4 position-relative">
+      <div className="container-fluid px-4 position-relative bg-paper">
         {/* <div className="position-absolute start-50 top-0 translate-middle-x vw-100 h-100 bg-paper"></div> */}
-        <div className="contnet d-flex flex-column align-items-start justify-content-between">
+        <div className="contnet d-flex flex-column align-items-center justify-content-between">
           <div className="content-title mb-4 d-flex flex-column flex-lg-row align-items-center align-items-lg-baseline">
             <h2 className="my-0 catch_42 text-black text-left text-black fw-700 font-Rubik">ABOUT</h2>
-            <p className="mb-0 mx-2 body_18 text-center text-black fw-700 font-Rubik">關於</p>
+            <p className="mb-0 mx-2 body_18 text-center text-black fw-700 font-Rubik">關於我們</p>
           </div>
-          <div className="row">
-            <div className="col">
-              {/* 為何你該使用 BITYO？*/}
+          <div className="">
+            <p className="visual-text mb-4 title_24_2 text-black fw-400 intro">
+              BITYO 是 KryptoCamp 的其中一個團隊<br />
+              我們專注於打造真實世界保險在區塊鏈的解決方案<br />
+              甚至還推出多種令人垂涎的智慧合約保險產品
+            </p>
+          </div>
+        </div>
+      </div>
+      <div className="container-fluid px-4 py-0 position-relative">
+        <div className="contnet d-flex flex-column align-items-center justify-content-between">
+          <div className="about-block-1 row text-center align-self-stretch align-items-center">
+            <div className="col-12 col-md-6 px-0">
+              <div className="cover about-pic overflow-hidden">
+                <img className="translate-middle start-50 top-50" src="./images/pexels-bernyce-hollingworth-2095716.jpg" alt="" />
+              </div>
+            </div>
+            <div className="col-12 col-md-6 px-4">
+              <h5 className="mb-4 title_24 text-paper bg-orange border-round-5px px-2 d-inline-block fw-700 font-Rubik">為何你該使用 BITYO？</h5>
+              <p className="mb-2 body_18 text-black fw-400 font-Rubik">
+                BITYO 就像蝙蝠俠的管家阿福<br />
+                專業且值得信任！
+              </p>
+              <p className="mb-0 body_18 text-black fw-400 font-Rubik">
+                我們會竭盡所能，庇佑你的財富
+              </p>
             </div>
           </div>
-          <div className="row">
-            <div className="col">
-              {/* BITYO 即將幫助作為財富，就像蝙蝠俠的管家阿福 */}
+          <div className="about-block-2 row text-center align-self-stretch flex-row-reverse align-items-center">
+            <div className="col-12 col-md-6 px-0">
+              <div className="cover about-pic overflow-hidden">
+                <img className="translate-middle start-50 top-50" src="./images/pexels-fauxels-3183197.jpg" alt="" />
+              </div>
+            </div>
+            <div className="col-12 col-md-6 px-4">
+              <h5 className="mb-4 title_24 text-paper bg-orange border-round-5px px-2 d-inline-block fw-700 font-Rubik">我們如何庇佑你的財富？</h5>
+              <p className="mb-2 body_18 text-black fw-400 font-Rubik">
+                BITYO 擁有頂尖的技術團隊、以及豐富的財經知識<br />
+                這使得我們設計出精采的自動化智慧合約保險<br />
+                不僅理性，且充滿了人情味
+              </p>
+              <p className="mb-0 body_18 text-black fw-400 font-Rubik">
+                當你在現實世界遭遇困難時<br />
+                你會很慶幸自己有 BITYO 的資金可度過難關
+              </p>
+            </div>
+          </div>
+          <div className="about-block-3 row text-center align-self-stretch align-items-center">
+            <div className="col-12 col-md-6 px-0">
+              <div className="cover about-pic overflow-hidden">
+                <img className="translate-middle start-50 top-50" src="./images/pexels-pixabay-461049.jpg" alt="" />
+              </div>
+            </div>
+            <div className="col-12 col-md-6 px-4">
+              <h5 className="mb-4 title_24 text-paper bg-orange border-round-5px px-2 d-inline-block fw-700 font-Rubik">在真實世界搞不定的，我們來搞定</h5>
+              <p className="mb-2 body_18 text-black fw-400 font-Rubik">
+                繁雜保單條款、繁瑣的理賠流程、不透明的定價，以及保單對象的設定⋯⋯<br />
+                諸多真實世界保險的痛點，使得人們彼此充滿猜忌
+              </p>
+              <p className="mb-0 body_18 text-black fw-400 font-Rubik">
+                我們 BITYO 相信，在區塊鏈的世界中<br />
+                <span className="title_24 fw-700">以上將不復存在！</span> 
+              </p>
             </div>
           </div>
         </div>
@@ -72,7 +123,10 @@ export default function Homepage(props) {
             <h2 className="my-0 catch_42 text-black text-center text-black fw-700 font-Rubik">WHITEPAPER</h2>
             <p className="mb-0 mx-2 body_18 text-center text-black fw-700 font-Rubik">白皮書</p>
           </div>
-        </div>
+          <div className="whitepaper px-2 py-2 border-round-10px">
+            <iframe className="whitepaper-body d-block border-round-5px" src="https://hackmd.io/@DrA7YU7xT9SYeKXFK0nXGg/SysW_JIzc" frameborder="0"></iframe>
+          </div>
+        </div>        
         {/* WHITEPAPER */}
       </div>
       <div className="container-lg px-4 position-relative">
@@ -97,10 +151,10 @@ export default function Homepage(props) {
                 let member = members[index];
                 let jobs = [];
                 for (let index in member.job) {
-                  jobs.push(<div className=""><span className="mx-1 px-2 py-1 bg-black text_14 text-paper fw-400 font-Rubik border-round-5px">{member.job[index]}</span></div>)
+                  jobs.push(<div className=""><span className="mx-1 px-2 py-1 bg-grey text_14 text-paper fw-400 font-Rubik border-round-5px">{member.job[index]}</span></div>)
                 }
                 cards.push(
-                  <div className="col-12 col-sm-6 col-xl-4 d-flex flex-column align-items-center py-4">
+                  <div key={index} className="col-12 col-sm-6 col-xl-4 d-flex flex-column align-items-center py-4">
                     <div className="member-profile mb-3 w-50 border-round-10px overflow-hidden"><img className="w-100" src={member.profile} alt="" /></div>
                     <h5 className="mb-2 title_24 text-black fw-700 font-Rubik">{member.name}</h5>
                     <div className="mb-3 d-flex flex-wrap justify-content-center">{jobs}</div>
