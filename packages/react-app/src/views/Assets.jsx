@@ -32,38 +32,68 @@ import {
 } from "wagmi";
 
 import { config } from "../contracts";
+import { list as productsList } from "../products";
 import { NFTE } from '@nfte/react';
 
 export default function Assets() {
 
   const [{ data: networkData }, switchNetwork] = useNetwork();
   const provider = useProvider();
-  
+
+  // const [productsOnline, setProductsOnline] = useState([]);
+
+  // if (networkData && networkData.chain) {
+  //   const contracts = config[networkData.chain.id][networkData.chain.name.toLocaleLowerCase()].contracts;
+  //   const productArray = [];
+  //   for (let productName in contracts) {
+  //     if (productName.match('NFT')) {
+  //       productArray.push({
+  //         address: contracts[productName].address,
+  //         abi: contracts[productName].abi,
+  //       })
+  //     }
+  //   }
+  //   setProductsOnline(productArray);
+  //   // contracts.forEach((contract, index) => {
+  //   //   console.log(contract);
+  //   // })
+  //   // console.log(productsOnline);
+  // }
+
+  // if (networkData && networkData.chain && productsOnline == []) {
+  //   console.log(config[networkData.chain.id][networkData.chain.name.toLocaleLowerCase()]);
+  // }
+
+  // const [products, setProducts] = useState();
+
+  const products = [];
+
   if (networkData && networkData.chain) {
-    console.log(networkData.chain.id, networkData.chain.name.toLocaleLowerCase());
-    console.log(config[networkData.chain.id][networkData.chain.name.toLocaleLowerCase()]);
+    // console.log(networkData.chain.id, networkData.chain.name.toLocaleLowerCase());
+    // console.log(config[networkData.chain.id][networkData.chain.name.toLocaleLowerCase()]);
+
+    const contracts = config[networkData.chain.id][networkData.chain.name.toLocaleLowerCase()].contracts;
+    
+    // console.log(contracts);
+
+    for (let contractName in contracts) {
+      if (contractName.match('NFT')) {
+        const productInfo = productsList[contractName];
+        products.push({
+          productAddress: contracts[contractName].address,
+          productABI: contracts[contractName].abi,
+          productTitle: productInfo.title,
+          productDescription: productInfo.description,
+          productProfile: productInfo.profile,
+          productDatas: productInfo.datas,
+          productTokenUnit: productInfo.tokenUnit,
+        })
+      }
+    }
+
   }
-
-  const productCards = [
-    {
-      productTitle: 'BITYO 經典成長型保險',
-      productProfile: './images/profile-Vincent.png',
-      productAddress: '',
-      productABI: '',
-      productDatas: [
-        {name: 'Locked', value: '3000', unit: 'hours'}, 
-        {name: 'Reward', value: '30', unit: '%'},
-        {name: 'Reward', value: '30', unit: '%'},
-      ],
-      productDescription: `
-        It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English.
-
-
-        It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English.
-      `,
-      productTokenUnit: 'ETH',
-    },
-  ];
+  
+  // setProducts(getProducts);
 
   return (
     <section className="section d-flex flex-column flex-fill">
@@ -81,7 +111,7 @@ export default function Assets() {
 
                 {/* <NFTE contract="0x357108E960475370053c4866F008cfe1D9CD16D7" tokenId="1"/> */}
               
-                {productCards.map((data, index) => (
+                {products? products.map((data, index) => (
                   <div key={index} className="col-12 col-xl-6 offset-xl-0"><AssetCard                      
                     productTitle={data.productTitle}
                     productProfile={data.productProfile}
@@ -91,7 +121,7 @@ export default function Assets() {
                     productDescription={data.productDescription}
                     productTokenUnit={data.productTokenUnit}
                     ></AssetCard></div>
-                ))}
+                )):''}
 
             </div>
           </div>

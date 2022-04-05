@@ -136,6 +136,10 @@ background: linear-gradient(140deg, rgba(245, 124, 56, 1) 0%, rgba(212, 255, 89,
 
 .product-title{
   border-bottom: 1px solid rgba(33, 33, 33, 1);
+  white-space: pre-line;
+}
+.product-text{
+  white-space: pre-line;
 }
 .product-profile{ border: 3px solid rgba(33, 33, 33, 1); }
 .product-form-itemInput{

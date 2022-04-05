@@ -16,7 +16,7 @@ import {
 } from 'wagmi'
 
 export default function AssetCard(props) {
-  const {productTitle, productProfile, productDatas, productDescription, productTokenUnit} = props;
+  const {productTitle, productProfile, productDatas, productDescription, productTokenUnit, productAddress, productABI} = props;
   // useState
   
   return (
@@ -29,7 +29,7 @@ export default function AssetCard(props) {
               let datas = [];
               for (let index in productDatas) {
                 datas.push(
-                  <div className="product-data-item my-2 text-start col-6 col-sm-4 col-xl-6 d-flex flex-column align-items-center">
+                  <div key={index} className="product-data-item my-2 text-start col-6 col-sm-4 col-xl-6 d-flex flex-column align-items-center">
                     <span className="product-data-namea mb-1 text_14 text-black fw-700">{productDatas[index].name}</span>
                     <span className="product-data-value mb-1 body_18 text-black fw-700">{productDatas[index].value}</span>
                     <span className="product-data-unit mb-0 text_14 text-black fw-400">{productDatas[index].unit}</span>

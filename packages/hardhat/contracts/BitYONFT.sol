@@ -55,7 +55,6 @@ contract BitYONFT  is ERC721Enumerable, Ownable {
             mintPrice <= msg.value,
             "Not enough ether sent"
         );
-
         uint256 mintIndex = totalSupply();
         _safeMint(msg.sender, mintIndex);
         payable(stackContract).transfer(200000000000000000 wei);
@@ -108,6 +107,10 @@ contract BitYONFT  is ERC721Enumerable, Ownable {
 
     function setMintPrice(uint256 _mintPrice) public onlyOwner {
         mintPrice = _mintPrice;
+    }
+
+    function getMintPrice() public view returns(uint) {
+        return mintPrice;
     }
 
     function setNotRevealedURI(string memory _notRevealedURI) public onlyOwner {
