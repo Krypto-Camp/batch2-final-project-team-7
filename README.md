@@ -52,6 +52,7 @@ Whitepaper 初版：https://hackmd.io/AGBslDlUTQCAp9-QwiSjDQ
 // 先安裝
 npm i bootstrap
 npm install wagmi ethers
+npm install mathjs
 ```
 ...
 
