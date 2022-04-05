@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useThemeSwitcher } from "react-css-theme-switcher";
-import { useAccount, useConnect, useNetwork } from 'wagmi'
+import { useAccount, useConnect, useNetwork, useSignMessage } from 'wagmi'
 
 
 export default function CoonectButton({
@@ -18,6 +18,22 @@ export default function CoonectButton({
   });
 
   const [{ data: networkData }, switchNetwork] = useNetwork();
+
+  const [{ 
+    data: signData, 
+    error: signError, 
+    loading: signLoading 
+  }, signMessage] = useSignMessage();
+  
+  useEffect(() => {
+    // 連結後立即簽章
+    if (connectData.connected) {
+      const signMsg = 'BITYO 幣佑，庇佑你與你的財富！';
+      console.log(signMsg);
+      signMessage(signMsg);
+    }
+  }, [connectData.connected]);
+
 
   return (
     <div className="">

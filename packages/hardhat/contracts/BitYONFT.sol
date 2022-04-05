@@ -110,6 +110,10 @@ contract BitYONFT  is ERC721Enumerable, Ownable {
         mintPrice = _mintPrice;
     }
 
+    function getMintPrice() public view returns(uint) {
+        return mintPrice;
+    }
+
     function setNotRevealedURI(string memory _notRevealedURI) public onlyOwner {
         notRevealedUri = _notRevealedURI;
     }

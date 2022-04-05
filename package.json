@@ -74,6 +74,7 @@
     "@nfte/react": "^1.0.4",
     "bootstrap": "^5.1.3",
     "gh-pages": "^3.2.3",
+    "mathjs": "^10.4.2",
     "wagmi": "^0.2.24"
   },
   "devDependencies": {
