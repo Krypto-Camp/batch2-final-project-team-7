@@ -42,7 +42,7 @@ export default function Homepage(props) {
       </div>
       <div className="container-fluid px-4 position-relative bg-paper">
         {/* <div className="position-absolute start-50 top-0 translate-middle-x vw-100 h-100 bg-paper"></div> */}
-        <div className="contnet d-flex flex-column align-items-center justify-content-between">
+        <div className="content d-flex flex-column align-items-center justify-content-between">
           <div className="content-title mb-4 d-flex flex-column flex-lg-row align-items-center align-items-lg-baseline">
             <h2 className="my-0 catch_42 text-black text-left text-black fw-700 font-Rubik">ABOUT</h2>
             <p className="mb-0 mx-2 body_18 text-center text-black fw-700 font-Rubik">關於我們</p>
@@ -57,7 +57,7 @@ export default function Homepage(props) {
         </div>
       </div>
       <div className="container-fluid px-4 py-0 position-relative">
-        <div className="contnet d-flex flex-column align-items-center justify-content-between">
+        <div className="content d-flex flex-column align-items-center justify-content-between">
           <div className="about-block-1 row text-center align-self-stretch align-items-center">
             <div className="col-12 col-md-6 px-0">
               <div className="cover about-pic overflow-hidden">
@@ -65,7 +65,7 @@ export default function Homepage(props) {
               </div>
             </div>
             <div className="col-12 col-md-6 px-4">
-              <h5 className="mb-4 title_24 text-paper bg-orange border-round-5px px-2 d-inline-block fw-700 font-Rubik">為何你該使用 BITYO？</h5>
+              <h5 className="mb-4 title_24 text-black border-round-5px px-2 d-inline-block fw-700 font-Rubik">為何你該使用 BITYO？</h5>
               <p className="mb-2 body_18 text-black fw-400 font-Rubik">
                 BITYO 就像蝙蝠俠的管家阿福<br />
                 專業且值得信任！
@@ -82,7 +82,7 @@ export default function Homepage(props) {
               </div>
             </div>
             <div className="col-12 col-md-6 px-4">
-              <h5 className="mb-4 title_24 text-paper bg-orange border-round-5px px-2 d-inline-block fw-700 font-Rubik">我們如何庇佑你的財富？</h5>
+              <h5 className="mb-4 title_24 text-black border-round-5px px-2 d-inline-block fw-700 font-Rubik">我們如何庇佑你的財富？</h5>
               <p className="mb-2 body_18 text-black fw-400 font-Rubik">
                 BITYO 擁有頂尖的技術團隊、以及豐富的財經知識<br />
                 這使得我們設計出精采的自動化智慧合約保險<br />
@@ -101,7 +101,7 @@ export default function Homepage(props) {
               </div>
             </div>
             <div className="col-12 col-md-6 px-4">
-              <h5 className="mb-4 title_24 text-paper bg-orange border-round-5px px-2 d-inline-block fw-700 font-Rubik">在真實世界搞不定的，我們來搞定</h5>
+              <h5 className="mb-4 title_24 text-black border-round-5px px-2 d-inline-block fw-700 font-Rubik">在真實世界搞不定的，我們來搞定</h5>
               <p className="mb-2 body_18 text-black fw-400 font-Rubik">
                 繁雜保單條款、繁瑣的理賠流程、不透明的定價，以及保單對象的設定⋯⋯<br />
                 諸多真實世界保險的痛點，使得人們彼此充滿猜忌
@@ -118,7 +118,7 @@ export default function Homepage(props) {
       </div>
       <div className="container-lg px-4 position-relative">
         <div className="position-absolute start-50 top-0 translate-middle-x vw-100 h-100 bg-paper"></div>
-        <div className="contnet d-flex flex-column align-items-center justify-content-between">
+        <div className="content d-flex flex-column align-items-center justify-content-between">
           <div className="content-title mb-4 d-flex flex-column flex-lg-row align-items-center align-items-lg-baseline">
             <h2 className="my-0 catch_42 text-black text-center text-black fw-700 font-Rubik">WHITEPAPER</h2>
             <p className="mb-0 mx-2 body_18 text-center text-black fw-700 font-Rubik">白皮書</p>
@@ -129,17 +129,16 @@ export default function Homepage(props) {
         </div>        
         {/* WHITEPAPER */}
       </div>
-      <div className="container-lg px-4 position-relative">
-        <div className="contnet d-flex flex-column align-items-center justify-content-between">
+      {/* <div className="container-lg px-4 position-relative">
+        <div className="content d-flex flex-column align-items-center justify-content-between">
           <div className="content-title mb-4 d-flex flex-column flex-lg-row align-items-center align-items-lg-baseline">
             <h2 className="my-0 catch_42 text-black text-center text-black fw-700 font-Rubik">ROADMAP</h2>
             <p className="mb-0 mx-2 body_18 text-center text-black fw-700 font-Rubik">路線圖</p>
           </div>
         </div>
-        {/* ROADMAP */}
-      </div>
-      <div className="container-lg px-4">
-        <div className="contnet d-flex flex-column align-items-center justify-content-between">
+      </div> */}
+      <div className="container-lg px-4 mb-4">
+        <div className="content d-flex flex-column align-items-center justify-content-between">
           <div className="content-title mb-4 d-flex flex-column flex-lg-row align-items-center align-items-lg-baseline">
             <h2 className="my-0 catch_42 text-center text-black fw-700 font-Rubik">MEMBERS</h2>
             <p className="mb-0 mx-2 body_18 text-center text-black fw-700 font-Rubik">團隊成員</p>

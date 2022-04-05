@@ -98,7 +98,7 @@ export default function Assets() {
   return (
     <section className="section d-flex flex-column flex-fill">
       <div className="container-lg px-4 d-flex flex-column flex-fill">
-        <div className="contnet d-flex flex-column flex-fillalign-items-stretch justify-content-between">
+        <div className="content d-flex flex-column flex-fill align-items-stretch justify-content-between">
         
           <AccountDashboard/>
 

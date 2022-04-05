@@ -21,7 +21,7 @@ import {
 
 import { ethers } from "ethers";
 
-import { floor, bignumber } from "mathjs";
+import { floor, bignumber, numeric, number, format } from "mathjs";
 
 export default function ProductCard(props) {
   
@@ -87,8 +87,10 @@ export default function ProductCard(props) {
   })
 
   console.log(txData);
-  // console.log( ethers.utils.parseEther('0.3'));
-  // console.log(bignumber(0.3));
+  console.log(mintPrice);
+  console.log(mintPrice ? ethers.utils.formatEther(mintPrice) : 'mintPrice');
+  
+  // numeric(mintPrice._hex, 'number') : 'mintPrice');
   // console.log(ethers.utils.parseEther('0.3') );
   // console.log('----------------------------------------');
   // console.log(ethers.utils.parseEther('0.3'));
@@ -132,9 +134,13 @@ export default function ProductCard(props) {
         <div className="product-form col-12 d-flex flex-column flex-sm-row align-items-end">
           <div className="flex-fill d-flex flex-column align-items-start pe-4">
             <span className="product-form-itemName text_14 text-black fw-700">Pay Tokens</span>
-            <div className="d-flex align-items-baseline w-100">
+            {/* <div className="d-flex align-items-baseline w-100">
               <input className="product-form-itemInput catch_34 text-orange fw-700 bg-paper w-100" placeholder="0.00" type="text" />
               <div className="product-form-itemCurrency body_18 text-black fw-700 ps-2">{productTokenUnit}</div>
+            </div> */}
+            <div className="d-flex align-items-baseline w-100">
+              <span className="product-form-itemInput py-2 catch_34 text-start text-orange fw-700 bg-paper w-100">{mintPrice ? ethers.utils.formatEther(mintPrice) : 'NaN'}</span>
+              <div className="product-form-itemCurrency body_18 text-black fw-700 ps-2">ETH</div>
             </div>
           </div>
           <div className="">

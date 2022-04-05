@@ -8,16 +8,85 @@ import {
   useAccount,
   useConnect,
   useProvider,
+  // useSigner,
   useBalance,
   useNetwork,
   useContract,
   useContractRead,
   useContractWrite,
+  useSignMessage,
+  // useFeeData,
+  useTransaction,
 } from 'wagmi'
+
+import { ethers } from "ethers";
+
+import { floor, bignumber, numeric, number, format } from "mathjs";
 
 export default function AssetCard(props) {
   const {productTitle, productProfile, productDatas, productDescription, productTokenUnit, productAddress, productABI} = props;
   // useState
+
+  const provider = useProvider();
+  
+  const contract = useContract({
+    addressOrName: productAddress,
+    contractInterface: productABI,
+    provider: provider,
+  });
+
+  /**
+  const [{ 
+    data: mintPrice, 
+    error: mintPriceError, 
+    loading: mintPriceLoading, 
+  }, readMintPrice] = useContractRead(
+    {
+      addressOrName: productAddress,
+      contractInterface: productABI,
+      provider: provider,
+      // signerOrProvider: signer,
+    },
+    'getMintPrice',
+  );
+  
+  const [{
+    data: mintData, 
+    error: mintError, 
+    loading: mintLoading 
+  }, mint] = useContractWrite(
+    {
+      addressOrName: productAddress,
+      contractInterface: productABI,
+      provider: provider,
+      // signerOrProvider: signer,
+    },
+    'mintNicMeta', {
+      overrides: {
+        value: mintPrice, 
+        // gasPrice: feeData.gasPrice,
+        // gasLimit: 60000000000,
+      }
+    }
+  );
+
+  const [{
+    data: txData, 
+    error: txError, 
+    loading: txLoading 
+  }, sendTransaction] = useTransaction({
+    request: {
+      to: '0xB4235B332418ae0F0a32c93035c1e3e7E1e5F280',
+      value: ethers.utils.parseEther('0.9'), // 1 ETH
+    },
+  })
+
+  console.log(txData);
+  console.log(mintPrice);
+  console.log(mintPrice ? ethers.utils.formatEther(mintPrice) : 'mintPrice');
+  
+  */
+
   
   return (
     <div className="AssetCard product px-2 py-4 py-lg-2">
