@@ -69,26 +69,24 @@ export default function Market() {
   const products = [];
 
   if (networkData && networkData.chain) {
-    // console.log(networkData.chain.id, networkData.chain.name.toLocaleLowerCase());
-    // console.log(config[networkData.chain.id][networkData.chain.name.toLocaleLowerCase()]);
 
     const contracts = config[networkData.chain.id][networkData.chain.name.toLocaleLowerCase()].contracts;
     
     // console.log(contracts);
 
-    for (let contractName in contracts) {
-      if (contractName.match('NFT')) {
-        const productInfo = productsList[contractName];
-        products.push({
-          productAddress: contracts[contractName].address,
-          productABI: contracts[contractName].abi,
-          productTitle: productInfo.title,
-          productDescription: productInfo.description,
-          productProfile: productInfo.profile,
-          productDatas: productInfo.datas,
-          productTokenUnit: productInfo.tokenUnit,
-        })
-      }
+    for (let contractName in productsList) {
+      const productInfo = productsList[contractName];
+      products.push({
+        productAddress: contracts[`${contractName}NFT`].address,
+        productDeFiAddress: contracts[`${contractName}stakingRewards`].defiAddress,
+        productABI: contracts[`${contractName}NFT`].abi,
+        productDeFiABI: contracts[`${contractName}stakingRewards`].abi,
+        productTitle: productInfo.title,
+        productDescription: productInfo.description,
+        productProfile: productInfo.profile,
+        productDatas: productInfo.datas,
+        productTokenUnit: productInfo.tokenUnit,
+      })
     }
 
   }
@@ -115,6 +113,8 @@ export default function Market() {
                     productProfile={data.productProfile}
                     productAddress={data.productAddress}
                     productABI={data.productABI}
+                    productDeFiAddress={data.productDeFiAddress}
+                    productDeFiABI={data.productDeFiABI}
                     productDatas={data.productDatas}
                     productDescription={data.productDescription}
                     productTokenUnit={data.productTokenUnit}

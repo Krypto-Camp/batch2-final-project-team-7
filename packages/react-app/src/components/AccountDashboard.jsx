@@ -24,16 +24,6 @@ export default function AccountDashboard({
 
   const provider = useProvider();
 
-
-
-
-
-
-
-
-
-
-
   // https://gateway.ipfs.io/ipns/tokens.uniswap.org
   // https://www.rinkeby.io/#faucet
   const [{ data: balanceData, error: balanceError, loading: balanceLoading }, getBalance] = useBalance({
@@ -72,15 +62,6 @@ export default function AccountDashboard({
 
   // console.log(symbol)
   // console.log(testToken);
-
-
-
-
-
-
-
-
-  
 
   if (accountData) {
     return (

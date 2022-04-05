@@ -23,52 +23,77 @@ import { ethers } from "ethers";
 
 import { floor, bignumber, numeric, number, format } from "mathjs";
 
+
 export default function AssetCard(props) {
-  const {productTitle, productProfile, productDatas, productDescription, productTokenUnit, productAddress, productABI} = props;
-  // useState
+  const {
+    tokenID,
+    productTitle,
+    productProfile,
+    productDatas,
+    productDescription,
+    productTokenUnit,
+    productAddress,
+    productABI,
+    productDeFiAddress,
+    productDeFiABI,
+  } = props;
 
   const provider = useProvider();
-  
+
+  const [{ data: accountData }, disconnect] = useAccount({
+    fetchEns: true,
+  });
+
   const contract = useContract({
     addressOrName: productAddress,
     contractInterface: productABI,
     provider: provider,
   });
 
-  /**
-  const [{ 
-    data: mintPrice, 
-    error: mintPriceError, 
-    loading: mintPriceLoading, 
-  }, readMintPrice] = useContractRead(
-    {
-      addressOrName: productAddress,
-      contractInterface: productABI,
-      provider: provider,
-      // signerOrProvider: signer,
-    },
-    'getMintPrice',
-  );
-  
+  // transfer
+  const [toAddress, setToAddress] = useState();
+
   const [{
-    data: mintData, 
-    error: mintError, 
-    loading: mintLoading 
-  }, mint] = useContractWrite(
+    data: transferFromData,
+    error: transferFromError
+  }, transferFrom] = useContractWrite(
     {
       addressOrName: productAddress,
       contractInterface: productABI,
       provider: provider,
       // signerOrProvider: signer,
     },
-    'mintNicMeta', {
-      overrides: {
-        value: mintPrice, 
-        // gasPrice: feeData.gasPrice,
-        // gasLimit: 60000000000,
-      }
+    'transferFrom', {
+      args: [accountData.address, toAddress, tokenID]
     }
   );
+
+  const [{
+    data: approveData,
+    error: approveError
+  }, approve] = useContractWrite(
+    {
+      addressOrName: productAddress,
+      contractInterface: productABI,
+      provider: provider,
+      // signerOrProvider: signer,
+    },
+    'approve', {
+      args: [toAddress, tokenID]
+    }
+  );
+  
+
+  // console.log(contract);
+  console.log(transferFromData, transferFromError);
+  console.log(accountData.address, toAddress, tokenID);
+
+  // loop 一個一個 取得 Token
+  // Defi 找 NFT Token 取得質押的錢量
+  // 
+  // console.log(accountData.address);
+  // console.log(balanceOf? balanceOf.toHexString():'');
+  // console.log(balanceOf? balanceOf.toString():'');
 
   const [{
     data: txData, 
@@ -81,12 +106,6 @@ export default function AssetCard(props) {
     },
   })
 
-  console.log(txData);
-  console.log(mintPrice);
-  console.log(mintPrice ? ethers.utils.formatEther(mintPrice) : 'mintPrice');
-  
-  */
-
   
   return (
     <div className="AssetCard product px-2 py-4 py-lg-2">
@@ -96,12 +115,15 @@ export default function AssetCard(props) {
           <div className="product-data row py-2">
             {(() => {
               let datas = [];
-              for (let index in productDatas) {
+              const extendsProductDatas = productDatas.concat([
+                {name: 'Token ID', value: tokenID, unit: '-'}, 
+              ]);
+              for (let index in extendsProductDatas) {
                 datas.push(
                   <div key={index} className="product-data-item my-2 text-start col-6 col-sm-4 col-xl-6 d-flex flex-column align-items-center">
-                    <span className="product-data-namea mb-1 text_14 text-black fw-700">{productDatas[index].name}</span>
-                    <span className="product-data-value mb-1 body_18 text-black fw-700">{productDatas[index].value}</span>
-                    <span className="product-data-unit mb-0 text_14 text-black fw-400">{productDatas[index].unit}</span>
+                    <span className="product-data-namea mb-1 text_14 text-black fw-700">{extendsProductDatas[index].name}</span>
+                    <span className="product-data-value mb-1 body_18 text-black fw-700">{extendsProductDatas[index].value}</span>
+                    <span className="product-data-unit mb-0 text_14 text-black fw-400">{extendsProductDatas[index].unit}</span>
                   </div>
                 )
               }
@@ -142,11 +164,15 @@ export default function AssetCard(props) {
           <div className="flex-fill d-flex flex-column align-items-start pe-4">
             <span className="product-form-itemName text_14 text-black fw-700">transfer to</span>
             <div className="d-flex align-items-baseline w-100">
-              <input className="product-form-itemInput text_14 text-black fw-300 bg-paper w-100" placeholder="0x????" type="text" />
+              <input className="product-form-itemInput text_14 text-black fw-300 bg-paper w-100" placeholder="0x????" type="text" value={toAddress} onChange={e => setToAddress(e.target.value)} />
             </div>
           </div>
           <div className="">
-            <div className="button button-style-primary">
+            <div className="button button-style-primary" onClick={async () => {
+              await approve();
+              await transferFrom();
+              window.location.reload();
+            }}>
               <div className="button-link px-4 py-2 border-round-10px bg-orange overflow-hidden">
                 <span className="button-text body_18 text-paper fw-700 font-Rubik">一鍵傳送資產</span>
               </div>  

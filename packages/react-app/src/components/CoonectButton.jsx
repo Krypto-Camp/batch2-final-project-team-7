@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import { useThemeSwitcher } from "react-css-theme-switcher";
 import { useAccount, useConnect, useNetwork, useSignMessage } from 'wagmi'
 
-
 export default function CoonectButton({
 }) {
   

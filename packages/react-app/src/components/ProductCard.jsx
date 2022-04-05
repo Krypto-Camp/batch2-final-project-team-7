@@ -29,11 +29,11 @@ export default function ProductCard(props) {
   
   const provider = useProvider();
   
-  const contract = useContract({
-    addressOrName: productAddress,
-    contractInterface: productABI,
-    provider: provider,
-  });
+  // const contract = useContract({
+  //   addressOrName: productAddress,
+  //   contractInterface: productABI,
+  //   provider: provider,
+  // });
 
   // const [{ 
   //   data: signer, 
@@ -86,9 +86,9 @@ export default function ProductCard(props) {
     },
   })
 
-  console.log(txData);
-  console.log(mintPrice);
-  console.log(mintPrice ? ethers.utils.formatEther(mintPrice) : 'mintPrice');
+  // console.log(txData);
+  // console.log(mintPrice);
+  // console.log(mintPrice ? ethers.utils.formatEther(mintPrice) : 'mintPrice');
   
   // numeric(mintPrice._hex, 'number') : 'mintPrice');
   // console.log(ethers.utils.parseEther('0.3') );

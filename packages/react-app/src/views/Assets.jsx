@@ -11,6 +11,7 @@ import {
 import {
   ProductCard,
   AccountDashboard,
+  AssetsOfAccount,
   AssetCard,
   BityoFooter,
   BityoHeader,
@@ -69,26 +70,24 @@ export default function Assets() {
   const products = [];
 
   if (networkData && networkData.chain) {
-    // console.log(networkData.chain.id, networkData.chain.name.toLocaleLowerCase());
-    // console.log(config[networkData.chain.id][networkData.chain.name.toLocaleLowerCase()]);
 
     const contracts = config[networkData.chain.id][networkData.chain.name.toLocaleLowerCase()].contracts;
     
     // console.log(contracts);
 
-    for (let contractName in contracts) {
-      if (contractName.match('NFT')) {
-        const productInfo = productsList[contractName];
-        products.push({
-          productAddress: contracts[contractName].address,
-          productABI: contracts[contractName].abi,
-          productTitle: productInfo.title,
-          productDescription: productInfo.description,
-          productProfile: productInfo.profile,
-          productDatas: productInfo.datas,
-          productTokenUnit: productInfo.tokenUnit,
-        })
-      }
+    for (let contractName in productsList) {
+      const productInfo = productsList[contractName];
+      products.push({
+        productAddress: contracts[`${contractName}NFT`].address,
+        productDeFiAddress: contracts[`${contractName}stakingRewards`].defiAddress,
+        productABI: contracts[`${contractName}NFT`].abi,
+        productDeFiABI: contracts[`${contractName}stakingRewards`].abi,
+        productTitle: productInfo.title,
+        productDescription: productInfo.description,
+        productProfile: productInfo.profile,
+        productDatas: productInfo.datas,
+        productTokenUnit: productInfo.tokenUnit,
+      })
     }
 
   }
@@ -112,15 +111,18 @@ export default function Assets() {
                 {/* <NFTE contract="0x357108E960475370053c4866F008cfe1D9CD16D7" tokenId="1"/> */}
               
                 {products? products.map((data, index) => (
-                  <div key={index} className="col-12 col-xl-6 offset-xl-0"><AssetCard                      
+                  <AssetsOfAccount                      
+                    key={index}  
                     productTitle={data.productTitle}
                     productProfile={data.productProfile}
                     productAddress={data.productAddress}
                     productABI={data.productABI}
+                    productDeFiAddress={data.productDeFiAddress}
+                    productDeFiABI={data.productDeFiABI}
                     productDatas={data.productDatas}
                     productDescription={data.productDescription}
-                    productTokenUnit={data.productTokenUnit}
-                    ></AssetCard></div>
+                    productTokenUnit={data.productTokenUnit}  
+                    ></AssetsOfAccount>
                 )):''}
 
             </div>
