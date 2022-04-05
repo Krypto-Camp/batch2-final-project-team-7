@@ -15,4 +15,20 @@ export const list = {
     ],
     tokenUnit: 'ETH',
   },
+  BitYOProNFT: {
+    title: 'BITYO 積極型保險',
+    description: 
+    `* 複利機制
+      1 ETH -> 第一年 30% = 1.3 ETH - 1 = .3 
+      1.3 ETH -> 第二年 31% = 1.703 ETH - 1.3 = .403
+      1.703 ETH -> 第三年 32%
+    `,
+    profile: './images/2.jpg',
+    datas: [
+      {name: 'Locked', value: '3000', unit: 'hours'}, 
+      {name: 'Reward', value: '30', unit: '%'},
+      {name: 'Reward', value: '30', unit: '%'},
+    ],
+    tokenUnit: 'ETH',
+  },
 };
