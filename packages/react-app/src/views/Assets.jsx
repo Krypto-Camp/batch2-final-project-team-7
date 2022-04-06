@@ -79,9 +79,9 @@ export default function Assets() {
       const productInfo = productsList[contractName];
       products.push({
         productAddress: contracts[`${contractName}NFT`].address,
-        productDeFiAddress: contracts[`${contractName}stakingRewards`].address,
+        productDeFiAddress: contracts[`${contractName}StakingRewards`].address,
         productABI: contracts[`${contractName}NFT`].abi,
-        productDeFiABI: contracts[`${contractName}stakingRewards`].abi,
+        productDeFiABI: contracts[`${contractName}StakingRewards`].abi,
         productTitle: productInfo.title,
         productDescription: productInfo.description,
         productProfile: productInfo.profile,

@@ -43,7 +43,7 @@ module.exports = async ({ getNamedAccounts, deployments, getChainId }) => {
   // 代幣
   const initSupply = 5000 * 10 ** 4;
 
-  await deploy("BitYoERC20", {
+  await deploy("BitYOERC20", {
     // Learn more about args here: https://www.npmjs.com/package/hardhat-deploy#deploymentsdeploy
     from: deployer,
     args: [ initSupply ],
@@ -51,26 +51,26 @@ module.exports = async ({ getNamedAccounts, deployments, getChainId }) => {
     waitConfirmations: 5,
   });
 
-  const BitYoERC20 = await ethers.getContract("BitYoERC20", deployer);
+  const BitYOERC20 = await ethers.getContract("BitYOERC20", deployer);
 
 
 
 
-  await deploy("BitYOstakingRewards", {
+  await deploy("BitYOStakingRewards", {
     // Learn more about args here: https://www.npmjs.com/package/hardhat-deploy#deploymentsdeploy
     from: deployer,
-    args: [ BitYoERC20.address , BitYoERC20.address , BitYONFT.address],  // 暫時先這樣
+    args: [ BitYOERC20.address , BitYOERC20.address , BitYONFT.address],  // 暫時先這樣
     log: true,
     waitConfirmations: 5,
   });
 
   // // NFT存款
-  const BitYOstakingRewards = await ethers.getContract("BitYOstakingRewards", deployer);
-  await BitYONFT.setStakeContract(BitYOstakingRewards.address);
+  const BitYOStakingRewards = await ethers.getContract("BitYOStakingRewards", deployer);
+  await BitYONFT.setStakeContract(BitYOStakingRewards.address);
 
   // // 代幣質押
 
-  await deploy("BitYoStaking", {
+  await deploy("BitYOStaking", {
     // Learn more about args here: https://www.npmjs.com/package/hardhat-deploy#deploymentsdeploy
     from: deployer,
     args:   ["0xDa8226Bdd392e8794dC14cf852d1f138a8209DE8","0xDa8226Bdd392e8794dC14cf852d1f138a8209DE8", BitYONFT.address],

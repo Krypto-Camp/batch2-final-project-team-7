@@ -6,7 +6,7 @@ import "@openzeppelin/contracts/token/ERC721/extensions/ERC721Enumerable.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
 import "@openzeppelin/contracts/utils/Strings.sol";
 
-import "./BitYOstakingRewards.sol";
+import "./BitYOStakingRewards.sol";
 
 //  鑄造價格 0.3 eth
 //  需要設定鑄造合約指向的存款合約(stackContract)
@@ -33,7 +33,7 @@ contract BitYONFT  is ERC721Enumerable, Ownable {
     string public baseExtension = ".json";
 
     address private stackContract;
-    BitYOstakingRewards private _call;
+    BitYOStakingRewards private _call;
 
     mapping(uint256 => string) private _tokenURIs;
 
@@ -65,7 +65,7 @@ contract BitYONFT  is ERC721Enumerable, Ownable {
     // 設定收錢合約
     function setStakeContract(address stake) public onlyOwner {
         stackContract = stake;
-        _call = BitYOstakingRewards(payable(stake));
+        _call = BitYOStakingRewards(payable(stake));
     }
 
     //讓mint nft的數量往上堆疊

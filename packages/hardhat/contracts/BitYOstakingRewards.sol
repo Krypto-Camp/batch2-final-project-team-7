@@ -14,7 +14,7 @@ import "@openzeppelin/contracts/token/ERC721/IERC721.sol";
 //  創建時，帶入 constructor(address _stakingToken, address _rewardsToken)  
 //  創建NFT的時候 會自動轉入錢eth
 
-contract BitYOstakingRewards {
+contract BitYOStakingRewards {
     IERC20 public rewardsToken;
     IERC20 public stakingToken;
     IERC721 public NftToken ;
