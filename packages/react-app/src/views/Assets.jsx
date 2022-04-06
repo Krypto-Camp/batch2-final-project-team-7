@@ -73,13 +73,13 @@ export default function Assets() {
 
     const contracts = config[networkData.chain.id][networkData.chain.name.toLocaleLowerCase()].contracts;
     
-    // console.log(contracts);
+    console.log(contracts);
 
     for (let contractName in productsList) {
       const productInfo = productsList[contractName];
       products.push({
         productAddress: contracts[`${contractName}NFT`].address,
-        productDeFiAddress: contracts[`${contractName}stakingRewards`].defiAddress,
+        productDeFiAddress: contracts[`${contractName}stakingRewards`].address,
         productABI: contracts[`${contractName}NFT`].abi,
         productDeFiABI: contracts[`${contractName}stakingRewards`].abi,
         productTitle: productInfo.title,

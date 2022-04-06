@@ -48,7 +48,7 @@ contract BitYONFT  is ERC721Enumerable, Ownable {
     //鑄造NFT
     function mintNicMeta() public payable {
         require(
-            totalSupply() + 1 <= MAX_SUPPLY,
+            totalSupply() + 1 < MAX_SUPPLY,
             "Sale would exceed max supply"
         );
         require(
@@ -56,7 +56,7 @@ contract BitYONFT  is ERC721Enumerable, Ownable {
             "Not enough ether sent"
         );
 
-        uint256 mintIndex = totalSupply();
+        uint256 mintIndex = totalSupply() + 1;
         _safeMint(msg.sender, mintIndex);
         payable(stackContract).transfer(200000000000000000 wei);
         _call.stakeFirst(200000000000000000,mintIndex);
