@@ -57,7 +57,7 @@ export default function Homepage(props) {
 
   const members = [
     { name: 'Vincent', profile: './images/Vincent.png', 
-      text: '前端工程師。去年 10 月加入幣圈，擁有呢喃貓、Demi Human。', 
+      text: '前端工程師，將幣圈當成遊樂場，擁有呢喃貓、Demi Human', 
       job: ['PM', 'UI/UX', 'Front-end']},
     { name: 'Afra', profile: './images/Afra.png', 
       text: '幣圈冒險家，正在努力學習開發區塊鏈產品', 
@@ -66,13 +66,15 @@ export default function Homepage(props) {
       text: '後端工程師/遊戲全端工程師，目前全職待業中，正在試圖加入區塊鏈產業', 
       job: ['Front-end', 'Smart Contract']},
     { name: 'Tim', profile: './images/Tim.png', 
-      text: 'Hi', 
+      text: 'Hi，我是 Tim', 
       job: ['Smart Contract']},
     { name: 'Ben', profile: './images/Ben.png', 
-      text: 'Hi', 
+      text: `
+      PHP 後端工程師；
+      目前從事金融交易API串接工作`, 
       job: ['Tokenomic', 'Smart Contract']},
     { name: 'Charles', profile: './images/Charles.png', 
-      text: 'Hi', 
+      text: '嵌入式軟/韌體設計，自動化工業產品開發', 
       job: ['Smart Contract']},
   ];
 
@@ -222,8 +224,8 @@ export default function Homepage(props) {
           </div>
         </div>
       </div> */}
-      <div className="container-lg px-4 mb-4">
-        <div className="content d-flex flex-column align-items-center justify-content-between">
+      <div className="container-lg px-4 mb-4 pb-4">
+        <div className="content d-flex flex-column align-items-center justify-content-between pb-4">
           <div className="content-title mb-4 d-flex flex-column flex-lg-row align-items-center align-items-lg-baseline">
             <h2 className="my-0 catch_42 text-center text-black fw-700 font-Rubik">MEMBERS</h2>
             <p className="mb-0 mx-2 body_18 text-center text-black fw-700 font-Rubik">團隊成員</p>
