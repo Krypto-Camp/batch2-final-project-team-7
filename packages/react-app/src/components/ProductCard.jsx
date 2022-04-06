@@ -25,7 +25,17 @@ import { floor, bignumber, numeric, number, format } from "mathjs";
 
 export default function ProductCard(props) {
   
-  const {productTitle, productProfile, productDatas, productDescription, productTokenUnit, productAddress, productABI} = props;
+  const {
+    productTitle,
+    productProfile,
+    productDatas,
+    productDescription,
+    productTokenUnit,
+    productAddress,
+    productABI,
+    productDeFiAddress,
+    productDeFiABI,
+  } = props;
   
   const provider = useProvider();
   
@@ -131,7 +141,7 @@ export default function ProductCard(props) {
             </Link>
           </div>
         </div>
-        <div className="product-form col-12 d-flex flex-column flex-sm-row align-items-end">
+        <div className="product-form col-12 d-flex flex-sm-row align-items-end">
           <div className="flex-fill d-flex flex-column align-items-start pe-4">
             <span className="product-form-itemName text_14 text-black fw-700">Pay Tokens</span>
             {/* <div className="d-flex align-items-baseline w-100">
@@ -139,7 +149,7 @@ export default function ProductCard(props) {
               <div className="product-form-itemCurrency body_18 text-black fw-700 ps-2">{productTokenUnit}</div>
             </div> */}
             <div className="d-flex align-items-baseline w-100">
-              <span className="product-form-itemInput py-2 catch_34 text-start text-orange fw-700 bg-paper w-100">{mintPrice ? ethers.utils.formatEther(mintPrice) : 'NaN'}</span>
+              <span className="product-form-itemInput pb-2 catch_34 text-start text-orange fw-700 bg-paper w-100">{mintPrice ? ethers.utils.formatEther(mintPrice) : 'NaN'}</span>
               <div className="product-form-itemCurrency body_18 text-black fw-700 ps-2">ETH</div>
             </div>
           </div>

@@ -138,7 +138,6 @@ export default function AssetsOfAccount(props) {
     {(() => {
       let cards = [];
       for (let index in tokensOfAccount) {
-        console.log(tokensOfAccount, index)
         const tokenID = tokensOfAccount[index];
         cards.push(
           <div key={index} className="col-12 col-xl-6 offset-xl-0"><AssetCard

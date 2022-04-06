@@ -125,7 +125,7 @@ export default function Homepage(props) {
             <div className="col-12 col-md-4">
               {/* ？？人使用 BITYO 的服務 */}
               <div className="ourdata-value d-flex align-items-baseline justify-content-center">
-                <span className="text-black catch_84 fw-700 pe-1">1</span>
+                <span className="text-black catch_84 fw-700 pe-1">?</span>
                 <span className="text-black body_18 fw-700">人次</span>
               </div>
               <p className="mt-3 body_18 text-black fw-500 font-Rubik">使用 <span className="fw-700">BITYO</span> 的服務</p>
@@ -134,7 +134,7 @@ export default function Homepage(props) {
               {/* 總鎖倉資金 */}
               <p className="mb-3 body_18 text-black fw-500 font-Rubik">總鎖倉資金</p>
               <div className="ourdata-value d-flex align-items-baseline justify-content-center">
-                <span className="text-orange catch_84 fw-700 pe-1">1</span>
+                <span className="text-orange catch_84 fw-700 pe-1">?</span>
                 <span className="text-orange body_18 fw-700">ETH</span>
               </div>
             </div>
@@ -144,12 +144,12 @@ export default function Homepage(props) {
       <div className="container-fluid px-4 py-0 position-relative">
         <div className="content d-flex flex-column align-items-center justify-content-between">
           <div className="about-block-1 row text-center align-self-stretch align-items-center">
-            <div className="col-12 col-md-6 px-0">
+            <div className="col-12 col-lg-6 px-0">
               <div className="cover about-pic overflow-hidden">
                 <img className="translate-middle start-50 top-50" src="./images/pexels-bernyce-hollingworth-2095716.jpg" alt="" />
               </div>
             </div>
-            <div className="col-12 col-md-6 px-4">
+            <div className="col-12 col-lg-6 px-4 py-4">
               <h5 className="mb-4 title_24 text-black border-round-5px px-2 d-inline-block fw-700 font-Rubik">為何你該使用 BITYO？</h5>
               <p className="mb-2 body_18 text-black fw-400 font-Rubik">
               <span className="fw-700">BITYO</span> 就像蝙蝠俠的管家阿福<br />
@@ -161,12 +161,12 @@ export default function Homepage(props) {
             </div>
           </div>
           <div className="about-block-2 row text-center align-self-stretch flex-row-reverse align-items-center">
-            <div className="col-12 col-md-6 px-0">
+            <div className="col-12 col-lg-6 px-0">
               <div className="cover about-pic overflow-hidden">
                 <img className="translate-middle start-50 top-50" src="./images/pexels-fauxels-3183197.jpg" alt="" />
               </div>
             </div>
-            <div className="col-12 col-md-6 px-4">
+            <div className="col-12 col-lg-6 px-4 py-4">
               <h5 className="mb-4 title_24 text-black border-round-5px px-2 d-inline-block fw-700 font-Rubik">我們如何庇佑你的財富？</h5>
               <p className="mb-2 body_18 text-black fw-400 font-Rubik">
               <span className="fw-700">BITYO</span> 擁有頂尖的技術團隊、以及豐富的財經知識<br />
@@ -180,12 +180,12 @@ export default function Homepage(props) {
             </div>
           </div>
           <div className="about-block-3 row text-center align-self-stretch align-items-center">
-            <div className="col-12 col-md-6 px-0">
+            <div className="col-12 col-lg-6 px-0">
               <div className="cover about-pic overflow-hidden">
                 <img className="translate-middle start-50 top-50" src="./images/pexels-pixabay-461049.jpg" alt="" />
               </div>
             </div>
-            <div className="col-12 col-md-6 px-4">
+            <div className="col-12 col-lg-6 px-4 py-4">
               <h5 className="mb-4 title_24 text-black border-round-5px px-2 d-inline-block fw-700 font-Rubik">在真實世界搞不定的，我們來搞定</h5>
               <p className="mb-2 body_18 text-black fw-400 font-Rubik">
                 繁雜保單條款、繁瑣的理賠流程、不透明的定價，以及保單對象的設定⋯⋯<br />
