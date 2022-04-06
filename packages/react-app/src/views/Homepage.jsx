@@ -56,22 +56,22 @@ export default function Homepage(props) {
   // console.log(useds);
 
   const members = [
-    { name: 'Vincent', profile: './images/profile-Vincent.png', 
+    { name: 'Vincent', profile: './images/Vincent.png', 
       text: '前端工程師。去年 10 月加入幣圈，擁有呢喃貓、Demi Human。', 
       job: ['PM', 'UI/UX', 'Front-end']},
-    { name: 'Afra', profile: './images/profile-Vincent.png', 
+    { name: 'Afra', profile: './images/Afra.png', 
       text: 'Hi', 
       job: ['Whitepaper', 'Smart Contract']},
-    { name: 'Raymond', profile: './images/profile-Vincent.png', 
+    { name: 'Raymond', profile: './images/Ray.png', 
       text: 'Hi', 
       job: ['Front-end', 'Smart Contract']},
-    { name: 'Tim', profile: './images/profile-Vincent.png', 
+    { name: 'Tim', profile: './images/Tim.png', 
       text: 'Hi', 
       job: ['Smart Contract']},
-    { name: 'Ben', profile: './images/profile-Vincent.png', 
+    { name: 'Ben', profile: './images/Ben.png', 
       text: 'Hi', 
       job: ['Tokenomic', 'Smart Contract']},
-    { name: 'Charles', profile: './images/profile-Vincent.png', 
+    { name: 'Charles', profile: './images/Charles.png', 
       text: 'Hi', 
       job: ['Smart Contract']},
   ];

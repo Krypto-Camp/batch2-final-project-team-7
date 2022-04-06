@@ -72,7 +72,7 @@ export default function Market() {
 
     const contracts = config[networkData.chain.id][networkData.chain.name.toLocaleLowerCase()].contracts;
     
-    // console.log(contracts);
+    console.log(contracts);
 
     for (let contractName in productsList) {
       const productInfo = productsList[contractName];

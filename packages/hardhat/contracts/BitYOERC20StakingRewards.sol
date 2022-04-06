@@ -6,7 +6,7 @@ import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
 import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
 import "@openzeppelin/contracts/token/ERC721/IERC721.sol";
 
-contract BitYOStaking {
+contract BitYOERC20StakingRewards {
     IERC20 public rewardsToken;
     IERC20 public stakingToken;
     IERC721 public NftToken ;

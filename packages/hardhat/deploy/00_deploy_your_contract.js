@@ -70,7 +70,7 @@ module.exports = async ({ getNamedAccounts, deployments, getChainId }) => {
 
   // // 代幣質押
 
-  await deploy("BitYOStaking", {
+  await deploy("BitYOERC20StakingRewards", {
     // Learn more about args here: https://www.npmjs.com/package/hardhat-deploy#deploymentsdeploy
     from: deployer,
     args:   ["0xDa8226Bdd392e8794dC14cf852d1f138a8209DE8","0xDa8226Bdd392e8794dC14cf852d1f138a8209DE8", BitYONFT.address],
