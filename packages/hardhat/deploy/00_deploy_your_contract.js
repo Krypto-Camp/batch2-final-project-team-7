@@ -40,27 +40,45 @@ module.exports = async ({ getNamedAccounts, deployments, getChainId }) => {
   const BitYONFT = await ethers.getContract("BitYONFT", deployer);
 
    
-  await deploy("BitYOToken", {
+  // 代幣
+  const initSupply = 5000 * 10 ** 4;
+
+  await deploy("BitYoERC20", {
     // Learn more about args here: https://www.npmjs.com/package/hardhat-deploy#deploymentsdeploy
     from: deployer,
+    args: [ initSupply ],
     log: true,
     waitConfirmations: 5,
   });
 
-  const BitYOToken = await ethers.getContract("BitYOToken", deployer);
+  const BitYoERC20 = await ethers.getContract("BitYoERC20", deployer);
+
+
+
 
   await deploy("BitYOstakingRewards", {
     // Learn more about args here: https://www.npmjs.com/package/hardhat-deploy#deploymentsdeploy
     from: deployer,
-    args: [ BitYOToken.address , BitYOToken.address , BitYONFT.address],  // 暫時先這樣
+    args: [ BitYoERC20.address , BitYoERC20.address , BitYONFT.address],  // 暫時先這樣
     log: true,
     waitConfirmations: 5,
   });
 
-  
+  // // NFT存款
   const BitYOstakingRewards = await ethers.getContract("BitYOstakingRewards", deployer);
-
   await BitYONFT.setStakeContract(BitYOstakingRewards.address);
+
+  // // 代幣質押
+
+  await deploy("BitYoStaking", {
+    // Learn more about args here: https://www.npmjs.com/package/hardhat-deploy#deploymentsdeploy
+    from: deployer,
+    args:   ["0xDa8226Bdd392e8794dC14cf852d1f138a8209DE8","0xDa8226Bdd392e8794dC14cf852d1f138a8209DE8", BitYONFT.address],
+    log: true,
+    waitConfirmations: 5,
+  });
+
+
 
   // await deploy("multiSignWallet", {
   //   // Learn more about args here: https://www.npmjs.com/package/hardhat-deploy#deploymentsdeploy
