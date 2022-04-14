@@ -72,11 +72,11 @@ module.exports = {
       
       */
     },
-    rinkeby: {
-      url: `https://rinkeby.infura.io/v3/${process.env.RINKEBY_INFURA_KEY}`, 
-      gasPrice: 3200000000,
-      accounts: [`${process.env.RINKEBY_DEPLOYER_PRIV_KEY}`],
-    },
+    // rinkeby: {
+    //   url: `https://rinkeby.infura.io/v3/${process.env.RINKEBY_INFURA_KEY}`, 
+    //   gasPrice: 3200000000,
+    //   accounts: [`${process.env.RINKEBY_DEPLOYER_PRIV_KEY}`],
+    // },
     kovan: {
       url: "https://kovan.infura.io/v3/460f40a260564ac4a4f4b3fffb032dad", // <---- YOUR INFURA ID! (or it won't work)
       //    url: "https://speedy-nodes-nyc.moralis.io/XXXXXXXXXXXXXXXXXXXXXXX/eth/kovan", // <---- YOUR MORALIS ID! (not limited to infura)
