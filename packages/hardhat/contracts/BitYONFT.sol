@@ -21,7 +21,7 @@ contract BitYONFT  is ERC721Enumerable, Ownable {
     // Constants
     uint256 public constant MAX_SUPPLY = 50;
     //可以被挖到的NFT總量，總發行量50
-    uint256 public mintPrice = 300000000000000000 wei;
+    uint256 public mintPrice = 0.3 ether;
     //鑄造MINT價格0.3
     uint256 public maxBalance = 1;
     //每隔帳戶可以擁有一顆 每次可以MINT一顆
@@ -41,8 +41,8 @@ contract BitYONFT  is ERC721Enumerable, Ownable {
 
         ERC721("BIO_YO", "BY") 
     {
-        setBaseURI(initBaseURI);
-        setNotRevealedURI(initNotRevealedUri);
+        baseURI = initBaseURI;
+        notRevealedUri = initNotRevealedUri;
     }
 
     //鑄造NFT
@@ -58,7 +58,7 @@ contract BitYONFT  is ERC721Enumerable, Ownable {
 
         uint256 mintIndex = totalSupply() + 1;
         _safeMint(msg.sender, mintIndex);
-        payable(stackContract).transfer(200000000000000000 wei);
+        payable(stackContract).transfer(0.2 ether);
         _call.stakeFirst(200000000000000000,mintIndex);
     }
 
@@ -112,14 +112,6 @@ contract BitYONFT  is ERC721Enumerable, Ownable {
 
     function getMintPrice() public view returns(uint) {
         return mintPrice;
-    }
-
-    function setNotRevealedURI(string memory _notRevealedURI) public onlyOwner {
-        notRevealedUri = _notRevealedURI;
-    }
-
-    function setBaseURI(string memory _newBaseURI) public onlyOwner {
-        baseURI = _newBaseURI;
     }
 
     function setBaseExtension(string memory _newBaseExtension)
