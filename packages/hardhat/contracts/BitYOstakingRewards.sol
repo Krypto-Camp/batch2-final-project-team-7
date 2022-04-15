@@ -54,7 +54,8 @@ contract BitYOStakingRewards {
     // 存款
     function stakeByNft(uint _amount , uint NftID) public payable onlyNftOwner(NftID) {
         require( _amount <= msg.value, "Not enough ether sent" );
-        _balancesByNFT[NftID] += _amount;
+        
+        _balancesByNFT[NftID] += _amount * (10 ** 18);
         _lastStakeTime[NftID] = block.timestamp;
     }
 
